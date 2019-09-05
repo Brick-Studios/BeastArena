@@ -3,4 +3,4 @@ target_sources(BeastArena
         main.cpp
 )
 
-target_link_libraries(BeastArena BrickEngine)
+target_link_libraries(BeastArena PRIVATE BrickEngine)
