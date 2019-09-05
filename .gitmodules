@@ -1,0 +1,3 @@
+[submodule "extern/brickengine"]
+	path = extern/brickengine
+	url = git@github.com:Brick-Studios/BrickEngine.git
