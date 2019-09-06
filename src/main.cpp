@@ -2,9 +2,9 @@
 
 int main(int argc, char** argv) {
     auto engine = BrickEngine();
-    engine.OpenWindow();
+    engine.Start("Beast Arena");
     while(true) {
     }
-    engine.CloseWindow();
+    engine.Shutdown();
     return 0;
 }
