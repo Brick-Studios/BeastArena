@@ -27,3 +27,7 @@ BeastArena
 
 # Some random build file
 main.plist
+
+# Ignore build folder contents
+build/*
+!/build/.gitkeep
