@@ -24,3 +24,6 @@ BeastArena
 
 # VSCode
 .vscode
+
+# Some random build file
+main.plist
