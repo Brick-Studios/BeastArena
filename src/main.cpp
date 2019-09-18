@@ -1,4 +1,5 @@
-#include "brickengine/engine.hpp"
+#include "engine.hpp"
+#include "class.hpp"
 
 int main(int argc, char** argv) {
     auto engine = BrickEngine();
