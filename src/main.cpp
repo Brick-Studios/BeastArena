@@ -1,11 +1,8 @@
 #include "brickengine/engine.hpp"
-#include "class.hpp"
+#include "controllers/game_controller.hpp"
 
 int main(int argc, char** argv) {
-    auto engine = BrickEngine();
-    engine.Start("Beast Arena");
-    while(true) {
-    }
-    engine.Shutdown();
+    auto gc = new GameController();
+    gc->GameLoop();
     return 0;
 }
