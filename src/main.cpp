@@ -3,6 +3,6 @@
 
 int main(int argc, char** argv) {
     auto gc = new GameController();
-    gc->GameLoop();
+    gc->gameLoop();
     return 0;
 }
