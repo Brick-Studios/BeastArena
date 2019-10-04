@@ -1,8 +1,8 @@
 #include "brickengine/engine.hpp"
 #include "controllers/game_controller.hpp"
 
-int main(int argc, char** argv) {
-    auto gc = new GameController();
-    gc->gameLoop();
+int main() {
+    auto gc = GameController();
+    gc.gameLoop();
     return 0;
 }

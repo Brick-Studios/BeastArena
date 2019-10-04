@@ -36,7 +36,8 @@ int GameController::calculateFps(BrickEngine* engine, int start_time){
 
 void GameController::createFpsCounter(int fps) {
     auto dst = std::unique_ptr<Rect>(new Rect { 0, 0, 75, 75});
-    this->fps_counter = this->renderable_factory->createText(std::to_string(fps), 200, { 255, 255, 255 }, this->top_layer, std::move(dst));
+    this->fps_counter.~unique_ptr();
+    this->fps_counter = this->renderable_factory->createText(std::to_string(fps), 24, { 255, 255, 255, 0}, this->top_layer, std::move(dst));
 }
 
 void GameController::gameLoop() {
@@ -46,7 +47,6 @@ void GameController::gameLoop() {
     this->top_layer = 4;
     this->createFpsCounter(0);
     
-
     auto dst_max = std::unique_ptr<Rect>(new Rect { -1000, 0, 1000, 330});
     std::unique_ptr<Renderable> makker_max = renderable_factory->createImage("./assets/graphics/verstappentesting.bmp", 1, std::move(dst_max));
 
@@ -54,7 +54,7 @@ void GameController::gameLoop() {
     std::unique_ptr<Renderable> makker_vet = renderable_factory->createImage("./assets/graphics/vettel_sochi.bmp", 2, std::move(dst_vet));
 
     auto dst_text = std::unique_ptr<Rect>(new Rect { 100, 100, 300, 150});
-    auto text = renderable_factory->createText("Luuk is een eskimo", 200, { 255, 255, 255 }, 3, std::move(dst_text));
+    auto text = renderable_factory->createText("Luuk is een eskimo", 24, { 255, 255, 255, 0}, 3, std::move(dst_text));
 
     Renderer* renderer = engine.getRenderer();
 
