@@ -2,25 +2,31 @@
 #define FILE_GAME_CONTROLLER_HPP
 
 #include <memory>
+#include <vector>
+#include "brickengine/systems/system.hpp"
 #include "brickengine/engine.hpp"
 #include "brickengine/rendering/renderables/renderable.hpp"
 #include "brickengine/rendering/renderable_factory.hpp"
 
 class GameController {
+public:
+    GameController();
+    void gameLoop();
+    void createSystems();
 private:
+    int calculateFps(int start_time);
+    void createFpsCounter(int fps);
+
+    std::unique_ptr<BrickEngine> engine;
+    std::vector<std::unique_ptr<System>> systems;
+
     std::unique_ptr<Renderable> fps_counter;
     double delta_time;
     int fps_cap;
     double fps_frame_time;
 
-    RenderableFactory* renderable_factory;
+    std::vector<int> layers;
     int top_layer;
-
-    int calculateFps(BrickEngine* engine, int start_time);
-    void createFpsCounter(int fps);
-public:
-    GameController();
-    void gameLoop();
 };
 
 #endif
