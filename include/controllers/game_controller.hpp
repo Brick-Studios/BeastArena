@@ -7,22 +7,31 @@
 #include "brickengine/engine.hpp"
 #include "brickengine/rendering/renderables/renderable.hpp"
 #include "brickengine/rendering/renderable_factory.hpp"
+#include "brickengine/entities/entity_manager.hpp"
+#include "entities/entity_factory.hpp"
 
 class GameController {
 public:
     GameController();
     void gameLoop();
-    void createSystems();
 private:
+    void createSystems();
+    void setupInput();
+    void createTestEntities();
+
     std::unique_ptr<BrickEngine> engine;
     std::vector<std::unique_ptr<System>> systems;
+    std::shared_ptr<EntityManager> entityManager;
+    std::shared_ptr<EntityFactory> entityFactory;
 
     std::unique_ptr<Renderable> fps_counter;
     double delta_time;
     int fps_cap;
 
     std::vector<int> layers;
-    int top_layer;
+
+    inline static const int SCREEN_HEIGTH = 720;
+    inline static const int SCREEN_WIDTH = 1280;
 };
 
-#endif
+#endif // FILE_GAME_CONTROLLER_HPP
