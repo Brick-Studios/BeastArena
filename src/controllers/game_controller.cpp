@@ -20,13 +20,14 @@ using namespace std::chrono_literals;
 
 GameController::GameController() {
     this->delta_time = 1;
-    this->fps_cap = 300;
+    this->fps_cap = 144;
     // From layers.hpp
     this->layers = { 0, 1, 2, 3, 4 };
 
-    engine = std::make_unique<BrickEngine>("Beast Arena", SCREEN_WIDTH, SCREEN_HEIGTH, layers, fps_cap);
+    engine = std::make_unique<BrickEngine>("Beast Arena", SCREEN_WIDTH, SCREEN_HEIGHT, layers, fps_cap);
     entityManager = std::make_shared<EntityManager>();
     entityFactory = std::make_shared<EntityFactory>(entityManager, *engine->getRenderableFactory());
+    collisionDetector = std::make_shared<CollisionDetector>(entityManager);
 
     createSystems();
     setupInput();
@@ -35,15 +36,16 @@ GameController::GameController() {
 
 void GameController::createSystems() {
     systems = std::vector<std::unique_ptr<System>>();
-    systems.push_back(std::make_unique<MovementSystem>(entityManager, entityFactory));
-    systems.push_back(std::make_unique<PhysicsSystem>(entityManager));
+    systems.push_back(std::make_unique<MovementSystem>(collisionDetector, entityManager, entityFactory));
+    systems.push_back(std::make_unique<PhysicsSystem>(collisionDetector, entityManager));
     systems.push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 }
 
 void GameController::createTestEntities() {
-    entityFactory->createPanda(200, 200);
-    entityFactory->createGorilla(600, 200);
-    entityFactory->createImage("backgrounds/forest_watermarked.jpg", SCREEN_WIDTH / 2, SCREEN_HEIGTH / 2, SCREEN_WIDTH, SCREEN_HEIGTH);
+    entityFactory->createPanda(400, 200);
+    entityFactory->createGorilla(1000, 200);
+    entityFactory->createImage("backgrounds/forest_watermarked.jpg", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, Layers::Background);
+    entityFactory->createPlatform(640, 500, 720, 20);
 }
 
 void GameController::setupInput() {

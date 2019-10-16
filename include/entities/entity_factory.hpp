@@ -6,6 +6,7 @@
 #include "brickengine/entities/entity_manager.hpp"
 #include "brickengine/rendering/renderables/texture.hpp"
 #include "brickengine/rendering/renderable_factory.hpp"
+#include "entities/layers.hpp"
 
 class EntityFactory {
 public:
@@ -13,7 +14,8 @@ public:
     ~EntityFactory() = default;
     int createPanda(double x, double y) const;
     int createGorilla(double x, double y) const;
-    int createImage(std::string path, int x, int y, int width, int height);
+    int createImage(std::string path, int x, int y, int width, int height, Layers layer);
+    int createPlatform(double xScale, double yScale, double x, double y);
 private:
     std::shared_ptr<EntityManager> entityManager;
     RenderableFactory& renderableFactory;

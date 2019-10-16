@@ -9,7 +9,9 @@
 #include "systems/movement_system.hpp"
 #include "player_input.hpp"
 
-MovementSystem::MovementSystem(std::shared_ptr<EntityManager> entityManager, std::shared_ptr<EntityFactory> ef) : BeastSystem(ef, entityManager) {}
+MovementSystem::MovementSystem(std::shared_ptr<CollisionDetector> cd,
+    std::shared_ptr<EntityManager> entityManager, std::shared_ptr<EntityFactory> ef)
+    : BeastSystem(ef, entityManager), collisionDetector(cd) {}
 
 void MovementSystem::update(double deltatime) {
     auto input = BrickInput<PlayerInput>::getInstance();
@@ -46,9 +48,11 @@ void MovementSystem::update(double deltatime) {
         }
         // Jumping
         if (input.checkInput(PlayerInput::PLAYER1_UP)) {
-            // also check you are standing on a platform
-            if (vy == 0)
+            bool standsOnPlatform = collisionDetector->spaceLeft(entityId, Axis::Y, Direction::POSITIVE) == 0;
+
+            if (standsOnPlatform) {
                 vy = -1 * (JUMP_FORCE / mass) * deltatime;
+            }
         }
 
         physics->vx = vx;
