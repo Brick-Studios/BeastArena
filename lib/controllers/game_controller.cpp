@@ -67,7 +67,7 @@ void GameController::setupInput() {
 }
 
 void GameController::gameLoop() {
-    double delta_time_count;
+    double delta_time_count = 0;
     while(true) {
         auto start_time = std::chrono::high_resolution_clock::now();
 

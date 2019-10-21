@@ -1,4 +1,3 @@
-#include "brickengine/engine.hpp"
 #include "controllers/game_controller.hpp"
 
 int main() {
