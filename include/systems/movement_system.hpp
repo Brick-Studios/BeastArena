@@ -13,7 +13,7 @@ public:
     void update(double deltatime);
 private:
     static constexpr double TERMINAL_VELOCITY = 250'000;
-    static constexpr double JUMP_FORCE = 70'000'000;
+    static constexpr double JUMP_FORCE = 60'000'000;
     static constexpr double MOVEMENT_FORCE = 0.5;
 
     std::shared_ptr<CollisionDetector> collisionDetector;
