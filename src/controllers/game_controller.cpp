@@ -17,6 +17,7 @@ using namespace std::chrono_literals;
 #include "entities/layers.hpp"
 #include "systems/movement_system.hpp"
 #include "player_input.hpp"
+#include "brickengine/input_keycode.hpp"
 
 GameController::GameController() {
     this->delta_time = 1;
@@ -42,19 +43,26 @@ void GameController::createSystems() {
 }
 
 void GameController::createTestEntities() {
-    entityFactory->createPanda(400, 200);
-    entityFactory->createGorilla(1000, 200);
+    entityFactory->createPanda(400, 200, 1);
+    entityFactory->createGorilla(1000, 200, 2);
     entityFactory->createImage("backgrounds/forest_watermarked.jpg", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, Layers::Background);
     entityFactory->createPlatform(640, 500, 720, 20);
 }
 
 void GameController::setupInput() {
     BrickInput<PlayerInput>& input = BrickInput<PlayerInput>::getInstance();
-    std::unordered_map<SDL_Keycode, PlayerInput> inputMapping;
-    inputMapping[SDLK_w] = PlayerInput::PLAYER1_UP;
-    inputMapping[SDLK_a] = PlayerInput::PLAYER1_LEFT;
-    inputMapping[SDLK_s] = PlayerInput::PLAYER1_DOWN;
-    inputMapping[SDLK_d] = PlayerInput::PLAYER1_RIGHT;
+    std::unordered_map<int, std::unordered_map<InputKeyCode, PlayerInput>> inputMapping;
+    // Player 1
+    inputMapping[1][InputKeyCode::EKey_w] = PlayerInput::UP;
+    inputMapping[1][InputKeyCode::EKey_a] = PlayerInput::LEFT;
+    inputMapping[1][InputKeyCode::EKey_s] = PlayerInput::DOWN;
+    inputMapping[1][InputKeyCode::EKey_d] = PlayerInput::RIGHT;
+    // Player 2
+    inputMapping[2][InputKeyCode::EKey_up] = PlayerInput::UP;
+    inputMapping[2][InputKeyCode::EKey_left] = PlayerInput::LEFT;
+    inputMapping[2][InputKeyCode::EKey_down] = PlayerInput::DOWN;
+    inputMapping[2][InputKeyCode::EKey_right] = PlayerInput::RIGHT;
+
     input.setInputMapping(inputMapping);
 }
 

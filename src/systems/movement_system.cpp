@@ -22,21 +22,19 @@ void MovementSystem::update(double deltatime) {
         auto physics = entityManager->getComponent<PhysicsComponent>(entityId);
         if (!physics) continue;
 
-        //Input::getInstance().getPlayerInput(player.playerId).checkInput(BeastArenaInput::Right)
-
         double vx = physics->vx;
         double vy = physics->vy;
         double mass = physics->mass;
 
         // Moving left or right
-        if (input.checkInput(PlayerInput::PLAYER1_LEFT)) {
+        if (input.checkInput(player->playerId, PlayerInput::LEFT)) {
             if (vx > 0) vx = 0;
             vx += -1 * TERMINAL_VELOCITY * MOVEMENT_FORCE / mass * deltatime;
             if (vx < (TERMINAL_VELOCITY * -1) / mass) {
                 vx = (TERMINAL_VELOCITY * -1) / mass;
             }
         } else {
-            if (input.checkInput(PlayerInput::PLAYER1_RIGHT)) {
+        if (input.checkInput(player->playerId, PlayerInput::RIGHT)) {
                 if (vx < 0) vx = 0;
                 vx += TERMINAL_VELOCITY * MOVEMENT_FORCE / mass * deltatime;
                 if (vx > TERMINAL_VELOCITY / mass) {
@@ -47,7 +45,7 @@ void MovementSystem::update(double deltatime) {
             }
         }
         // Jumping
-        if (input.checkInput(PlayerInput::PLAYER1_UP)) {
+        if (input.checkInput(player->playerId, PlayerInput::UP)) {
             bool standsOnPlatform = collisionDetector->spaceLeft(entityId, Axis::Y, Direction::POSITIVE) == 0;
 
             if (standsOnPlatform) {
