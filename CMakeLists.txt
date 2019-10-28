@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.13.5)
 project(BeastArena)
 include(CMakePrintHelpers)
 
@@ -41,14 +41,20 @@ if(CLANG_TIDY)
     )
 endif()
 
+# Force colors when using ninja with clang
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-fcolor-diagnostics)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-fdiagnostics-color=always)
+endif()
 
 add_subdirectory(extern/brickengine)
 add_subdirectory(include)
 add_subdirectory(lib)
 add_subdirectory(src)
 
-option(PACKAGE_TESTS "Build the tests" ON)
-if(PACKAGE_TESTS)
+option(BeastArena_Test "Build the tests" ON)
+if(BeastArena_Test)
     enable_testing()
     add_subdirectory(tests)
 endif()
