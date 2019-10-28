@@ -12,6 +12,6 @@ TEST(TEST1, Subtest_2){
 }
 
 TEST(GAMECONTROLLER, Test1){
-    auto gc = GameController();
+    //auto gc = GameController();
     ASSERT_TRUE(1==1);
 }

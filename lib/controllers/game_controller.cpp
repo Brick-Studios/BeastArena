@@ -26,6 +26,7 @@ GameController::GameController() {
     this->layers = { 0, 1, 2, 3, 4 };
 
     engine = std::make_unique<BrickEngine>("Beast Arena", SCREEN_WIDTH, SCREEN_HEIGHT, layers, fps_cap);
+    engine->start();
     entityManager = std::make_shared<EntityManager>();
     entityFactory = std::make_shared<EntityFactory>(entityManager, *engine->getRenderableFactory());
     collisionDetector = std::make_shared<CollisionDetector>(entityManager);
@@ -87,4 +88,5 @@ void GameController::gameLoop() {
         delta_time = engine->getDeltatime();
         delta_time_count += delta_time;
     }
+    engine->stop();
 }
