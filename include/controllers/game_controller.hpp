@@ -32,8 +32,8 @@ private:
 
     std::vector<int> layers;
 
-    inline static const int SCREEN_HEIGHT = 720;
-    inline static const int SCREEN_WIDTH = 1280;
+    inline static const int SCREEN_HEIGHT = 900;
+    inline static const int SCREEN_WIDTH = 1600;
 };
 
 #endif // FILE_GAME_CONTROLLER_HPP

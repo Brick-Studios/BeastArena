@@ -14,7 +14,7 @@ int EntityFactory::createPanda(double x, double y, int playerId) const {
     auto r = renderableFactory.createImage(graphicsPath + "beasts/panda/idle-1.png", (int)Layers::Foreground, std::move(dst));
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-    comps->push_back(std::make_unique<TransformComponent>(x, y, 125, 200));
+    comps->push_back(std::make_unique<TransformComponent>(x, y, 63, 100));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1));
     comps->push_back(std::make_unique<PhysicsComponent>(100, 0, 0, 0, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
@@ -28,7 +28,7 @@ int EntityFactory::createGorilla(double x, double y, int playerId) const {
     auto r = renderableFactory.createImage(graphicsPath + "beasts/gorilla/idle-1.png", (int)Layers::Foreground, std::move(dst));
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-    comps->push_back(std::make_unique<TransformComponent>(x, y, 100, 200));
+    comps->push_back(std::make_unique<TransformComponent>(x, y, 50, 100));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1));
     comps->push_back(std::make_unique<PhysicsComponent>(100, 0, 0, 0, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
