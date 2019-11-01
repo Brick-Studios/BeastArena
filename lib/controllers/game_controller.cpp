@@ -14,6 +14,7 @@ using namespace std::chrono_literals;
 #include "brickengine/input.hpp"
 #include "brickengine/systems/rendering_system.hpp"
 #include "brickengine/systems/physics_system.hpp"
+#include "systems/click_system.hpp"
 #include "entities/layers.hpp"
 #include "systems/movement_system.hpp"
 #include "player_input.hpp"
@@ -38,6 +39,7 @@ GameController::GameController() {
 
 void GameController::createSystems() {
     systems = std::vector<std::unique_ptr<System>>();
+    systems.push_back(std::make_unique<ClickSystem>(entityManager));
     systems.push_back(std::make_unique<MovementSystem>(collisionDetector, entityManager, entityFactory));
     systems.push_back(std::make_unique<PhysicsSystem>(collisionDetector, entityManager));
     systems.push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
@@ -58,6 +60,8 @@ void GameController::setupInput() {
     inputMapping[1][InputKeyCode::EKey_a] = PlayerInput::LEFT;
     inputMapping[1][InputKeyCode::EKey_s] = PlayerInput::DOWN;
     inputMapping[1][InputKeyCode::EKey_d] = PlayerInput::RIGHT;
+    inputMapping[1][InputKeyCode::EKey_mouse_left] = PlayerInput::MOUSE_LEFT;
+    inputMapping[1][InputKeyCode::EKey_mouse_right] = PlayerInput::MOUSE_RIGHT;
     // Player 2
     inputMapping[2][InputKeyCode::EKey_up] = PlayerInput::UP;
     inputMapping[2][InputKeyCode::EKey_left] = PlayerInput::LEFT;
