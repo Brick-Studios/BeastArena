@@ -29,14 +29,14 @@ void MovementSystem::update(double deltatime) {
         // Moving left or right
         if (input.checkInput(player->playerId, PlayerInput::LEFT)) {
             if (vx > 0) vx = 0;
-            vx += -1 * TERMINAL_VELOCITY * MOVEMENT_FORCE / mass * deltatime;
+            vx += -1 * TERMINAL_VELOCITY * MOVEMENT_FORCE / mass;
             if (vx < (TERMINAL_VELOCITY * -1) / mass) {
                 vx = (TERMINAL_VELOCITY * -1) / mass;
             }
         } else {
         if (input.checkInput(player->playerId, PlayerInput::RIGHT)) {
-                if (vx < 0) vx = 0;
-                vx += TERMINAL_VELOCITY * MOVEMENT_FORCE / mass * deltatime;
+            if (vx < 0) vx = 0;
+                vx += TERMINAL_VELOCITY * MOVEMENT_FORCE / mass;
                 if (vx > TERMINAL_VELOCITY / mass) {
                     vx = TERMINAL_VELOCITY / mass;
                 }
@@ -49,7 +49,7 @@ void MovementSystem::update(double deltatime) {
             bool standsOnPlatform = collisionDetector->spaceLeft(entityId, Axis::Y, Direction::POSITIVE) == 0;
 
             if (standsOnPlatform) {
-                vy = -1 * (JUMP_FORCE / mass) * deltatime;
+                vy = -1 * (JUMP_FORCE / mass);
             }
         }
 
