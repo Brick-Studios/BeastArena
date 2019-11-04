@@ -12,9 +12,9 @@ public:
     ~MovementSystem() = default;
     void update(double deltatime);
 private:
-    static constexpr double TERMINAL_VELOCITY = 250'000;
-    static constexpr double JUMP_FORCE = 50'000;
-    static constexpr double MOVEMENT_FORCE = 0.1;
+    static constexpr double TERMINAL_VELOCITY = 70'000;
+    static constexpr double JUMP_FORCE = 100'000;
+    static constexpr double MOVEMENT_FORCE = 1.2;
 
     std::shared_ptr<CollisionDetector> collisionDetector;
 };
