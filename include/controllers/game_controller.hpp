@@ -10,6 +10,7 @@
 #include "brickengine/entities/entity_manager.hpp"
 #include "brickengine/collision_detector.hpp"
 #include "entities/entity_factory.hpp"
+#include "scenes/scene_manager.hpp"
 
 class GameController {
 public:
@@ -25,6 +26,7 @@ private:
     std::shared_ptr<EntityManager> entityManager;
     std::shared_ptr<EntityFactory> entityFactory;
     std::shared_ptr<CollisionDetector> collisionDetector;
+    std::unique_ptr<SceneManager> scene_manager;
 
     std::unique_ptr<Renderable> fps_counter;
     double delta_time;

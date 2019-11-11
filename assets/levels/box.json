@@ -1,0 +1,85 @@
+{
+    "version": 1.0,
+    "name": "Box level",
+    "description": "Square > circle",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "backgrounds/rainforest.png",
+    "bg_music": "music/rainforest.mp3",
+    "player_spawns": [
+        {
+            "x": 400,
+            "y": 500
+        },
+        {
+            "x": 700,
+            "y": 500
+        },
+        {
+            "x": 1000,
+            "y": 500
+        },
+        {
+           "x": 1300,
+           "y": 500
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "ak", "rpg"],
+            "respawn_timer": 5,
+            "x": 0,
+            "y": 0
+        }, 
+        {
+            "type": "item",
+            "available_spawns": ["jetpack"],
+            "respawn_timer": 5,
+            "x": 0,
+            "y": 0
+        }
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 30,
+            "x": 20,
+            "y": 540,
+            "xScale": 10,
+            "yScale": 1050
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1900,
+            "y": 540,
+            "xScale": 10,
+            "yScale": 1050
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/white.png",
+            "alpha": 120,
+            "x": 960,
+            "y": 1060,
+            "xScale": 1890,
+            "yScale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/white.png",
+            "alpha": 255,
+            "x": 960,
+            "y": 20,
+            "xScale": 1890,
+            "yScale": 10
+        }
+    ]
+}
