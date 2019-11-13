@@ -3,7 +3,7 @@ project(BeastArena)
 include(CMakePrintHelpers)
 
 if(APPLE)
-	set(CMAKE_CXX_FLAGS "-I/usr/local/include/SDL2 -D_THREAD_SAFE -L/usr/local/lib -lSDL2")
+	set(CMAKE_CXX_FLAGS "-I/usr/local/include/ -D_THREAD_SAFE")
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
