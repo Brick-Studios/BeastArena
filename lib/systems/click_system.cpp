@@ -14,19 +14,19 @@ void ClickSystem::update(double) {
     // Check if the user clicked the left mouse button. If not, return the user out of the method.
     if (!input.checkInput(1, PlayerInput::MOUSE_LEFT)) return;
 
-    // get all click comps
+    // Get all click comps
     auto clickComps = entityManager->getEntitiesByComponent<ClickComponent>();
 
     for (auto& [id, click] : *clickComps) {
-        auto transform = entityManager->getComponent<TransformComponent>(id);
+        auto [ position, scale ] = entityManager->getAbsoluteTransform(id);
         auto [ x, y ] = input.getMousePosition();
-        auto xScale = transform->xScale * click->xScale;
-        auto yScale = transform->yScale * click->yScale;
+        auto xScale = scale.x * click->xScale;
+        auto yScale = scale.y * click->yScale;
         
-        double left = transform->xPos - (xScale / 2);
-        double right = transform->xPos + (xScale / 2);
-        double top = transform->yPos - (yScale / 2);
-        double bottom = transform->yPos + (yScale / 2 );
+        double left = position.x - (xScale / 2);
+        double right = position.x + (xScale / 2);
+        double top = position.y - (yScale / 2);
+        double bottom = position.y + (yScale / 2 );
         if (x > left && x < right &&
             y < bottom && y > top) {
             // The button was clicked

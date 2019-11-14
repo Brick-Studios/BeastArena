@@ -4,6 +4,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <memory>
+#include <utility>
 #include <vector>
 using namespace std::chrono_literals;
 
@@ -15,6 +16,7 @@ using namespace std::chrono_literals;
 #include "brickengine/input.hpp"
 #include "brickengine/systems/rendering_system.hpp"
 #include "brickengine/systems/physics_system.hpp"
+#include "systems/pickup_system.hpp"
 #include "systems/click_system.hpp"
 #include "entities/layers.hpp"
 #include "systems/movement_system.hpp"
@@ -49,12 +51,15 @@ void GameController::createSystems() {
     systems.push_back(std::make_unique<ClickSystem>(entityManager));
     systems.push_back(std::make_unique<MovementSystem>(collisionDetector, entityManager, entityFactory));
     systems.push_back(std::make_unique<PhysicsSystem>(collisionDetector, entityManager));
+    systems.push_back(std::make_unique<PickupSystem>(collisionDetector, entityManager, entityFactory));
     systems.push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 }
 
 void GameController::createTestEntities() {
-    entityFactory->createPanda(0, 0, 1);
-    entityFactory->createGorilla(0, 0, 2);
+    // The player characters start off-screen
+    auto gorilla = entityFactory->createGorilla(-300, -300, 1);
+    auto panda = entityFactory->createPanda(-300, -300, 2);
+    auto weapon = entityFactory->createWeapon(1100, 200);
 
     Json level_json = Json("assets/levels/level2.json", true);
     auto level = Level(level_json, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -69,6 +74,7 @@ void GameController::setupInput() {
     inputMapping[1][InputKeyCode::EKey_a] = PlayerInput::LEFT;
     inputMapping[1][InputKeyCode::EKey_s] = PlayerInput::DOWN;
     inputMapping[1][InputKeyCode::EKey_d] = PlayerInput::RIGHT;
+    inputMapping[1][InputKeyCode::EKey_e] = PlayerInput::GRAB;
     inputMapping[1][InputKeyCode::EKey_mouse_left] = PlayerInput::MOUSE_LEFT;
     inputMapping[1][InputKeyCode::EKey_mouse_right] = PlayerInput::MOUSE_RIGHT;
     // Player 2
@@ -77,14 +83,19 @@ void GameController::setupInput() {
     inputMapping[2][InputKeyCode::EKey_down] = PlayerInput::DOWN;
     inputMapping[2][InputKeyCode::EKey_right] = PlayerInput::RIGHT;
 
-    input.setInputMapping(inputMapping);
+    std::unordered_map<PlayerInput, double> time_to_wait_mapping;
+    time_to_wait_mapping[PlayerInput::GRAB] = 0.1;
+    time_to_wait_mapping[PlayerInput::MOUSE_LEFT] = 0.1;
+
+    input.setInputMapping(inputMapping, time_to_wait_mapping);
 }
 
 void GameController::gameLoop() {
+    double totalTime = 0.0;
     while(true) {
         auto start_time = std::chrono::high_resolution_clock::now();
 
-        BrickInput<PlayerInput>::getInstance().processInput();
+        BrickInput<PlayerInput>::getInstance().processInput(delta_time);
 
         engine->getRenderer()->clearScreen();
 
@@ -98,6 +109,7 @@ void GameController::gameLoop() {
         auto end_time = std::chrono::high_resolution_clock::now();
         engine->delay(start_time, end_time);
         delta_time = engine->getDeltatime();
+        totalTime += delta_time;
     }
     engine->stop();
 }

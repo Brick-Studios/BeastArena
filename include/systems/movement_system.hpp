@@ -16,7 +16,7 @@ private:
     static constexpr double JUMP_FORCE = 100'000;
     static constexpr double MOVEMENT_FORCE = 1.2;
 
-    std::shared_ptr<CollisionDetector> collisionDetector;
+    std::shared_ptr<CollisionDetector> collision_detector;
 };
 
 #endif // FILE_MOVEMENT_SYSTEM_HPP

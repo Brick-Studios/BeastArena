@@ -7,10 +7,10 @@
 
 class BeastSystem : public System {
 public:
-    BeastSystem(std::shared_ptr<EntityFactory> ef, std::shared_ptr<EntityManager> _entityManager);
+    BeastSystem(std::shared_ptr<EntityFactory> ef, std::shared_ptr<EntityManager> em);
     ~BeastSystem() = default;
 private:
-    std::shared_ptr<EntityFactory> entityFactory;
+    std::shared_ptr<EntityFactory> entity_factory;
 };
 
 #endif // FILE_BEAST_SYSTEM
