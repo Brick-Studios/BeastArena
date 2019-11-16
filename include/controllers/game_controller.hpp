@@ -16,10 +16,14 @@ class GameController {
 public:
     GameController();
     void gameLoop();
+
+    SceneManager& getSceneManager() const;
+    int getScreenWidth() const;
+    int getScreenHeight() const;
+    void startGame();
 private:
     void createSystems();
     void setupInput();
-    void createTestEntities();
 
     std::unique_ptr<BrickEngine> engine;
     std::vector<std::unique_ptr<System>> systems;

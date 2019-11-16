@@ -8,13 +8,17 @@
 #include "brickengine/entities/entity_manager.hpp"
 #include "brickengine/engine.hpp"
 #include "level/level.hpp"
+#include "menu/menu.hpp"
 
 class SceneManager {
 public:
     SceneManager(std::shared_ptr<EntityFactory> entity_factory, std::shared_ptr<EntityManager> entity_manager, BrickEngine* engine);
     void loadLevel(Level& level);
+    void loadMenu(Menu& menu);
     void destroyCurrentScene();
 private:
+    void loadBackground(std::string path);
+
     std::shared_ptr<EntityFactory> entity_factory;
     std::shared_ptr<EntityManager> entity_manager;
     BrickEngine* engine;

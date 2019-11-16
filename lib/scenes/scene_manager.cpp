@@ -1,5 +1,7 @@
 #include "scenes/scene_manager.hpp"
 
+#include <utility>
+
 #include "entities/entity_factory.hpp"
 #include "brickengine/entities/entity_manager.hpp"
 #include "level/level.hpp"
@@ -8,12 +10,13 @@
 #include "level/player_spawn.hpp"
 #include "brickengine/components/player_component.hpp"
 #include "brickengine/components/transform_component.hpp"
+#include "menu/menu.hpp"
 
 SceneManager::SceneManager(std::shared_ptr<EntityFactory> entity_factory, std::shared_ptr<EntityManager> entity_manager, BrickEngine* engine) : entity_factory(entity_factory), entity_manager(entity_manager), engine(engine) {};
 
 void SceneManager::loadLevel(Level& level) {
     // Create the background
-    current_scene_entities.push_back(entity_factory->createImage(level.bg_path, engine->getWindowWidth() / 2, engine->getWindowHeight() / 2, engine->getWindowWidth(), engine->getWindowHeight(), Layers::Background, 255));
+    loadBackground(level.bg_path);
 
     // Load the players on the spawn locations
     auto entities_with_player = entity_manager->getEntitiesByComponent<PlayerComponent>();
@@ -41,9 +44,30 @@ void SceneManager::loadLevel(Level& level) {
     }
 }
 
+void SceneManager::loadMenu(Menu& menu) {
+    // Create the background
+    loadBackground(menu.bg_path);
+
+    // Load the buttons
+    for(Button button : menu.buttons) {
+        auto ids = entity_factory->createButton(button, menu.relative_modifier);
+        current_scene_entities.push_back(ids.first);
+        current_scene_entities.push_back(ids.second);
+    }
+
+    // Load the images
+    for(Image image : menu.images) {
+        current_scene_entities.push_back(entity_factory->createImage(image.texture_path, image.x / menu.relative_modifier, image.y / menu.relative_modifier, image.x_scale / menu.relative_modifier, image.y_scale / menu.relative_modifier, Layers::Middleground, image.alpha));
+    }
+}
+
 void SceneManager::destroyCurrentScene() {
     for(int entity_id : current_scene_entities) {
         entity_manager->removeEntity(entity_id);
     }
     current_scene_entities.clear();
+}
+
+void SceneManager::loadBackground(std::string path) {
+    current_scene_entities.push_back(entity_factory->createImage(path, engine->getWindowWidth() / 2, engine->getWindowHeight() / 2, engine->getWindowWidth(), engine->getWindowHeight(), Layers::Background, 255));
 }

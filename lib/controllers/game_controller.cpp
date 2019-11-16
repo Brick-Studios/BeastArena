@@ -43,7 +43,6 @@ GameController::GameController() {
 
     createSystems();
     setupInput();
-    createTestEntities();
 }
 
 void GameController::createSystems() {
@@ -53,17 +52,6 @@ void GameController::createSystems() {
     systems.push_back(std::make_unique<PhysicsSystem>(collisionDetector, entityManager));
     systems.push_back(std::make_unique<PickupSystem>(collisionDetector, entityManager, entityFactory));
     systems.push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
-}
-
-void GameController::createTestEntities() {
-    // The player characters start off-screen
-    auto gorilla = entityFactory->createGorilla(-300, -300, 1);
-    auto panda = entityFactory->createPanda(-300, -300, 2);
-    auto weapon = entityFactory->createWeapon(1100, 200);
-
-    Json level_json = Json("assets/levels/level2.json", true);
-    auto level = Level(level_json, SCREEN_WIDTH, SCREEN_HEIGHT);
-    scene_manager->loadLevel(level);
 }
 
 void GameController::setupInput() {
@@ -112,4 +100,28 @@ void GameController::gameLoop() {
         totalTime += delta_time;
     }
     engine->stop();
+}
+
+SceneManager& GameController::getSceneManager() const {
+    return *scene_manager.get();
+}
+
+int GameController::getScreenWidth() const {
+    return SCREEN_WIDTH;
+}
+
+int GameController::getScreenHeight() const {
+    return SCREEN_HEIGHT;
+}
+
+void GameController::startGame() {
+    entityFactory->createPanda(0, 0, 1);
+    entityFactory->createGorilla(0, 0, 2);
+    entityFactory->createWeapon(1100, 200);
+
+    Json level_json = Json("assets/levels/level2.json", true);
+    auto level = Level(level_json, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    scene_manager->destroyCurrentScene();
+    scene_manager->loadLevel(level);
 }

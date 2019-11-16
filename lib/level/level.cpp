@@ -1,22 +1,11 @@
 #include "level/level.hpp"
+#include "scenes/scene.hpp"
 
 #include "brickengine/json/json.hpp"
-#include "exceptions/size_mismatch_exception.hpp"
 #include "exceptions/not_enough_player_spawns_exception.hpp"
 
-Level::Level(Json json, int screen_width, int screen_height) {
-    this->version = json.getDouble("version");
-    this->name = json.getString("name");
+Level::Level(Json json, int screen_width, int screen_height) : Scene(json, screen_width, screen_height) {
     this->description = json.getString("description");
-
-    double relative_modifier = json.getInt("width") / (double)screen_width;
-    if(!json.getInt("height") / screen_height == relative_modifier) {
-        throw SizeMismatchException();
-    }
-    this->relative_modifier = relative_modifier;
-
-    this->bg_path = json.getString("bg_path");
-    this->bg_music = json.getString("bg_music");
 
     // Create player spawns
     if(json.getVector("player_spawns").size() < 4) {
