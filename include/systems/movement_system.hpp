@@ -9,7 +9,6 @@
 class MovementSystem : public BeastSystem {
 public:
     MovementSystem(std::shared_ptr<CollisionDetector> cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef);
-    ~MovementSystem() = default;
     void update(double deltatime);
 private:
     static constexpr double TERMINAL_VELOCITY = 70'000;

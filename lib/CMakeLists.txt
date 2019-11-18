@@ -14,5 +14,11 @@ target_include_directories(BeastArenaLib PUBLIC ${BEASTARENALIB_INCLUDE_DIRECTOR
 
 target_compile_features(BeastArenaLib PUBLIC cxx_std_17)
 
+option(BEASTARENALIB_PERFORMANCE_DEBUGGING "Turn on extra output for performance debugging" OFF)
+if (BEASTARENALIB_PERFORMANCE_DEBUGGING)
+    target_compile_definitions(BeastArenaLib
+        PRIVATE -DPERFORMANCE_DEBUGGING)
+endif()
+
 # Export source file list so that it can be used for test compilation
 set(BEASTARENALIB_SRC_FILES ${BEASTARENALIB_SRC_FILES} PARENT_SCOPE)

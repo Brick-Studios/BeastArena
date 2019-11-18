@@ -8,7 +8,6 @@ class PickupSystem : public BeastSystem {
 public:
     PickupSystem(std::shared_ptr<CollisionDetector> cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef);
     void update(double delta_time);
-    ~PickupSystem() = default;
 private:
     std::shared_ptr<CollisionDetector> collision_detector;
 };

@@ -11,5 +11,4 @@ private:
     std::shared_ptr<EntityManager> entity_manager;
 };
 
-
 #endif // FILE_CLICK_SYSTEM_HPP

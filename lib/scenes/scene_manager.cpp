@@ -22,14 +22,14 @@ void SceneManager::loadLevel(Level& level) {
     auto entities_with_player = entity_manager->getEntitiesByComponent<PlayerComponent>();
 
     int count = 0;
-    for(auto& [entity_id, player]: *entities_with_player) {
+    for(auto& [entity_id, player]: entities_with_player) {
         std::ignore = player;
         auto transform_component = entity_manager->getComponent<TransformComponent>(entity_id);
 
-        transform_component->xPos = level.player_spawns[count].x;
-        transform_component->yPos = level.player_spawns[count].y;
+        transform_component->x_pos = level.player_spawns[count].x / level.relative_modifier;
+        transform_component->y_pos = level.player_spawns[count].y / level.relative_modifier;
 
-        count++;
+        ++count;
     }
 
     // Create the platforms
