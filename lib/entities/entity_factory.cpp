@@ -30,9 +30,16 @@ int EntityFactory::createGorilla(double x_pos, double y_pos, int player_id) cons
     comps->push_back(std::make_unique<PhysicsComponent>(105, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
-    comps->push_back(std::make_unique<HealthComponent>(100, [](int entity_id) {
-
+    comps->push_back(std::make_unique<HealthComponent>(100, [em = entityManager](int entity_id) {
+        auto transform = em->getComponent<TransformComponent>(entity_id);
+        transform->y_direction = Direction::NEGATIVE;
+        auto player = em->getComponent<PlayerComponent>(entity_id);
+        player->disabled = true;
+        auto collider = em->getComponent<RectangleColliderComponent>(entity_id);
+        collider->is_trigger = true;
+        em->addComponentToEntity(entity_id, std::make_unique<PickupComponent>(true, false));
     }));
+    comps->push_back(std::make_unique<DespawnComponent>(false, true));
 
     return entityManager->createEntity(std::move(comps), std::nullopt);
 }
@@ -47,15 +54,16 @@ int EntityFactory::createPanda1(double x_pos, double y_pos, int player_id) const
     comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
-    comps->push_back(std::make_unique<ClickComponent>([]() -> void {
-        std::cout << "clicked" << std::endl;
-    }, 1, 1));
     comps->push_back(std::make_unique<HealthComponent>(100, [em = entityManager](int entity_id) {
         auto transform = em->getComponent<TransformComponent>(entity_id);
         transform->y_direction = Direction::NEGATIVE;
         auto player = em->getComponent<PlayerComponent>(entity_id);
         player->disabled = true;
+        auto collider = em->getComponent<RectangleColliderComponent>(entity_id);
+        collider->is_trigger = true;
+        em->addComponentToEntity(entity_id, std::make_unique<PickupComponent>(true, false));
     }));
+    comps->push_back(std::make_unique<DespawnComponent>(false, true));
 
     return entityManager->createEntity(std::move(comps), std::nullopt);
 }
@@ -70,15 +78,16 @@ int EntityFactory::createPanda2(double x_pos, double y_pos, int player_id) const
     comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
-    comps->push_back(std::make_unique<ClickComponent>([]() -> void {
-        std::cout << "clicked" << std::endl;
-    }, 1, 1));
     comps->push_back(std::make_unique<HealthComponent>(100, [em = entityManager](int entity_id) {
         auto transform = em->getComponent<TransformComponent>(entity_id);
         transform->y_direction = Direction::NEGATIVE;
         auto player = em->getComponent<PlayerComponent>(entity_id);
         player->disabled = true;
+        auto collider = em->getComponent<RectangleColliderComponent>(entity_id);
+        collider->is_trigger = true;
+        em->addComponentToEntity(entity_id, std::make_unique<PickupComponent>(true, false));
     }));
+    comps->push_back(std::make_unique<DespawnComponent>(false, true));
 
     return entityManager->createEntity(std::move(comps), std::nullopt);
 }
@@ -93,15 +102,16 @@ int EntityFactory::createPanda3(double x_pos, double y_pos, int player_id) const
     comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
-    comps->push_back(std::make_unique<ClickComponent>([]() -> void {
-        std::cout << "clicked" << std::endl;
-    }, 1, 1));
     comps->push_back(std::make_unique<HealthComponent>(100, [em = entityManager](int entity_id) {
         auto transform = em->getComponent<TransformComponent>(entity_id);
         transform->y_direction = Direction::NEGATIVE;
         auto player = em->getComponent<PlayerComponent>(entity_id);
         player->disabled = true;
+        auto collider = em->getComponent<RectangleColliderComponent>(entity_id);
+        collider->is_trigger = true;
+        em->addComponentToEntity(entity_id, std::make_unique<PickupComponent>(true, false));
     }));
+    comps->push_back(std::make_unique<DespawnComponent>(false, true));
 
     return entityManager->createEntity(std::move(comps), std::nullopt);
 }
@@ -125,7 +135,7 @@ int EntityFactory::createWeapon(double x_pos, double y_pos, bool ammo) const {
         TextureComponent(std::move(bullet_r)),
         PhysicsComponent(1, 0, 2250, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false),
         DespawnComponent(true, true),
-        Scale(18, 6),
+        Scale(12, 4),
         0.2, ammoOpt));
 
     return entityManager->createEntity(std::move(comps), std::nullopt);
@@ -180,4 +190,14 @@ std::pair<int, int> EntityFactory::createButton(const Button button, const doubl
     int text_id = entityManager->createEntity(std::move(compsText), std::nullopt);
 
     return std::make_pair(button_id, text_id);
+}
+
+int EntityFactory::createText(std::string text, int x, int y, int x_scale, int y_scale) {
+    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
+    auto r_text = renderableFactory.createText(text, 50, { 0, 255, 0, 255 }, (int)Layers::UI, std::move(dst));
+    auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
+    comps->push_back(std::make_unique<TransformComponent>(x, y, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<TextureComponent>(std::move(r_text)));
+
+    return entityManager->createEntity(std::move(comps));
 }

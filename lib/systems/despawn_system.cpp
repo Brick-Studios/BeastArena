@@ -1,4 +1,5 @@
 #include "systems/despawn_system.hpp"
+#include "components/health_component.hpp"
 
 DespawnSystem::DespawnSystem(std::shared_ptr<CollisionDetector> cd, std::shared_ptr<EntityManager> em,
                              int screen_width, int screen_height)
@@ -18,7 +19,21 @@ void DespawnSystem::update(double) {
             if(left > screen_width || top > screen_height ||
                right < 0 || bottom < 0) {
                 // :O
-                entityManager->removeEntity(entity_id);
+                // Kill object.
+                auto health = entityManager->getComponent<HealthComponent>(entity_id);
+                if (health) {
+                    health->health = 0;
+                    auto transform = entityManager->getComponent<TransformComponent>(entity_id);
+                    transform->x_pos = -100;
+                    transform->y_pos = -100;
+                    auto physics = entityManager->getComponent<PhysicsComponent>(entity_id);
+                    physics->vx = 0;
+                    physics->vy = 0;
+                    physics->kinematic = Kinematic::IS_KINEMATIC;
+                } else {
+                    entityManager->removeEntity(entity_id);
+                }
+
                 continue;
             }
         }

@@ -15,6 +15,16 @@
 SceneManager::SceneManager(std::shared_ptr<EntityFactory> entity_factory, std::shared_ptr<EntityManager> entity_manager, BrickEngine* engine) : entity_factory(entity_factory), entity_manager(entity_manager), engine(engine) {};
 
 void SceneManager::loadLevel(Level& level) {
+    // Create the players
+    current_scene_entities.insert(entity_factory->createGorilla(-300, -300, 1));
+    current_scene_entities.insert(entity_factory->createPanda1(-300, -300, 2));
+    current_scene_entities.insert(entity_factory->createPanda2(-300, -300, 3));
+    current_scene_entities.insert(entity_factory->createPanda3(-300, -300, 4));
+    current_scene_entities.insert(entity_factory->createWeapon(1000, 200, true));
+    current_scene_entities.insert(entity_factory->createWeapon(1100, 200, false));
+    current_scene_entities.insert(entity_factory->createWeapon(600, 200, true));
+    current_scene_entities.insert(entity_factory->createWeapon(500, 200, false));
+
     // Create the background
     loadBackground(level.bg_path);
 
@@ -39,7 +49,7 @@ void SceneManager::loadLevel(Level& level) {
             int y = platform.y / level.relative_modifier;
             int xScale = platform.xScale / level.relative_modifier;
             int yScale = platform.yScale / level.relative_modifier;
-            current_scene_entities.push_back(entity_factory->createPlatform(x, y, xScale, yScale, platform.texture_path, platform.alpha));
+            current_scene_entities.insert(entity_factory->createPlatform(x, y, xScale, yScale, platform.texture_path, platform.alpha));
         }
     }
 
@@ -53,14 +63,27 @@ void SceneManager::loadMenu(Menu& menu) {
     // Load the buttons
     for(Button button : menu.buttons) {
         auto ids = entity_factory->createButton(button, menu.relative_modifier);
-        current_scene_entities.push_back(ids.first);
-        current_scene_entities.push_back(ids.second);
+        current_scene_entities.insert(ids.first);
+        current_scene_entities.insert(ids.second);
     }
 
     // Load the images
     for(Image image : menu.images) {
-        current_scene_entities.push_back(entity_factory->createImage(image.texture_path, image.x / menu.relative_modifier, image.y / menu.relative_modifier, image.x_scale / menu.relative_modifier, image.y_scale / menu.relative_modifier, Layers::Middleground, image.alpha));
+        current_scene_entities.insert(entity_factory->createImage(image.texture_path, image.x / menu.relative_modifier, image.y / menu.relative_modifier, image.x_scale / menu.relative_modifier, image.y_scale / menu.relative_modifier, Layers::Middleground, image.alpha));
     }
+}
+
+void SceneManager::intermission(int timer) {
+    auto entities = entity_manager->getEntitiesWithTag("intermission");
+    if(!entities.empty()) {
+        for(auto entity : entities) {
+            entity_manager->removeEntity(entity);
+            current_scene_entities.erase(entity);
+        }
+    }
+    auto entity = entity_factory->createText(std::to_string(timer), 800, 450, 300, 300);
+    current_scene_entities.insert(entity);
+    entity_manager->setTag(entity, "intermission");
 
     engine->toggleCursor(true);
 }
@@ -73,5 +96,5 @@ void SceneManager::destroyCurrentScene() {
 }
 
 void SceneManager::loadBackground(std::string path) {
-    current_scene_entities.push_back(entity_factory->createImage(path, engine->getWindowWidth() / 2, engine->getWindowHeight() / 2, engine->getWindowWidth(), engine->getWindowHeight(), Layers::Background, 255));
+    current_scene_entities.insert(entity_factory->createImage(path, engine->getWindowWidth() / 2, engine->getWindowHeight() / 2, engine->getWindowWidth(), engine->getWindowHeight(), Layers::Background, 255));
 }

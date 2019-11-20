@@ -16,6 +16,7 @@ public:
     void loadLevel(Level& level);
     void loadMenu(Menu& menu);
     void destroyCurrentScene();
+    void intermission(int timer);
 private:
     void loadBackground(std::string path);
 
@@ -23,7 +24,7 @@ private:
     std::shared_ptr<EntityManager> entity_manager;
     BrickEngine* engine;
 
-    std::vector<int> current_scene_entities;
+    std::set<int> current_scene_entities;
 };
 
 #endif // FILE_SCENE_MANAGER_HPP

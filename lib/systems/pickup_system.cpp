@@ -28,7 +28,10 @@ void PickupSystem::update(double){
             }
             else {
                 auto trigger = collision_detector->isInTrigger(entity_id);
-                if(trigger.object_id.has_value() && trigger.is_in_trigger){
+                if (!trigger.object_id || !trigger.is_in_trigger) continue;
+
+                auto trigger_pickup = entityManager->getComponent<PickupComponent>(*trigger.object_id);
+                if(trigger_pickup){
                     auto collider_id = trigger.object_id.value();
                     auto collider_transform = entityManager->getComponent<TransformComponent>(collider_id);
                     auto entity_transform = entityManager->getComponent<TransformComponent>(entity_id);
@@ -38,8 +41,10 @@ void PickupSystem::update(double){
                     } else {
                         collider_transform->x_pos = entity_transform->x_scale / 2;
                     }
-                    collider_transform->x_direction = entity_transform->x_direction;
-                    collider_transform->y_direction = entity_transform->y_direction;
+                    if (trigger_pickup->match_parent_x_direction)
+                        collider_transform->x_direction = entity_transform->x_direction;
+                    if (trigger_pickup->match_parent_y_direction)
+                        collider_transform->y_direction = entity_transform->y_direction;
                     collider_transform->y_pos = 0;
                     collider_transform->x_scale /= entity_scale.x;
                     collider_transform->y_scale /= entity_scale.y;

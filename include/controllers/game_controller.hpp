@@ -21,10 +21,16 @@ public:
     int getScreenWidth() const;
     int getScreenHeight() const;
     void startGame();
+    void loadLevels();
+    void loadNextLevel();
+    void loadMainMenu();
+    void intermission(int timer);
+
+    static constexpr int MAX_LEVELS = 2;
 private:
     void createSystems();
     void setupInput();
-
+    
     std::unique_ptr<BrickEngine> engine;
     std::vector<std::unique_ptr<System>> systems;
     std::shared_ptr<EntityManager> entityManager;
@@ -35,6 +41,8 @@ private:
     std::unique_ptr<Renderable> fps_counter;
     double delta_time;
     int fps_cap;
+
+    std::queue<std::string> level_queue;
 
     std::vector<int> layers;
 

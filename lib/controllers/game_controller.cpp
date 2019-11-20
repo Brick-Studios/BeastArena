@@ -7,6 +7,7 @@
 #include <utility>
 #include <vector>
 #include <deque>
+#include <filesystem>
 using namespace std::chrono_literals;
 
 #include "controllers/game_controller.hpp"
@@ -23,6 +24,7 @@ using namespace std::chrono_literals;
 #include "systems/damage_system.hpp"
 #include "systems/despawn_system.hpp"
 #include "systems/movement_system.hpp"
+#include "systems/game_system.hpp"
 #include "entities/layers.hpp"
 #include "player_input.hpp"
 #include "brickengine/input_keycode.hpp"
@@ -32,6 +34,8 @@ using namespace std::chrono_literals;
 #include "level/gadget_spawn.hpp"
 #include "level/solid.hpp"
 #include "brickengine/components/colliders/rectangle_collider_component.hpp"
+#include "brickengine/std/random.hpp"
+#include "menu/main_menu.hpp"
 
 GameController::GameController() {
     this->delta_time = 1;
@@ -56,6 +60,7 @@ GameController::GameController() {
 
 void GameController::createSystems() {
     systems = std::vector<std::unique_ptr<System>>();
+    systems.push_back(std::make_unique<GameSystem>(entityManager, *this));
     systems.push_back(std::make_unique<ClickSystem>(entityManager));
     systems.push_back(std::make_unique<MovementSystem>(collisionDetector, entityManager, entityFactory));
     systems.push_back(std::make_unique<PhysicsSystem>(collisionDetector, entityManager));
@@ -176,19 +181,58 @@ int GameController::getScreenHeight() const {
 }
 
 void GameController::startGame() {
+    loadLevels();
+    loadNextLevel();
+}
+
+void GameController::loadLevels() {
+    // Create list of levels
+    std::string levels_path = "assets/levels";
+    std::vector<std::string> levels;
+    std::vector<std::string> temp_levels;
+    for (const auto & entry : std::filesystem::directory_iterator(levels_path))
+        levels.push_back(entry.path());
+
+    // Fill queue randomly with levels
+    temp_levels = levels;
+    auto& r = Random::getInstance();
+    while(level_queue.size() != MAX_LEVELS) {
+        int random = r.getRandomInt(0, temp_levels.size() - 1);
+        level_queue.push(temp_levels.at(random));
+        temp_levels.erase(temp_levels.begin() + random);
+
+        // If there are not enough levels
+        if(level_queue.size() < MAX_LEVELS && temp_levels.empty()) {
+            temp_levels = levels;
+        }
+    }
+}
+
+void GameController::loadNextLevel() {
+    // Remove the current scene
     scene_manager->destroyCurrentScene();
 
-    // The player characters start off-screen
-    auto gorilla = entityFactory->createGorilla(-300, -300, 1);
-    auto panda1 = entityFactory->createPanda1(-300, -300, 2);
-    auto panda2 = entityFactory->createPanda2(-300, -300, 3);
-    auto panda3 = entityFactory->createPanda3(-300, -300, 4);
-    auto weapon1 = entityFactory->createWeapon(1000, 200, true);
-    auto weapon2 = entityFactory->createWeapon(1100, 200, false);
-    auto weapon3 = entityFactory->createWeapon(600, 200, true);
-    auto weapon4 = entityFactory->createWeapon(500, 200, false);
+    if(!level_queue.empty()) {
+        // load from queue
+        std::string path = level_queue.front();
+        level_queue.pop();
 
-    Json level_json { "assets/levels/level2.json", true };
-    Level level { level_json, SCREEN_WIDTH, SCREEN_HEIGHT };
-    scene_manager->loadLevel(level);
+        // Create the level
+        Json level_json { path, true };
+        Level level { level_json, SCREEN_WIDTH, SCREEN_HEIGHT };
+        scene_manager->loadLevel(level);
+    } else {
+        // There are no levels left in the queue.
+        loadMainMenu();
+    }
+}
+
+void GameController::intermission(int timer) {
+    scene_manager->intermission(timer);
+}
+
+void GameController::loadMainMenu() {
+    scene_manager->destroyCurrentScene();
+    MainMenu main_menu { getScreenWidth(), getScreenHeight(), this };
+    scene_manager->loadMenu(main_menu);
 }
