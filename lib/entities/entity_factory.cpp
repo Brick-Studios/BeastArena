@@ -27,7 +27,7 @@ int EntityFactory::createGorilla(double x_pos, double y_pos, int player_id) cons
 
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 50, 100, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(105, 0, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
+    comps->push_back(std::make_unique<PhysicsComponent>(105, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
     comps->push_back(std::make_unique<HealthComponent>(100, [](int entity_id) {
@@ -44,7 +44,7 @@ int EntityFactory::createPanda1(double x_pos, double y_pos, int player_id) const
 
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 63, 100, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(100, 0, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
+    comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
     comps->push_back(std::make_unique<ClickComponent>([]() -> void {
@@ -67,7 +67,7 @@ int EntityFactory::createPanda2(double x_pos, double y_pos, int player_id) const
 
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 63, 100, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(100, 0, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
+    comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
     comps->push_back(std::make_unique<ClickComponent>([]() -> void {
@@ -90,7 +90,7 @@ int EntityFactory::createPanda3(double x_pos, double y_pos, int player_id) const
 
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 63, 100, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(100, 0, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
+    comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id));
     comps->push_back(std::make_unique<ClickComponent>([]() -> void {
@@ -117,15 +117,15 @@ int EntityFactory::createWeapon(double x_pos, double y_pos, bool ammo) const {
 
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 31, 22, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true));
-    comps->push_back(std::make_unique<PhysicsComponent>(50, 0, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true));
+    comps->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true));
     comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
     comps->push_back(std::make_unique<PickupComponent>());
     comps->push_back(std::make_unique<WeaponComponent>(
-        DamageComponent(10),
+        DamageComponent(25),
         TextureComponent(std::move(bullet_r)),
-        PhysicsComponent(1, 0, 4500, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false),
+        PhysicsComponent(1, 0, 2250, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false),
         DespawnComponent(true, true),
-        Scale(9, 3),
+        Scale(18, 6),
         0.2, ammoOpt));
 
     return entityManager->createEntity(std::move(comps), std::nullopt);

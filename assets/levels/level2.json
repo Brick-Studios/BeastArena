@@ -197,7 +197,7 @@
             "texture_path": "colors/black.jpg",
             "alpha": 255,
             "x": 1270,
-            "y": 600,
+            "y": 640,
             "xScale": 150,
             "yScale": 50
         },
@@ -207,7 +207,7 @@
             "texture_path": "colors/black.jpg",
             "alpha": 255,
             "x": 650,
-            "y": 600,
+            "y": 640,
             "xScale": 150,
             "yScale": 50
         }

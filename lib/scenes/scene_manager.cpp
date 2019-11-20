@@ -42,6 +42,8 @@ void SceneManager::loadLevel(Level& level) {
             current_scene_entities.push_back(entity_factory->createPlatform(x, y, xScale, yScale, platform.texture_path, platform.alpha));
         }
     }
+
+    engine->toggleCursor(false);
 }
 
 void SceneManager::loadMenu(Menu& menu) {
@@ -59,6 +61,8 @@ void SceneManager::loadMenu(Menu& menu) {
     for(Image image : menu.images) {
         current_scene_entities.push_back(entity_factory->createImage(image.texture_path, image.x / menu.relative_modifier, image.y / menu.relative_modifier, image.x_scale / menu.relative_modifier, image.y_scale / menu.relative_modifier, Layers::Middleground, image.alpha));
     }
+
+    engine->toggleCursor(true);
 }
 
 void SceneManager::destroyCurrentScene() {
