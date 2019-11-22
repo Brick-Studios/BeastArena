@@ -39,6 +39,16 @@ Level::Level(Json json, int screen_width, int screen_height) : Scene(json, scree
         this->gadget_spawns.push_back(gadget_spawn);
     }
 
+    // Create critter spawns
+    for(Json critter_spawn_json : json.getVector("critter_spawns")) {
+        CritterSpawn critter_spawn = CritterSpawn();
+
+        critter_spawn.x = critter_spawn_json.getInt("x");
+        critter_spawn.y = critter_spawn_json.getInt("y");
+
+        this->critter_spawns.push_back(critter_spawn);
+    }
+
     // Create platforms
     for(Json solid_json : json.getVector("solids")) {
         Solid solid = Solid();

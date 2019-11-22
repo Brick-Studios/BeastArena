@@ -24,6 +24,7 @@ using namespace std::chrono_literals;
 #include "systems/damage_system.hpp"
 #include "systems/despawn_system.hpp"
 #include "systems/movement_system.hpp"
+#include "systems/critter_system.hpp"
 #include "systems/game_system.hpp"
 #include "entities/layers.hpp"
 #include "player_input.hpp"
@@ -36,6 +37,8 @@ using namespace std::chrono_literals;
 #include "brickengine/components/colliders/rectangle_collider_component.hpp"
 #include "brickengine/std/random.hpp"
 #include "menu/main_menu.hpp"
+
+#include "components/wandering_component.hpp"
 
 GameController::GameController() {
     this->delta_time = 1;
@@ -63,6 +66,7 @@ void GameController::createSystems() {
     systems.push_back(std::make_unique<GameSystem>(entityManager, *this));
     systems.push_back(std::make_unique<ClickSystem>(entityManager));
     systems.push_back(std::make_unique<MovementSystem>(collisionDetector, entityManager, entityFactory));
+    systems.push_back(std::make_unique<CritterSystem>(collisionDetector, entityManager, entityFactory));
     systems.push_back(std::make_unique<PhysicsSystem>(collisionDetector, entityManager));
     systems.push_back(std::make_unique<PickupSystem>(collisionDetector, entityManager, entityFactory));
     systems.push_back(std::make_unique<WeaponSystem>(collisionDetector, entityManager, entityFactory));
