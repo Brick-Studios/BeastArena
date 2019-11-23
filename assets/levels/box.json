@@ -5,7 +5,7 @@
     "width": 1920,
     "height": 1080,
     "bg_path": "backgrounds/rainforest.png",
-    "bg_music": "music/rainforest.mp3",
+    "bg_music": "effects/yeet.mp3",
     "player_spawns": [
         {
             "x": 400,

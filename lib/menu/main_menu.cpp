@@ -20,7 +20,7 @@ MainMenu::MainMenu(int screen_width, int screen_height, GameController* game_con
     this->version = 1.0;
     this->name = "Main Menu";
     this->bg_path = "colors/white.png";
-    this->bg_music = "music/rainforest.mp3";
+    this->bg_music = "music/main.mp3";
 
     // Buttons
     Button start_game_button = Button();

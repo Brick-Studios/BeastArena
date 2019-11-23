@@ -5,7 +5,7 @@
     "width": 1920,
     "height": 1080,
     "bg_path": "colors/paper.jpg",
-    "bg_music": "music/rainforest.mp3",
+    "bg_music": "music/forest.mp3",
     "player_spawns": [
         {
             "x": 100,
