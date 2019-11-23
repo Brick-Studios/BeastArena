@@ -2,10 +2,8 @@
 #define FILE_PLAYER_INPUT_HPP
 
 enum PlayerInput {
-    UP,
-    LEFT,
-    RIGHT,
-    DOWN,
+    X_AXIS,
+    Y_AXIS,
     SHOOT,
     GRAB,
     MOUSE_LEFT,
