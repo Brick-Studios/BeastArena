@@ -27,14 +27,21 @@
     "gadget_spawns": [
         {
             "type": "weapon",
-            "available_spawns": ["pistol", "ak", "rpg"],
+            "available_spawns": ["pistol", "rifle"],
             "respawn_timer": 5,
             "x": 0,
             "y": 0
-        }, 
+        },
         {
-            "type": "item",
-            "available_spawns": ["jetpack"],
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle"],
+            "respawn_timer": 5,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle"],
             "respawn_timer": 5,
             "x": 0,
             "y": 0

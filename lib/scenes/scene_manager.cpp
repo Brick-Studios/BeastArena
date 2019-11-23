@@ -18,13 +18,12 @@ SceneManager::SceneManager(std::shared_ptr<EntityFactory> entity_factory, std::s
 void SceneManager::loadLevel(Level& level) {
     // Create the players
     current_scene_entities.insert(entity_factory->createGorilla(-300, -300, 1));
-    current_scene_entities.insert(entity_factory->createPanda1(-300, -300, 2));
-    current_scene_entities.insert(entity_factory->createPanda2(-300, -300, 3));
-    current_scene_entities.insert(entity_factory->createPanda3(-300, -300, 4));
-    current_scene_entities.insert(entity_factory->createWeapon(1000, 200, true));
-    current_scene_entities.insert(entity_factory->createWeapon(1100, 200, false));
-    current_scene_entities.insert(entity_factory->createWeapon(600, 200, true));
-    current_scene_entities.insert(entity_factory->createWeapon(500, 200, false));
+    current_scene_entities.insert(entity_factory->createPanda(-300, -300, 2));
+    current_scene_entities.insert(entity_factory->createCheetah(-300, -300, 3));
+    current_scene_entities.insert(entity_factory->createElephant(-300, -300, 4));
+    current_scene_entities.insert(entity_factory->createPistol(1000, 200, false));
+    current_scene_entities.insert(entity_factory->createRifle(1100, 200, false));
+    current_scene_entities.insert(entity_factory->createSniper(500, 200, false));
 
     // Create the background
     loadBackground(level.bg_path);
