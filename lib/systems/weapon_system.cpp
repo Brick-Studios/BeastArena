@@ -52,7 +52,9 @@ void WeaponSystem::update(double deltatime){
                 bullet_comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
                 bullet_comps->push_back(std::make_unique<TextureComponent>(weapon->bullet_texture));
                 bullet_comps->push_back(std::move(bullet_physics));
-                bullet_comps->push_back(std::make_unique<DamageComponent>(weapon->bullet_damage));
+                auto damage = std::make_unique<DamageComponent>(weapon->bullet_damage);
+                damage->damage_dealer_entity_id = entity_id;
+                bullet_comps->push_back(std::move(damage));
                 bullet_comps->push_back(std::make_unique<DespawnComponent>(weapon->bullet_despawn));
 
                 entityManager->createEntity(std::move(bullet_comps));

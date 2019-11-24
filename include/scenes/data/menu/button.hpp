@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 
-#include "menu/text.hpp"
+#include "scenes/data/menu/text.hpp"
 
 struct Button {
 public:

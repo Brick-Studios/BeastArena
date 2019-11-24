@@ -5,21 +5,30 @@
 #include <string>
 #include <utility>
 
-#include "menu/button.hpp"
 #include "brickengine/entities/entity_manager.hpp"
 #include "brickengine/rendering/renderables/texture.hpp"
 #include "brickengine/rendering/renderable_factory.hpp"
-#include "entities/layers.hpp"
 #include "brickengine/rendering/renderables/data/color.hpp"
+#include "entities/layers.hpp"
+#include "components/health_component.hpp"
+#include "scenes/data/menu/button.hpp"
 
 class EntityFactory {
 public:
     EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactory& rf);
     ~EntityFactory() = default;
-    int createGorilla(double x_pos, double y_pos, int player_id) const;
-    int createPanda(double x_pos, double y_pos, int player_id) const;
-    int createCheetah(double x_pos, double y_pos, int player_id) const;
-    int createElephant(double x_pos, double y_pos, int player_id) const;
+
+    EntityManager& getEntityManager() {
+        return *entityManager;
+    }
+    RenderableFactory& getRenderableFactory() {
+        return renderableFactory;
+    };
+
+    int createGorilla(int player_id) const;
+    int createPanda(int player_id) const;
+    int createCheetah(int player_id) const;
+    int createElephant(int player_id) const;
     int createPistol(double x_pos, double y_pos, bool ammo) const;
     int createRifle(double x_pos, double y_pos, bool ammo) const;
     int createSniper(double x_pos, double y_pos, bool ammo) const;
@@ -31,7 +40,11 @@ public:
 private:
     std::shared_ptr<EntityManager> entityManager;
     RenderableFactory& renderableFactory;
-    inline static const std::string graphicsPath = "./assets/graphics/";
+
+    inline static const std::string GRAPHICS_PATH = "./assets/graphics/";
+    inline static const int POINTS_ON_KILL_PLAYER = 10;
+    HealthComponent::EntityFunction player_on_death;
+    HealthComponent::EntityFunction player_revive;
 };
 
 #endif // FILE_ENTITY_FACTORY_HPP

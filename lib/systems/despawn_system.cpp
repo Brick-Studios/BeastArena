@@ -24,8 +24,8 @@ void DespawnSystem::update(double) {
                 if (health) {
                     health->health = 0;
                     auto transform = entityManager->getComponent<TransformComponent>(entity_id);
-                    transform->x_pos = -100;
-                    transform->y_pos = -100;
+                    transform->x_pos = -2000;
+                    transform->y_pos = -2000;
                     auto physics = entityManager->getComponent<PhysicsComponent>(entity_id);
                     physics->vx = 0;
                     physics->vy = 0;

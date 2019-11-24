@@ -12,7 +12,8 @@
 class GameSystem : public System {
 public:
     GameSystem(std::shared_ptr<EntityManager> em, GameController& gc);
-    void update(double deltatime);
+    void update(double deltatime) override;
+    void reset() override;
 private:
     std::shared_ptr<EntityManager> entity_manager;
     GameController& game_controller;

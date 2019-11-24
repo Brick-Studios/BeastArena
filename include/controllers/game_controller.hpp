@@ -9,34 +9,39 @@
 #include "brickengine/rendering/renderable_factory.hpp"
 #include "brickengine/entities/entity_manager.hpp"
 #include "brickengine/collision_detector.hpp"
+#include "brickengine/scenes/scene_manager.hpp"
+#include "brickengine/game_state_manager.hpp"
 #include "entities/entity_factory.hpp"
-#include "scenes/scene_manager.hpp"
+#include "enums/game_state.hpp"
 
 class GameController {
 public:
     GameController();
     void gameLoop();
 
-    SceneManager& getSceneManager() const;
+    SceneManager<GameState>& getSceneManager() const;
     int getScreenWidth() const;
     int getScreenHeight() const;
     void startGame();
     void loadLevels();
     void loadNextLevel();
     void loadMainMenu();
+    void loadEndGameLevel();
     void intermission(int timer);
 
     static constexpr int MAX_LEVELS = 2;
+    inline static const int SCREEN_HEIGHT = 900;
+    inline static const int SCREEN_WIDTH = 1600;
 private:
-    void createSystems();
+    void createGameStateManager();
     void setupInput();
-    
+
     std::unique_ptr<BrickEngine> engine;
-    std::vector<std::unique_ptr<System>> systems;
     std::shared_ptr<EntityManager> entityManager;
     std::shared_ptr<EntityFactory> entityFactory;
     std::shared_ptr<CollisionDetector> collisionDetector;
-    std::unique_ptr<SceneManager> scene_manager;
+    std::unique_ptr<SceneManager<GameState>> scene_manager;
+    std::unique_ptr<GameStateManager<GameState>> game_state_manager;
 
     std::unique_ptr<Renderable> fps_counter;
     double delta_time;
@@ -45,9 +50,6 @@ private:
     std::queue<std::string> level_queue;
 
     std::vector<int> layers;
-
-    inline static const int SCREEN_HEIGHT = 900;
-    inline static const int SCREEN_WIDTH = 1600;
 };
 
 #endif // FILE_GAME_CONTROLLER_HPP
