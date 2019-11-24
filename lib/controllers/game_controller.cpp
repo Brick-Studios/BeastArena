@@ -120,6 +120,7 @@ void GameController::setupInput() {
     axis_mapping[InputKeyCode::EKey_a] = -1;
     axis_mapping[InputKeyCode::EKey_s] = -1;
     axis_mapping[InputKeyCode::EKey_d] = 1;
+
     // Player 2
     inputMapping[2][InputKeyCode::EKey_up] = PlayerInput::Y_AXIS;
     inputMapping[2][InputKeyCode::EKey_left] = PlayerInput::X_AXIS;
@@ -145,6 +146,7 @@ void GameController::setupInput() {
     axis_mapping[InputKeyCode::EKey_f] = -1;
     axis_mapping[InputKeyCode::EKey_g] = -1;
     axis_mapping[InputKeyCode::EKey_h] = 1;
+    
     // Player 4
     inputMapping[4][InputKeyCode::EKey_i] = PlayerInput::Y_AXIS;
     inputMapping[4][InputKeyCode::EKey_j] = PlayerInput::X_AXIS;

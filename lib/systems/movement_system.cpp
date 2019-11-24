@@ -42,7 +42,7 @@ void MovementSystem::update(double) {
             vx = 0;
         }
         // Jumping
-        if (input.checkInput(player->player_id, PlayerInput::Y_AXIS)) {
+        if (input.checkInput(player->player_id, PlayerInput::Y_AXIS) == 1) {
             bool standsOnPlatform = collision_detector->spaceLeft(entity_id, Axis::Y, Direction::POSITIVE).space_left == 0;
 
             if (standsOnPlatform) {
