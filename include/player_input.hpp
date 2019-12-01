@@ -7,7 +7,10 @@ enum PlayerInput {
     SHOOT,
     GRAB,
     MOUSE_LEFT,
-    MOUSE_RIGHT
+    MOUSE_RIGHT,
+    SPEED_UP,
+    SPEED_DOWN,
+    SPEED_RESET
 };
 
  #endif // FILE_PLAYER_INPUT_HPP 

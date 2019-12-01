@@ -46,6 +46,7 @@ private:
     std::unique_ptr<Renderable> fps_counter;
     double delta_time;
     int fps_cap;
+    std::unique_ptr<double> delta_time_modifier;
 
     std::queue<std::string> level_queue;
 
