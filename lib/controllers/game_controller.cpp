@@ -33,6 +33,7 @@ using namespace std::chrono_literals;
 #include "systems/movement_system.hpp"
 #include "systems/critter_system.hpp"
 #include "systems/game_system.hpp"
+#include "systems/spawn_system.hpp"
 
 #include "entities/layers.hpp"
 #include "player_input.hpp"
@@ -62,6 +63,7 @@ GameController::GameController() {
 #else
     this->fps_cap = 144;
 #endif // PERFORMANCE_DEBUGGING
+
     // From layers.hpp
     this->layers = { 0, 1, 2, 3, 4 };
 
@@ -77,7 +79,8 @@ GameController::GameController() {
     entityManager->setGetCurrentSceneTagFunction(scene_manager->createGetPrimaryTagFunction());
 
     setupInput();
-    // Create test players
+
+    // Create players
     entityFactory->createGorilla(1);
     entityFactory->createPanda(2);
     entityFactory->createCheetah(3);
@@ -90,9 +93,13 @@ void GameController::createGameStateManager() {
     auto state_systems = std::make_unique<GameStateManager<GameState>::StateSystems>();
     state_systems->insert({ GameState::MainMenu, std::make_unique<GameStateManager<GameState>::Systems>() });
     state_systems->insert({ GameState::InGame, std::make_unique<std::vector<std::unique_ptr<System>>>() });
+
+    // Main Menu
     state_systems->at(GameState::MainMenu)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
     state_systems->at(GameState::MainMenu)->push_back(std::make_unique<ClickSystem>(entityManager));
     state_systems->at(GameState::MainMenu)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
+
+    // In game
     state_systems->at(GameState::InGame)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<GameSystem>(entityManager, *this));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<ClickSystem>(entityManager));
@@ -103,12 +110,15 @@ void GameController::createGameStateManager() {
     state_systems->at(GameState::InGame)->push_back(std::make_unique<WeaponSystem>(collisionDetector, entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<DamageSystem>(collisionDetector, entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<DespawnSystem>(collisionDetector, entityManager, SCREEN_WIDTH, SCREEN_HEIGHT));
+    state_systems->at(GameState::InGame)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
+
     std::unordered_map<GameState, bool> reset_on_set_state;
     reset_on_set_state.insert({ GameState::InGame, true });
     reset_on_set_state.insert({ GameState::EndGame, true });
     reset_on_set_state.insert({ GameState::MainMenu, true });
     reset_on_set_state.insert({ GameState::Paused, false });
+
     GameState begin_state = GameState::Unintialized;
     game_state_manager = std::make_unique<GameStateManager<GameState>>(std::move(state_systems), reset_on_set_state, begin_state);
 }
@@ -119,6 +129,7 @@ void GameController::setupInput() {
 
     // This map is used to determine what the value of the input should be when pressed.
     std::unordered_map<InputKeyCode, signed int> axis_mapping;
+
     // Keyboard
     // Player 1
     inputMapping[1][InputKeyCode::EKey_w] = PlayerInput::Y_AXIS;

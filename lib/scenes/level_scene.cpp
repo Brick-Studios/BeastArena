@@ -5,6 +5,7 @@
 #include "brickengine/components/player_component.hpp"
 #include "components/despawn_component.hpp"
 #include "scenes/exceptions/not_enough_player_spawns_exception.hpp"
+#include "brickengine/std/random.hpp"
 
 LevelScene::LevelScene(EntityFactory& factory, BrickEngine& engine, Json json)
     : json(json), BeastScene<LevelScene>(factory, engine, json.getInt("width"), json.getInt("height")) {}
@@ -30,20 +31,17 @@ void LevelScene::performPrepare() {
         this->player_spawns.push_back(player_spawn);
     }
 
-    // Create weapon and item spawns
+    // Create gadget spawns
     for(Json gadget_spawn_json : json.getVector("gadget_spawns")) {
         GadgetSpawn gadget_spawn = GadgetSpawn();
 
-        if(gadget_spawn_json.getString("type") == "weapon") {
-            gadget_spawn.gadget_spawn_type = GadgetSpawnType::WEAPON;
-        } else if(gadget_spawn_json.getString("type") == "item") {
-            gadget_spawn.gadget_spawn_type = GadgetSpawnType::ITEM;
+        for (const std::string& s : gadget_spawn_json.getStringVector("available_spawns")) {
+            gadget_spawn.available_spawns.push_back(GadgetTypeConverter::stringToGadgetType(s));
         }
-
-        gadget_spawn.available_spawns = gadget_spawn_json.getStringVector("available_spawns");
         gadget_spawn.respawn_timer = gadget_spawn_json.getInt("respawn_timer");
         gadget_spawn.x = gadget_spawn_json.getInt("x");
         gadget_spawn.y = gadget_spawn_json.getInt("y");
+        gadget_spawn.always_respawn = gadget_spawn_json.getBool("always_respawn");
 
         this->gadget_spawns.push_back(gadget_spawn);
     }
@@ -83,12 +81,17 @@ void LevelScene::performPrepare() {
 }
 void LevelScene::start() {
     auto& em = factory.getEntityManager();
+    auto& r = Random::getInstance(); 
 
-    // Create the players
-    factory.createPistol(1000, 200, false);
-    factory.createRifle(1100, 200, true);
-    factory.createSniper(500, 200, false);
-    factory.createRifle(600, 200, true);
+    // Load the spawners and spawn weapons
+    for(int i = 0; i < gadget_spawns.size(); i++) {
+        int spawner = factory.createSpawner(gadget_spawns[i].x / getRelativeModifier(),
+         gadget_spawns[i].y / getRelativeModifier(), 
+         gadget_spawns[i].available_spawns, 
+         gadget_spawns[i].respawn_timer,
+         gadget_spawns[i].always_respawn);
+    }
+
     // Create the background
     factory.createImage(this->bg_path, this->screen_width / 2, this->screen_height / 2, this->screen_width, this->screen_height, Layers::Background, 255);
 

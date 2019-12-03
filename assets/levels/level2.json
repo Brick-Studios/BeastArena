@@ -27,38 +27,41 @@
     "gadget_spawns": [
         {
             "type": "weapon",
-            "available_spawns": ["pistol", "rifle"],
+            "available_spawns": ["pistol", "rifle", "sniper"],
             "respawn_timer": 5,
-            "x": 0,
-            "y": 0
+            "always_respawn": true,
+            "x": 1000,
+            "y": 200
         },
         {
             "type": "weapon",
-            "available_spawns": ["pistol", "rifle"],
+            "available_spawns": ["rifle", "sniper"],
             "respawn_timer": 5,
-            "x": 0,
-            "y": 0
+            "always_respawn": false,
+            "x": 1200,
+            "y": 200
         },
         {
             "type": "weapon",
-            "available_spawns": ["pistol", "rifle"],
+            "available_spawns": ["sniper"],
             "respawn_timer": 5,
-            "x": 0,
-            "y": 0
+            "always_respawn": false,
+            "x": 500,
+            "y": 200
         }
     ],
     "critter_spawns": [
         {
             "x": 25,
-            "y": 650
+            "y": 850
         },
         {
             "x": 1220,
-            "y": 540
+            "y": 740
         },
         {
             "x": 600,
-            "y": 540
+            "y": 740
         }
     ],
     "solids": [
