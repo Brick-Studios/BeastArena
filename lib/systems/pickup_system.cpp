@@ -12,7 +12,7 @@ PickupSystem::PickupSystem(std::shared_ptr<CollisionDetector> cd,
     : BeastSystem(ef, em), collision_detector(cd) {}
 
 void PickupSystem::update(double){    
-    auto input = BrickInput<PlayerInput>::getInstance();
+    auto& input = BrickInput<PlayerInput>::getInstance();
     auto entities_with_player = entityManager->getEntitiesByComponent<PlayerComponent>();
 
     for (auto& [entity_id, player]: entities_with_player) {

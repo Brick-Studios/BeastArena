@@ -153,4 +153,6 @@ void LevelScene::leave() {
         auto despawn_component = em.getComponent<DespawnComponent>(entity_id);
         despawn_component->despawn_on_out_of_screen = false;
     }
+    
+    engine.getSoundManager().stopMusic();
 }

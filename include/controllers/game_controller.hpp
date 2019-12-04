@@ -22,7 +22,9 @@ public:
     SceneManager<GameState>& getSceneManager() const;
     int getScreenWidth() const;
     int getScreenHeight() const;
+    void loadLobby();
     void startGame();
+    void exitGame();
     void loadLevels();
     void loadNextLevel();
     void loadMainMenu();
@@ -33,6 +35,8 @@ public:
     inline static const int SCREEN_HEIGHT = 900;
     inline static const int SCREEN_WIDTH = 1600;
 private:
+    bool should_quit;
+
     void createGameStateManager();
     void setupInput();
 

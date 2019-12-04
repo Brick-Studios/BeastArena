@@ -12,7 +12,7 @@ WeaponSystem::WeaponSystem(std::shared_ptr<CollisionDetector> cd, std::shared_pt
     : BeastSystem(ef, em), collision_detector(cd) {}
 
 void WeaponSystem::update(double deltatime){
-    auto input = BrickInput<PlayerInput>::getInstance();
+    auto& input = BrickInput<PlayerInput>::getInstance();
     auto entities_with_player = entityManager->getEntitiesByComponent<PlayerComponent>();
     auto entities_with_weapon = entityManager->getEntitiesByComponent<WeaponComponent>();
 

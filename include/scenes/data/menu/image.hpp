@@ -3,10 +3,14 @@
 
 #include <string>
 
+#include "entities/layers.hpp"
+
 struct Image {
 public:
     std::string texture_path;
     int alpha;
+
+    Layers layer;
 
     int x; // Before relative modifier
     int y; // Before relative modifier

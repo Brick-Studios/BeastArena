@@ -16,6 +16,7 @@
 #include "components/weapon_component.hpp"
 #include "components/stats_component.hpp"
 #include "components/wandering_component.hpp"
+#include "components/character_selection_component.hpp"
 #include "components/spawn_component.hpp"
 #include "components/hold_component.hpp"
 #include "brickengine/rendering/renderables/data/color.hpp"
@@ -118,79 +119,21 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
     };
 }
 
-int EntityFactory::createGorilla(int player_id) const {
+int EntityFactory::createPlayer(int player_id, Character character, int x, int y) const {
+    auto character_specs = getCharacterSpecs(character);
+
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-    auto r = renderableFactory.createImage(GRAPHICS_PATH + "beasts/gorilla/gorilla-1.png", (int)Layers::Foreground, std::move(dst), 255);
+    auto r = renderableFactory.createImage(GRAPHICS_PATH + character_specs.path, (int)Layers::Foreground, std::move(dst), 255);
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-    comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 50, 100, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<TransformComponent>(x, y, character_specs.x_scale, character_specs.y_scale, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(105, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
+    comps->push_back(std::make_unique<PhysicsComponent>(character_specs.mass, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
-    comps->push_back(std::make_unique<PlayerComponent>(player_id, "Gorilla"));
-    comps->push_back(std::make_unique<HealthComponent>(100, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
-    comps->push_back(std::make_unique<DespawnComponent>(false, false));
-    comps->push_back(std::make_unique<HoldComponent>(Position {32, -9}));
-    comps->push_back(std::make_unique<StatsComponent>());
-
-    int entity = entityManager->createEntity(std::move(comps), std::nullopt);
-    entityManager->setTag(entity, "Player");
-    return entity;
-}
-
-int EntityFactory::createPanda(int player_id) const {
-    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-    auto r = renderableFactory.createImage(GRAPHICS_PATH + "beasts/panda/panda-1.png", (int)Layers::Foreground, std::move(dst), 255);
-    auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-
-    comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 63, 100, Direction::POSITIVE, Direction::POSITIVE));
-    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(95, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
-    comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
-    comps->push_back(std::make_unique<PlayerComponent>(player_id, "Panda"));
-    comps->push_back(std::make_unique<HealthComponent>(100, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
+    comps->push_back(std::make_unique<PlayerComponent>(player_id, character_specs.name));
+    comps->push_back(std::make_unique<HealthComponent>(character_specs.health, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
     comps->push_back(std::make_unique<DespawnComponent>(false, false));
     comps->push_back(std::make_unique<HoldComponent>(Position {40, -12}));
-    comps->push_back(std::make_unique<StatsComponent>());
-
-    int entity = entityManager->createEntity(std::move(comps), std::nullopt);
-    entityManager->setTag(entity, "Player");
-    return entity;
-}
-
-int EntityFactory::createCheetah(int player_id) const {
-    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-    auto r = renderableFactory.createImage(GRAPHICS_PATH + "beasts/cheetah/cheetah-1.png", (int)Layers::Foreground, std::move(dst), 255);
-    auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-
-    comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 50, 100, Direction::POSITIVE, Direction::POSITIVE));
-    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(90, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
-    comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
-    comps->push_back(std::make_unique<PlayerComponent>(player_id, "Cheetah"));
-    comps->push_back(std::make_unique<HealthComponent>(100, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
-    comps->push_back(std::make_unique<DespawnComponent>(false, false));
-    comps->push_back(std::make_unique<HoldComponent>(Position {30, -10}));
-    comps->push_back(std::make_unique<StatsComponent>());
-
-    int entity = entityManager->createEntity(std::move(comps), std::nullopt);
-    entityManager->setTag(entity, "Player");
-    return entity;
-}
-
-int EntityFactory::createElephant(int player_id) const {
-    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-    auto r = renderableFactory.createImage(GRAPHICS_PATH + "beasts/elephant/elephant-1.png", (int)Layers::Foreground, std::move(dst), 255);
-    auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-
-    comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 100, 100, Direction::POSITIVE, Direction::POSITIVE));
-    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(105, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
-    comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
-    comps->push_back(std::make_unique<PlayerComponent>(player_id, "Elephant"));
-    comps->push_back(std::make_unique<HealthComponent>(100, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
-    comps->push_back(std::make_unique<DespawnComponent>(false, false));
-    comps->push_back(std::make_unique<HoldComponent>(Position {50, -20}));
     comps->push_back(std::make_unique<StatsComponent>());
 
     int entity = entityManager->createEntity(std::move(comps), std::nullopt);
@@ -300,12 +243,104 @@ std::pair<int, int> EntityFactory::createButton(const Button button, const doubl
     return std::make_pair(button_id, text_id);
 }
 
-int EntityFactory::createText(std::string text, int x, int y, int x_scale, int y_scale) {
+int EntityFactory::createText(std::string text, int x, int y, int x_scale, int y_scale, int font_size, Color color) {
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
-    auto r_text = renderableFactory.createText(text, 50, { 0, 255, 0, 255 }, (int)Layers::UI, std::move(dst));
+    auto r_text = renderableFactory.createText(text, font_size, color, (int)Layers::UI, std::move(dst));
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
     comps->push_back(std::make_unique<TransformComponent>(x, y, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r_text)));
 
     return entityManager->createEntity(std::move(comps));
 }
+
+int EntityFactory::createCharacterSelector(int player_id, int x, int y) {
+    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
+    auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
+    comps->push_back(std::make_unique<CharacterSelectionComponent>(player_id));
+    comps->push_back(std::make_unique<TransformComponent>(x, y, 0, 0, Direction::POSITIVE, Direction::POSITIVE));
+
+    return entityManager->createEntity(std::move(comps));
+}
+
+void EntityFactory::changeCharacterSelectorTexture(int entity_id, Character character, bool create){
+    // When create is true, no texture is being displayed yet
+    // When create is false, the old texture needs to be deleted before a new one is added
+    if(!create)
+        entityManager->removeComponentFromEntity<TextureComponent>(entity_id);
+    
+    auto character_specs = getCharacterSpecs(character);
+    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
+    auto r = renderableFactory.createImage(GRAPHICS_PATH + character_specs.path, (int)Layers::Middleground, std::move(dst), 255);
+    entityManager->addComponentToEntity(entity_id, std::make_unique<TextureComponent>(std::move(r)));
+
+    entityManager->getComponent<TransformComponent>(entity_id)->x_scale = character_specs.x_scale;
+    entityManager->getComponent<TransformComponent>(entity_id)->y_scale = character_specs.y_scale;
+}
+
+const std::vector<Character> EntityFactory::getAvailableCharacters() const {
+    return {
+        Character::GORILLA,
+        Character::PANDA,
+        Character::CHEETAH,
+        Character::ELEPHANT
+    };
+}
+
+const std::vector<std::pair<Character, bool>> EntityFactory::getPickedCharacters() const {
+    return {
+        std::pair<Character, bool>(Character::GORILLA, false),
+        std::pair<Character, bool>(Character::PANDA, false),
+        std::pair<Character, bool>(Character::CHEETAH, false),
+        std::pair<Character, bool>(Character::ELEPHANT, false),
+        std::pair<Character, bool>(Character::RANDOM, false)
+    };
+}
+
+const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const {
+    CharacterSpecs specs = CharacterSpecs();
+
+    switch(character){
+        case Character::GORILLA:
+            specs.path = "beasts/gorilla/gorilla-1.png";
+            specs.x_scale = 50;
+            specs.y_scale = 100;
+            specs.mass = 105;
+            specs.name = "Gorilla";
+            specs.health = 100;
+            break;
+        case Character::PANDA:
+            specs.path = "beasts/panda/panda-1.png";
+            specs.x_scale = 63;
+            specs.y_scale = 100;
+            specs.mass = 95;
+            specs.name = "Panda";
+            specs.health = 100;
+            break;
+        case Character::CHEETAH:
+            specs.path = "beasts/cheetah/cheetah-1.png";
+            specs.x_scale = 50;
+            specs.y_scale = 100;
+            specs.mass = 90;
+            specs.name = "Cheetah";
+            specs.health = 100;
+            break;
+        case Character::ELEPHANT:
+            specs.path = "beasts/elephant/elephant-1.png";
+            specs.x_scale = 100;
+            specs.y_scale = 100;
+            specs.mass = 105;
+            specs.name = "Elephant";
+            specs.health = 100;
+            break;
+        case Character::RANDOM:
+            specs.path = "menu/question-mark.png";
+            specs.x_scale = 50;
+            specs.y_scale = 100;
+            specs.mass = 100;
+            specs.name = "Question-mark";
+            specs.health = 100;
+            break;
+    }
+
+    return specs;
+};

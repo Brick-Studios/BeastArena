@@ -9,7 +9,7 @@
 ClickSystem::ClickSystem(std::shared_ptr<EntityManager> em) : System(em) {}
 
 void ClickSystem::update(double) {
-    auto input = BrickInput<PlayerInput>::getInstance();
+    auto& input = BrickInput<PlayerInput>::getInstance();
 
     // Here we do not check if the player is disabled and always use player one, because ClickComponents are not used for gameplay
     // Check if the user clicked the left mouse button. If not, return the user out of the method.
@@ -32,6 +32,10 @@ void ClickSystem::update(double) {
             y < bottom && y > top) {
             // The button was clicked
             click->fn();
+            // When a button is clicked, there is a chance that the scene has been deleted
+            // You want to stop looping through click components as there is no guarantee that they still exist
+            // This is no problem because if they still exist, you can just click another button in the next trick
+            break;
         }
     }
 }

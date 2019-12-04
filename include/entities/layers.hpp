@@ -4,14 +4,16 @@
 enum class Layers {
     // The background img
     Background = 0,
+    // Special low layer
+    Lowground = 1,
     // Trees and critters and random pasable objects
-    Middleground = 1,
+    Middleground = 2,
     // Player and platforms
-    Foreground = 2,
+    Foreground = 3,
     // The actual UI
-    UI = 3,
+    UI = 4,
     // FPS counter and debugging layer
-    Overlay = 4
+    Overlay = 5
 };
 
 #endif // FILE_LAYERS_HPP
