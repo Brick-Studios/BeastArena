@@ -9,7 +9,7 @@
 #include "systems/movement_system.hpp"
 #include "player_input.hpp"
 
-MovementSystem::MovementSystem(std::shared_ptr<CollisionDetector> cd,
+MovementSystem::MovementSystem(CollisionDetector2& cd,
     std::shared_ptr<EntityManager> entityManager, std::shared_ptr<EntityFactory> ef)
     : BeastSystem(ef, entityManager), collision_detector(cd) {}
 
@@ -43,9 +43,9 @@ void MovementSystem::update(double) {
         }
         // Jumping
         if (input.checkInput(player->player_id, PlayerInput::Y_AXIS) == 1) {
-            bool standsOnPlatform = collision_detector->spaceLeft(entity_id, Axis::Y, Direction::POSITIVE).space_left == 0;
+            bool is_on_platform = collision_detector.detectContinuousCollision(entity_id, Axis::Y, Direction::POSITIVE).space_left == 0;
 
-            if (standsOnPlatform) {
+            if (is_on_platform) {
                 vy = -1 * (JUMP_FORCE / mass);
             }
         }

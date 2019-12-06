@@ -6,11 +6,12 @@
 
 class DamageComponent : public ComponentImpl<DamageComponent> {
 public:
-    DamageComponent(double damage, std::optional<int> damage_dealer_entity_id = std::nullopt);
+    DamageComponent(double damage, bool despawn, std::optional<int> damage_dealer_entity_id = std::nullopt);
     static std::string getNameStatic();
 
     // Data
     double damage;
+    bool despawn;
     std::optional<int> damage_dealer_entity_id;
 };
 

@@ -8,6 +8,7 @@
 #include "brickengine/components/physics_component.hpp"
 #include "brickengine/components/renderables/texture_component.hpp"
 #include "brickengine/components/data/scale.hpp"
+#include "brickengine/components/colliders/rectangle_collider_component.hpp"
 
 #include "components/damage_component.hpp"
 #include "components/despawn_component.hpp"
@@ -15,7 +16,7 @@
 class WeaponComponent : public ComponentImpl<WeaponComponent> {
 public:
     WeaponComponent(DamageComponent bullet_damage, TextureComponent bullet_texture, PhysicsComponent bullet_physics, 
-                    DespawnComponent bullet_despawn, Scale bullet_scale, double fire_rate, std::optional<double> ammo);
+                    DespawnComponent bullet_despawn, RectangleColliderComponent bullet_collider, Scale bullet_scale, double fire_rate, std::optional<double> ammo);
     static std::string getNameStatic();
 
     // Data
@@ -26,6 +27,7 @@ public:
     // when the weapon is faced in the negative direction, the velocity will get flipped for you
     PhysicsComponent bullet_physics;
     DespawnComponent bullet_despawn;
+    RectangleColliderComponent bullet_collider;
     Scale bullet_scale;
 
     double fire_rate;

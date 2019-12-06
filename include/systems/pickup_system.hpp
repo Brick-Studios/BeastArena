@@ -2,14 +2,14 @@
 #define FILE_PICKUP_SYSTEM_HPP
 
 #include "systems/beast_system.hpp"
-#include "brickengine/collision_detector.hpp"
+#include "brickengine/collision_detector_2.hpp"
 
 class PickupSystem : public BeastSystem {
 public:
-    PickupSystem(std::shared_ptr<CollisionDetector> cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef);
+    PickupSystem(CollisionDetector2& cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef);
     void update(double delta_time);
 private:
-    std::shared_ptr<CollisionDetector> collision_detector;
+    CollisionDetector2& collision_detector;
 };
 
 #endif // FILE_PICKUP_SYSTEM_HPP

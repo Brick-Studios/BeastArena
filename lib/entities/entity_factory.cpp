@@ -22,31 +22,30 @@
 #include "brickengine/rendering/renderables/data/color.hpp"
 #include "brickengine/rendering/renderables/renderable.hpp"
 #include "brickengine/components/data/scale.hpp"
+#include "brickengine/components/enums/collision_detection_type.hpp"
 
 EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactory& rf) : entityManager(em), renderableFactory(rf) {
     player_on_death = [em = entityManager](int entity_id) {
         auto transform = em->getComponent<TransformComponent>(entity_id);
         auto player = em->getComponent<PlayerComponent>(entity_id);
-        auto collider = em->getComponent<RectangleColliderComponent>(entity_id);
-
         transform->y_direction = Direction::NEGATIVE;
         player->disabled = true;
-        collider->is_trigger = true;
+        em->removeTag(entity_id, "Player");
+        em->setTag(entity_id, "DeadPlayer");
         em->addComponentToEntity(entity_id, std::make_unique<PickupComponent>(true, false));
     };
     player_revive = [em = entityManager](int entity_id) {
         auto transform = em->getComponent<TransformComponent>(entity_id);
         auto player = em->getComponent<PlayerComponent>(entity_id);
-        auto collider = em->getComponent<RectangleColliderComponent>(entity_id);
-        auto health = em->getComponent<HealthComponent>(entity_id);
         auto physics = em->getComponent<PhysicsComponent>(entity_id);
-
+        auto health = em->getComponent<HealthComponent>(entity_id);
         transform->y_direction = Direction::POSITIVE;
         player->disabled = false;
-        collider->is_trigger = false;
-        em->removeComponentFromEntity<PickupComponent>(entity_id);
         physics->kinematic = Kinematic::IS_NOT_KINEMATIC;
         health->health = health->max_health;
+        em->removeComponentFromEntity<PickupComponent>(entity_id);
+        em->removeTag(entity_id, "DeadPlayer");
+        em->setTag(entity_id, "Player");
     };
     createPistolComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
@@ -56,20 +55,23 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
         comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 31, 22, Direction::POSITIVE, Direction::POSITIVE));
-        comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true));
-        comps->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true));
+        comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+        comps->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
         comps->push_back(std::make_unique<PickupComponent>());
         comps->push_back(std::make_unique<DespawnComponent>(false, true));
         comps->push_back(std::make_unique<WeaponComponent>(
-            DamageComponent(25),
+            DamageComponent(25, true),
             TextureComponent(std::move(bullet_r)),
-            PhysicsComponent(1, 0, 2250, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false),
+            PhysicsComponent(1, 0, 2250, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
+            RectangleColliderComponent(1, 1, 1, false, false),
             Scale(12, 4),
             0.2, 15));
 
-        return std::move(comps);
+        std::vector<std::string> tags { "Weapon" };
+
+        return std::make_pair(std::move(comps), tags);
     };
     createRifleComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
@@ -79,20 +81,23 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
         comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 72, 23, Direction::POSITIVE, Direction::POSITIVE));
-        comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true));
-        comps->push_back(std::make_unique<PhysicsComponent>(75, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true));
+        comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+        comps->push_back(std::make_unique<PhysicsComponent>(75, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
         comps->push_back(std::make_unique<PickupComponent>());
         comps->push_back(std::make_unique<DespawnComponent>(false, true));
         comps->push_back(std::make_unique<WeaponComponent>(
-            DamageComponent(50),
+            DamageComponent(50, true),
             TextureComponent(std::move(bullet_r)),
-            PhysicsComponent(1, 0, 2500, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false),
+            PhysicsComponent(1, 0, 2500, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
+            RectangleColliderComponent(1, 1, 1, false, false),
             Scale(12, 4),
             0.1, 30));
 
-        return std::move(comps);
+        std::vector<std::string> tags { "Weapon" };
+
+        return std::make_pair(std::move(comps), tags);
     };
     createSniperComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
@@ -102,20 +107,23 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
         comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 85, 28, Direction::POSITIVE, Direction::POSITIVE));
-        comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true));
-        comps->push_back(std::make_unique<PhysicsComponent>(80, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true));
+        comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+        comps->push_back(std::make_unique<PhysicsComponent>(80, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
         comps->push_back(std::make_unique<PickupComponent>());
         comps->push_back(std::make_unique<DespawnComponent>(false, true));
         comps->push_back(std::make_unique<WeaponComponent>(
-            DamageComponent(50),
+            DamageComponent(50, true),
             TextureComponent(std::move(bullet_r)),
-            PhysicsComponent(1, 0, 3000, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false),
+            PhysicsComponent(1, 0, 3000, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
+            RectangleColliderComponent(1, 1, 1, false, false),
             Scale(12, 4),
             0.4, 10));
 
-        return std::move(comps);
+        std::vector<std::string> tags { "Weapon" };
+
+        return std::make_pair(std::move(comps), tags);
     };
 }
 
@@ -127,8 +135,8 @@ int EntityFactory::createPlayer(int player_id, Character character, int x, int y
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
     comps->push_back(std::make_unique<TransformComponent>(x, y, character_specs.x_scale, character_specs.y_scale, Direction::POSITIVE, Direction::POSITIVE));
-    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
-    comps->push_back(std::make_unique<PhysicsComponent>(character_specs.mass, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
+    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+    comps->push_back(std::make_unique<PhysicsComponent>(character_specs.mass, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false, CollisionDetectionType::Discrete));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<PlayerComponent>(player_id, character_specs.name));
     comps->push_back(std::make_unique<HealthComponent>(character_specs.health, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
@@ -149,6 +157,8 @@ int EntityFactory::createSpawner(double x_pos, double y_pos, std::vector<GadgetT
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 48, 9, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+    comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false, CollisionDetectionType::Discrete));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     std::vector<SpawnComponent::CreateCompsFn> comps_fns;
     for (auto& type : gadget_types) {
@@ -177,8 +187,8 @@ int EntityFactory::createCritter(double x_pos, double y_pos) const {
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 20, 20, Direction::POSITIVE, Direction::POSITIVE));
-    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true));
-    comps->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false));
+    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+    comps->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false, CollisionDetectionType::Discrete));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
     comps->push_back(std::make_unique<WanderingComponent>());
     comps->push_back(std::make_unique<DespawnComponent>(false, true));
@@ -200,7 +210,8 @@ int EntityFactory::createImage(std::string path, int x_pos, int y_pos, int x_sca
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
 
-    return entityManager->createEntity(std::move(comps), std::nullopt);
+    int entity_id = entityManager->createEntity(std::move(comps), std::nullopt);
+    return entity_id;
 }
 
 int EntityFactory::createPlatform(double x_pos, double y_pos, double x_scale, double y_scale, std::string path, int alpha) {
@@ -209,10 +220,12 @@ int EntityFactory::createPlatform(double x_pos, double y_pos, double x_scale, do
  
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
     comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
-    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false));
+    comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false, true));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
 
-    return entityManager->createEntity(std::move(comps), std::nullopt);
+    int entity_id = entityManager->createEntity(std::move(comps), std::nullopt);
+    entityManager->setTag(entity_id, "Platform");
+    return entity_id;
 }
 
 std::pair<int, int> EntityFactory::createButton(const Button button, const double relative_modifier) {
@@ -299,7 +312,7 @@ const std::vector<std::pair<Character, bool>> EntityFactory::getPickedCharacters
 const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const {
     CharacterSpecs specs = CharacterSpecs();
 
-    switch(character){
+    switch(character) {
         case Character::GORILLA:
             specs.path = "beasts/gorilla/gorilla-1.png";
             specs.x_scale = 50;
@@ -341,6 +354,5 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.health = 100;
             break;
     }
-
     return specs;
-};
+}

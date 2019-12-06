@@ -10,7 +10,7 @@
 
 class SpawnComponent : public ComponentImpl<SpawnComponent> {
 public:
-    using CreateCompsFn = std::function<std::unique_ptr<std::vector<std::unique_ptr<Component>>> ()>;
+    using CreateCompsFn = std::function<std::pair<std::unique_ptr<std::vector<std::unique_ptr<Component>>>, std::vector<std::string>> ()>;
 
     SpawnComponent(int respawn_timer, std::vector<CreateCompsFn> gadget_fns, bool always_respawn);
     static std::string getNameStatic();

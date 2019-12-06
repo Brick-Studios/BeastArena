@@ -2,19 +2,19 @@
 #define FILE_MOVEMENT_SYSTEM_HPP
 
 #include <memory>
-#include "brickengine/collision_detector.hpp"
+#include "brickengine/collision_detector_2.hpp"
 #include "systems/beast_system.hpp"
 #include "entities/entity_factory.hpp"
 
 class MovementSystem : public BeastSystem {
 public:
-    MovementSystem(std::shared_ptr<CollisionDetector> cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef);
+    MovementSystem(CollisionDetector2& cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef);
     void update(double deltatime);
 private:
     static constexpr double JUMP_FORCE = 100'000;
     static constexpr double MOVEMENT_FORCE = 70'000;
 
-    std::shared_ptr<CollisionDetector> collision_detector;
+    CollisionDetector2& collision_detector;
 };
 
 #endif // FILE_MOVEMENT_SYSTEM_HPP

@@ -8,7 +8,7 @@
 #include "brickengine/rendering/renderables/renderable.hpp"
 #include "brickengine/rendering/renderable_factory.hpp"
 #include "brickengine/entities/entity_manager.hpp"
-#include "brickengine/collision_detector.hpp"
+#include "brickengine/collision_detector_2.hpp"
 #include "brickengine/scenes/scene_manager.hpp"
 #include "brickengine/game_state_manager.hpp"
 #include "entities/entity_factory.hpp"
@@ -43,7 +43,7 @@ private:
     std::unique_ptr<BrickEngine> engine;
     std::shared_ptr<EntityManager> entityManager;
     std::shared_ptr<EntityFactory> entityFactory;
-    std::shared_ptr<CollisionDetector> collisionDetector;
+    std::unique_ptr<CollisionDetector2> collision_detector;
     std::unique_ptr<SceneManager<GameState>> scene_manager;
     std::unique_ptr<GameStateManager<GameState>> game_state_manager;
 

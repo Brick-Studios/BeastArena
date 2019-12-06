@@ -7,7 +7,7 @@
 #include "components/hold_component.hpp"
 #include "player_input.hpp"
 
-PickupSystem::PickupSystem(std::shared_ptr<CollisionDetector> cd,
+PickupSystem::PickupSystem(CollisionDetector2& cd,
     std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef)
     : BeastSystem(ef, em), collision_detector(cd) {}
 
@@ -31,40 +31,44 @@ void PickupSystem::update(double){
                 }
             }
             else {
-                auto trigger = collision_detector->isInTrigger(entity_id);
-                if (!trigger.object_id || !trigger.is_in_trigger) continue;
+                auto collisions = collision_detector.detectDiscreteCollision(entity_id);
+                auto entity_transform = entityManager->getComponent<TransformComponent>(entity_id);
+                auto [ entity_position, entity_scale ] = entityManager->getAbsoluteTransform(entity_id);
 
-                auto trigger_pickup = entityManager->getComponent<PickupComponent>(*trigger.object_id);
-                if (trigger_pickup) {
-                    auto collider_id = trigger.object_id.value();
-                    entityManager->moveOutOfParentsHouse(collider_id);
-                    auto collider_transform = entityManager->getComponent<TransformComponent>(collider_id);
-                    auto entity_transform = entityManager->getComponent<TransformComponent>(entity_id);
-                    auto [ entity_position, entity_scale ] = entityManager->getAbsoluteTransform(entity_id);
+                for (auto& collision : collisions) {
+                    if (!collision.is_trigger) continue;
+                    int pickup_entity_id = collision.opposite_id;
+                    auto pickup = entityManager->getComponent<PickupComponent>(pickup_entity_id);
+                    if (!pickup) continue;
+
+                    auto pickup_transform = entityManager->getComponent<TransformComponent>(pickup_entity_id);
+                    entityManager->moveOutOfParentsHouse(collision.opposite_id);
 
                     // Set position
                     if (entity_transform->x_direction == Direction::NEGATIVE) {
-                        collider_transform->x_pos = hold_comp->position.x * -1;
+                        pickup_transform->x_pos = hold_comp->position.x * -1;
                     } else {
-                        collider_transform->x_pos = hold_comp->position.x;
+                        pickup_transform->x_pos = hold_comp->position.x;
                     }
                     if (entity_transform->y_direction == Direction::NEGATIVE) {
-                        collider_transform->y_pos = hold_comp->position.y * -1;
+                        pickup_transform->y_pos = hold_comp->position.y * -1;
                     } else {
-                        collider_transform->y_pos = hold_comp->position.y;
+                        pickup_transform->y_pos = hold_comp->position.y;
                     }
 
                     // Set direction
-                    if (trigger_pickup->match_parent_x_direction)
-                        collider_transform->x_direction = entity_transform->x_direction;
-                    if (trigger_pickup->match_parent_y_direction)
-                        collider_transform->y_direction = entity_transform->y_direction;
+                    if (pickup->match_parent_x_direction)
+                        pickup_transform->x_direction = entity_transform->x_direction;
+                    if (pickup->match_parent_y_direction)
+                        pickup_transform->y_direction = entity_transform->y_direction;
 
                     // Set scale
-                    collider_transform->x_scale /= entity_scale.x;
-                    collider_transform->y_scale /= entity_scale.y;
+                    pickup_transform->x_scale /= entity_scale.x;
+                    pickup_transform->y_scale /= entity_scale.y;
 
-                    entityManager->setParent(collider_id, entity_id, true);
+                    entityManager->setParent(pickup_entity_id, entity_id, true);
+                    // We can only pick up one single thing, so now that we have picked up something, break the loop
+                    break;
                 }
             }
         }

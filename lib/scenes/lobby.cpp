@@ -138,8 +138,8 @@ void Lobby::start() {
     factory.createCritter(800 / getRelativeModifier(), 800 / getRelativeModifier());
 
     // Load weapon spawners
-    factory.createSpawner(300 / getRelativeModifier(), 1080 / getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true);
-    factory.createSpawner(1620 / getRelativeModifier(), 1080 / getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true);
+    factory.createSpawner(300 / getRelativeModifier(), 900 / getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true);
+    factory.createSpawner(1620 / getRelativeModifier(), 900 / getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true);
 
     // Load character selection components
     factory.createCharacterSelector(1, 270 / getRelativeModifier(), 400 / getRelativeModifier());
