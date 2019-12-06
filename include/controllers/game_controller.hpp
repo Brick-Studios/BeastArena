@@ -13,6 +13,7 @@
 #include "brickengine/game_state_manager.hpp"
 #include "entities/entity_factory.hpp"
 #include "enums/game_state.hpp"
+#include "jsons/score_json.hpp"
 
 class GameController {
 public:
@@ -29,6 +30,7 @@ public:
     void loadNextLevel();
     void loadMainMenu();
     void loadEndGameLevel();
+    void showHighscores();
     void intermission(int timer);
 
     static constexpr int MAX_LEVELS = 2;
@@ -46,6 +48,7 @@ private:
     std::unique_ptr<CollisionDetector2> collision_detector;
     std::unique_ptr<SceneManager<GameState>> scene_manager;
     std::unique_ptr<GameStateManager<GameState>> game_state_manager;
+    std::unique_ptr<ScoreJson> score_json;
 
     std::unique_ptr<Renderable> fps_counter;
     double delta_time;

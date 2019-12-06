@@ -19,133 +19,129 @@
 #include "components/character_selection_component.hpp"
 #include "brickengine/std/random.hpp"
 #include "enums/gadget_type.hpp"
+#include "components/stats_component.hpp"
 
 Lobby::Lobby(EntityFactory& factory, BrickEngine& engine, GameController& game_controller)
     : BeastScene(factory, engine, WIDTH, HEIGHT), game_controller(game_controller) { }
 
-void Lobby::start() {
+void Lobby::performPrepare() {
+    entity_components = std::make_unique<std::vector<EntityComponents>>();
     // Create the background
-    factory.createImage("backgrounds/pixel-forest.png", this->screen_width / 2, this->screen_height / 2, this->screen_width, this->screen_height, Layers::Background, 255);
+    entity_components->push_back(factory.createImage("backgrounds/pixel-forest.png", this->width / 2, this->height / 2, this->width, this->height, getRelativeModifier(), Layers::Background, 255));
 
     // Load the buttons
-    Button back_button = Button();
-    back_button.texture_path = "menu/button.png";
-    back_button.alpha = 255;
-    back_button.x = 100;
-    back_button.y = 100;
-    back_button.x_scale = 150;
-    back_button.y_scale = 100;
-    back_button.text.text = "Back";
-    back_button.text.font_size = 72;
-    back_button.text.color = { 255, 255, 255, 255 };
-    back_button.text.x = 100;
-    back_button.text.y = 95;
-    back_button.text.x_scale = 150;
-    back_button.text.y_scale = 100;
-    back_button.on_click = [gm = &game_controller]() {
-        gm->loadMainMenu();
-    };
-    factory.createButton(back_button, getRelativeModifier());
-
-    Button start_game_button = Button();
-    start_game_button.texture_path = "menu/button.png";
-    start_game_button.alpha = 255;
-    start_game_button.x = 960;
-    start_game_button.y = 700;
-    start_game_button.x_scale = 350;
-    start_game_button.y_scale = 150;
-    start_game_button.text.text = "Start Game!";
-    start_game_button.text.font_size = 72;
-    start_game_button.text.color = { 255, 255, 255, 255 };
-    start_game_button.text.x = 960;
-    start_game_button.text.y = 695;
-    start_game_button.text.x_scale = 450;
-    start_game_button.text.y_scale = 150;
-    start_game_button.on_click = [gm = &game_controller]() {
-        gm->startGame();
-    };
-    factory.createButton(start_game_button, getRelativeModifier());
+    {
+        // Back button
+        auto on_click = [gm = &game_controller]() {
+            gm->loadMainMenu();
+        };
+        auto comps_list = factory.createButton("Back", { 255, 255, 255, 255 }, 72, "menu/button.png", 100, 100, 150, 100, 255, getRelativeModifier(), on_click);
+        for(auto& comps : comps_list) {
+            entity_components->push_back(std::move(comps));
+        }
+    }
+    {
+        // Start game button
+        auto on_click = [gm = &game_controller]() {
+            gm->startGame();
+        };
+        auto comps_list = factory.createButton("Start Game!", { 255, 255, 255, 255 }, 72, "menu/button.png", 960, 700, 350, 150, 255, getRelativeModifier(), on_click);
+        for(auto& comps : comps_list) {
+            entity_components->push_back(std::move(comps));
+        }
+    }
 
     // Logo
-    factory.createImage("menu/logo.png", 960 / getRelativeModifier(), 86 / getRelativeModifier(), 680 / getRelativeModifier(), 106 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("menu/logo.png", 960, 86, 680, 106, getRelativeModifier(), Layers::Middleground, 255));
 
     // Help text
-    factory.createText("Press GRAB to start, use movement to select and press GRAB again to confirm", 960 / getRelativeModifier(), 175 / getRelativeModifier(), 1200 / getRelativeModifier(), 50 / getRelativeModifier(), 72, { 0, 0, 0, 255});
+    entity_components->push_back(factory.createText("Press GRAB to start, use movement to select and press GRAB again to confirm", { 0, 0, 0, 255 }, 960, 175, 1200, 50, 72, getRelativeModifier()));
 
     // Player 1 selector
-    factory.createImage("menu/frame.png", 270 / getRelativeModifier(), 400 / getRelativeModifier(), 380 / getRelativeModifier(), 380 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("menu/frame.png", 270, 400, 380, 380, getRelativeModifier(), Layers::Middleground, 255));
     // Player 1 selector background
-    factory.createImage("colors/white.png", 270 / getRelativeModifier(), 370 / getRelativeModifier(), 380 / getRelativeModifier(), 320 / getRelativeModifier(), Layers::Lowground, 90);
+    entity_components->push_back(factory.createImage("colors/white.png", 270, 370, 380, 320, getRelativeModifier(), Layers::Lowground, 90));
     // Player 1 left arrow
-    factory.createImage("arrows/left-arrow.png", 125 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("arrows/left-arrow.png", 125, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
     // Player 1 right arrow
-    factory.createImage("arrows/right-arrow.png", 415 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("arrows/right-arrow.png", 415, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
 
     // Player 2 selector
-    factory.createImage("menu/frame.png", 730 / getRelativeModifier(), 400 / getRelativeModifier(), 380 / getRelativeModifier(), 380 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("menu/frame.png", 730, 400, 380, 380, getRelativeModifier(), Layers::Middleground, 255));
     // Player 2 selector background
-    factory.createImage("colors/white.png", 730 / getRelativeModifier(), 370 / getRelativeModifier(), 380 / getRelativeModifier(), 320 / getRelativeModifier(), Layers::Lowground, 90);
+    entity_components->push_back(factory.createImage("colors/white.png", 730, 370, 380, 320, getRelativeModifier(), Layers::Lowground, 90));
     // Player 2 left arrow
-    factory.createImage("arrows/left-arrow.png", 585 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("arrows/left-arrow.png", 585, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
     // Player 2 right arrow
-    factory.createImage("arrows/right-arrow.png", 875 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("arrows/right-arrow.png", 875, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
 
     // Player 3 selector
-    factory.createImage("menu/frame.png", 1190 / getRelativeModifier(), 400 / getRelativeModifier(), 380 / getRelativeModifier(), 380 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("menu/frame.png", 1190, 400, 380, 380, getRelativeModifier(), Layers::Middleground, 255));
     // Player 3 selector background
-    factory.createImage("colors/white.png", 1190 / getRelativeModifier(), 370 / getRelativeModifier(), 380 / getRelativeModifier(), 320 / getRelativeModifier(), Layers::Lowground, 90);
+    entity_components->push_back(factory.createImage("colors/white.png", 1190, 370, 380, 320, getRelativeModifier(), Layers::Lowground, 90));
     // Player 3 left arrow
-    factory.createImage("arrows/left-arrow.png", 1045 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("arrows/left-arrow.png", 1045, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
     // Player 3 right arrow
-    factory.createImage("arrows/right-arrow.png", 1335 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("arrows/right-arrow.png", 1335, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
 
     // Player 4 selector
-    factory.createImage("menu/frame.png", 1650 / getRelativeModifier(), 400 / getRelativeModifier(), 380 / getRelativeModifier(), 380 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("menu/frame.png", 1650, 400, 380, 380, getRelativeModifier(), Layers::Middleground, 255));
     // Player 4 selector background
-    factory.createImage("colors/white.png", 1650 / getRelativeModifier(), 370 / getRelativeModifier(), 380 / getRelativeModifier(), 320 / getRelativeModifier(), Layers::Lowground, 90);
-    // Player 4 left arrow
-    factory.createImage("arrows/left-arrow.png", 1505 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("colors/white.png", 1650, 370, 380, 320, getRelativeModifier(), Layers::Lowground, 90));
+    // Player 4 left arrow)
+    entity_components->push_back(factory.createImage("arrows/left-arrow.png", 1505, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
     // Player 4 right arrow
-    factory.createImage("arrows/right-arrow.png", 1795 / getRelativeModifier(), 380 / getRelativeModifier(), 40 / getRelativeModifier(), 60 / getRelativeModifier(), Layers::Middleground, 255);
+    entity_components->push_back(factory.createImage("arrows/right-arrow.png", 1795, 380, 40, 60, getRelativeModifier(), Layers::Middleground, 255));
 
     // Bottom solid
-    factory.createPlatform(960 / getRelativeModifier(), 1085 / getRelativeModifier(), 1920 / getRelativeModifier(), 10 / getRelativeModifier(), "colors/black.jpg", 0);
+    entity_components->push_back(factory.createPlatform(960, 1085, 1920, 10, getRelativeModifier(), "colors/black.jpg", 0));
 
     // Left solid
-    factory.createPlatform(-5 / getRelativeModifier(), 540 / getRelativeModifier(), 10 / getRelativeModifier(), 1080 / getRelativeModifier(), "colors/black.jpg", 0);
+    entity_components->push_back(factory.createPlatform(-5, 540, 10, 1080, getRelativeModifier(), "colors/black.jpg", 0));
 
     // Right solid
-    factory.createPlatform(1925 / getRelativeModifier(), 540 / getRelativeModifier(), 10 / getRelativeModifier(), 1080 / getRelativeModifier(), "colors/black.jpg", 0);
+    entity_components->push_back(factory.createPlatform(1925, 540, 10, 1080, getRelativeModifier(), "colors/black.jpg", 0));
 
     // Behind button solid
-    factory.createPlatform(960 / getRelativeModifier(), 700 / getRelativeModifier(), 350 / getRelativeModifier(), 150 / getRelativeModifier(), "colors/black.jpg", 0);
+    entity_components->push_back(factory.createPlatform(960, 700, 350, 150, getRelativeModifier(), "colors/black.jpg", 0));
 
     // Left left solid
-    factory.createPlatform(260 / getRelativeModifier(), 900 / getRelativeModifier(), 196 / getRelativeModifier(), 40 / getRelativeModifier(), "platforms/log.png", 255);
+    entity_components->push_back(factory.createPlatform(260, 900, 196, 40, getRelativeModifier(), "platforms/log.png", 255));
 
     // Left solid
-    factory.createPlatform(560 / getRelativeModifier(), 700 / getRelativeModifier(), 196 / getRelativeModifier(), 40 / getRelativeModifier(), "platforms/log.png", 255);
+    entity_components->push_back(factory.createPlatform(560, 700, 196, 40, getRelativeModifier(), "platforms/log.png", 255));
 
     // Right right solid
-    factory.createPlatform(1660 / getRelativeModifier(), 900 / getRelativeModifier(), 196 / getRelativeModifier(), 40 / getRelativeModifier(), "platforms/log.png", 255);
+    entity_components->push_back(factory.createPlatform(1660, 900, 196, 40, getRelativeModifier(), "platforms/log.png", 255));
 
     // Right solid
-    factory.createPlatform(1360 / getRelativeModifier(), 700 / getRelativeModifier(), 196 / getRelativeModifier(), 40 / getRelativeModifier(), "platforms/log.png", 255);
+    entity_components->push_back(factory.createPlatform(1360, 700, 196, 40, getRelativeModifier(), "platforms/log.png", 255));
     
     // Load critters
-    factory.createCritter(600 / getRelativeModifier(), 800 / getRelativeModifier());
-    factory.createCritter(700 / getRelativeModifier(), 800 / getRelativeModifier());
-    factory.createCritter(800 / getRelativeModifier(), 800 / getRelativeModifier());
+    entity_components->push_back(factory.createCritter(600, 800));
+    entity_components->push_back(factory.createCritter(700, 800));
+    entity_components->push_back(factory.createCritter(800, 800));
+
 
     // Load weapon spawners
-    factory.createSpawner(300 / getRelativeModifier(), 900 / getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true);
-    factory.createSpawner(1620 / getRelativeModifier(), 900 / getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true);
+    entity_components->push_back(factory.createSpawner(300, 1030, getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true));
+    entity_components->push_back(factory.createSpawner(1620, 1030, getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true));
 
     // Load character selection components
-    factory.createCharacterSelector(1, 270 / getRelativeModifier(), 400 / getRelativeModifier());
-    factory.createCharacterSelector(2, 730 / getRelativeModifier(), 400 / getRelativeModifier());
-    factory.createCharacterSelector(3, 1190 / getRelativeModifier(), 400 / getRelativeModifier());
-    factory.createCharacterSelector(4, 1650 / getRelativeModifier(), 400 / getRelativeModifier());
+    entity_components->push_back(factory.createCharacterSelector(1, 270, 400, getRelativeModifier()));
+    entity_components->push_back(factory.createCharacterSelector(2, 730, 400, getRelativeModifier()));
+    entity_components->push_back(factory.createCharacterSelector(3, 1190, 400, getRelativeModifier()));
+    entity_components->push_back(factory.createCharacterSelector(4, 1650, 400, getRelativeModifier()));
+}
+
+void Lobby::start() {
+    // Remove remaining player components
+    auto& em = factory.getEntityManager();
+    auto player_entities = em.getEntitiesByComponent<PlayerComponent>();
+
+    for (auto& [ entity_id, player ] : player_entities ) {
+        em.removeEntity(entity_id);
+    }
 
     engine.toggleCursor(true);
 
@@ -181,7 +177,8 @@ void Lobby::leave() {
         auto random_index = random.getRandomInt(0, available_characters.size() - 1);
 
         auto character_selection_component = em.getComponent<CharacterSelectionComponent>(entity_id);
-        factory.createPlayer(character_selection_component->player_id, available_characters.at(random_index), 500, 500);
+        auto comps = factory.createPlayer(character_selection_component->player_id, available_characters.at(random_index), 500, 500);
+        factory.addToEntityManager(std::move(comps));
 
         available_characters.erase(available_characters.begin() + random_index);
 
@@ -189,10 +186,8 @@ void Lobby::leave() {
     }
 
     auto player_entities = em.getEntitiesByComponent<PlayerComponent>();
-
     for (auto& [ entity_id, player ] : player_entities ) {
         em.removeTag(entity_id, this->getTag());
     }
 }
 
-void Lobby::performPrepare() { }

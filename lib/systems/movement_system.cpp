@@ -1,10 +1,12 @@
 #include <iostream>
 #include <tuple>
+#include <math.h>
 
 #include "brickengine/components/transform_component.hpp"
 #include "brickengine/components/physics_component.hpp"
 #include "brickengine/components/player_component.hpp"
 #include "brickengine/input.hpp"
+#include "brickengine/std/floating_point_comparer.hpp"
 
 #include "systems/movement_system.hpp"
 #include "player_input.hpp"
@@ -43,7 +45,8 @@ void MovementSystem::update(double) {
         }
         // Jumping
         if (input.checkInput(player->player_id, PlayerInput::Y_AXIS) == 1) {
-            bool is_on_platform = collision_detector.detectContinuousCollision(entity_id, Axis::Y, Direction::POSITIVE).space_left == 0;
+            auto collision = collision_detector.detectContinuousCollision(entity_id, Axis::Y, Direction::POSITIVE);
+            bool is_on_platform = FloatingPointComparer::is_equal_to_zero(collision.space_left);
 
             if (is_on_platform) {
                 vy = -1 * (JUMP_FORCE / mass);

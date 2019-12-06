@@ -13,9 +13,6 @@ class Menu : public BeastScene<MenuType> {
 public:
     Menu(EntityFactory& factory, BrickEngine& engine, int width, int height) : BeastScene<MenuType>(factory, engine, width, height) {}
 
-    // Buttons
-    std::vector<Button> buttons;
-
     // Images
     std::vector<Image> images;
 };

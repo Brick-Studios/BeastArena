@@ -1,16 +1,19 @@
 #ifndef FILE_SPAWN_COMPONENT_HPP
 #define FILE_SPAWN_COMPONENT_HPP
 
-#include "brickengine/components/component_impl.hpp"
 #include <functional>
+#include <optional>
 #include <memory>
 #include <vector>
+
+#include "brickengine/scenes/data/entity_components.hpp"
+#include "brickengine/components/component_impl.hpp"
 #include "brickengine/enum/direction.hpp"
 #include "enums/gadget_type.hpp"
 
 class SpawnComponent : public ComponentImpl<SpawnComponent> {
 public:
-    using CreateCompsFn = std::function<std::pair<std::unique_ptr<std::vector<std::unique_ptr<Component>>>, std::vector<std::string>> ()>;
+    using CreateCompsFn = std::function<EntityComponents()>;
 
     SpawnComponent(int respawn_timer, std::vector<CreateCompsFn> gadget_fns, bool always_respawn);
     static std::string getNameStatic();

@@ -1,0 +1,30 @@
+{
+    "Cheetah": {
+        "accidents": 0,
+        "deaths": 0,
+        "killed_critters": 0,
+        "kills": 0,
+        "levels_won": 0
+    },
+    "Elephant": {
+        "accidents": 0,
+        "deaths": 0,
+        "killed_critters": 0,
+        "kills": 0,
+        "levels_won": 0
+    },
+    "Gorilla": {
+        "accidents": 0,
+        "deaths": 0,
+        "killed_critters": 0,
+        "kills": 0,
+        "levels_won": 0
+    },
+    "Panda": {
+        "accidents": 0,
+        "deaths": 0,
+        "killed_critters": 0,
+        "kills": 0,
+        "levels_won": 0
+    }
+}

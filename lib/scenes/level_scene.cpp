@@ -8,9 +8,13 @@
 #include "brickengine/std/random.hpp"
 
 LevelScene::LevelScene(EntityFactory& factory, BrickEngine& engine, Json json)
-    : json(json), BeastScene<LevelScene>(factory, engine, json.getInt("width"), json.getInt("height")) {}
+    : json(json), BeastScene<LevelScene>(factory, engine, json.getInt("width"), json.getInt("height")) {
+        prepared = false;
+    }
 
 void LevelScene::performPrepare() {
+    entity_components = std::make_unique<std::vector<EntityComponents>>();
+
     this->description = json.getString("description");
     this->version = json.getDouble("version");
     this->name = json.getString("name");
@@ -78,22 +82,25 @@ void LevelScene::performPrepare() {
 
         this->critter_spawns.push_back(critter_spawn);
     }
+
+    // Load the spawners and spawn weapons
+    for(int i = 0; i < gadget_spawns.size(); i++) {
+        auto comps = factory.createSpawner(gadget_spawns[i].x,
+            gadget_spawns[i].y,
+            getRelativeModifier(),
+            gadget_spawns[i].available_spawns, 
+            gadget_spawns[i].respawn_timer,
+            gadget_spawns[i].always_respawn);
+        entity_components->push_back(std::move(comps));
+    }
 }
 void LevelScene::start() {
     auto& em = factory.getEntityManager();
     auto& r = Random::getInstance(); 
 
-    // Load the spawners and spawn weapons
-    for(int i = 0; i < gadget_spawns.size(); i++) {
-        int spawner = factory.createSpawner(gadget_spawns[i].x / getRelativeModifier(),
-         gadget_spawns[i].y / getRelativeModifier(), 
-         gadget_spawns[i].available_spawns, 
-         gadget_spawns[i].respawn_timer,
-         gadget_spawns[i].always_respawn);
-    }
-
     // Create the background
-    factory.createImage(this->bg_path, this->screen_width / 2, this->screen_height / 2, this->screen_width, this->screen_height, Layers::Background, 255);
+    auto comps = factory.createImage(this->bg_path, this->width / 2, this->height / 2, this->width, this->height, getRelativeModifier(), Layers::Background, 255);
+    factory.addToEntityManager(std::move(comps));
 
     // Load the players on the spawn locations
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
@@ -124,18 +131,20 @@ void LevelScene::start() {
     // Load the platforms
     for(Solid platform : solids) {
         if(platform.shape == SolidShape::RECTANGLE && platform.effect == SolidEffect::NONE) {
-            int x = platform.x / getRelativeModifier();
-            int y = platform.y / getRelativeModifier();
-            int xScale = platform.xScale / getRelativeModifier();
-            int yScale = platform.yScale / getRelativeModifier();
-            factory.createPlatform(x, y, xScale, yScale, platform.texture_path, platform.alpha);
+            int x = platform.x;
+            int y = platform.y;
+            int xScale = platform.xScale;
+            int yScale = platform.yScale;
+            auto comps = factory.createPlatform(x, y, xScale, yScale, getRelativeModifier(), platform.texture_path, platform.alpha);
+            factory.addToEntityManager(std::move(comps));
         }
     }
-
+    
     // Load the critters on the spawn locations
     for(int i = 0; i < critter_spawns.size(); i++) {
-        factory.createCritter(critter_spawns[i].x / getRelativeModifier(),
+        auto comps = factory.createCritter(critter_spawns[i].x / getRelativeModifier(),
             critter_spawns[i].y / getRelativeModifier());
+        factory.addToEntityManager(std::move(comps));
     }
 
     engine.toggleCursor(false);

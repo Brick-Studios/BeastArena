@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include <tuple>
 
 #include "brickengine/components/transform_component.hpp"
 #include "brickengine/components/colliders/rectangle_collider_component.hpp"
@@ -15,6 +16,7 @@
 #include "components/damage_component.hpp"
 #include "components/weapon_component.hpp"
 #include "components/stats_component.hpp"
+#include "components/ready_component.hpp"
 #include "components/wandering_component.hpp"
 #include "components/character_selection_component.hpp"
 #include "components/spawn_component.hpp"
@@ -43,7 +45,6 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         player->disabled = false;
         physics->kinematic = Kinematic::IS_NOT_KINEMATIC;
         health->health = health->max_health;
-        em->removeComponentFromEntity<PickupComponent>(entity_id);
         em->removeTag(entity_id, "DeadPlayer");
         em->setTag(entity_id, "Player");
     };
@@ -69,9 +70,10 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
             Scale(12, 4),
             0.2, 15));
 
-        std::vector<std::string> tags { "Weapon" };
+        std::vector<std::string> tags;
+        tags.push_back("Weapon");
 
-        return std::make_pair(std::move(comps), tags);
+        return EntityComponents { std::move(comps), tags };
     };
     createRifleComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
@@ -95,9 +97,10 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
             Scale(12, 4),
             0.1, 30));
 
-        std::vector<std::string> tags { "Weapon" };
+        std::vector<std::string> tags;
+        tags.push_back("Weapon");
 
-        return std::make_pair(std::move(comps), tags);
+       return EntityComponents { std::move(comps), tags };
     };
     createSniperComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
@@ -121,13 +124,14 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
             Scale(12, 4),
             0.4, 10));
 
-        std::vector<std::string> tags { "Weapon" };
+        std::vector<std::string> tags;
+        tags.push_back("Weapon");
 
-        return std::make_pair(std::move(comps), tags);
+        return EntityComponents { std::move(comps), tags };
     };
 }
 
-int EntityFactory::createPlayer(int player_id, Character character, int x, int y) const {
+EntityComponents EntityFactory::createPlayer(int player_id, Character character, int x, int y) const {
     auto character_specs = getCharacterSpecs(character);
 
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
@@ -143,20 +147,24 @@ int EntityFactory::createPlayer(int player_id, Character character, int x, int y
     comps->push_back(std::make_unique<DespawnComponent>(false, false));
     comps->push_back(std::make_unique<HoldComponent>(Position {40, -12}));
     comps->push_back(std::make_unique<StatsComponent>());
+    comps->push_back(std::make_unique<ReadyComponent>());
+    comps->push_back(std::make_unique<PickupComponent>());
 
-    int entity = entityManager->createEntity(std::move(comps), std::nullopt);
-    entityManager->setTag(entity, "Player");
-    return entity;
+    std::vector<std::string> tags;
+    tags.push_back("Player");
+
+    return { std::move(comps), tags };
 }
 
-int EntityFactory::createSpawner(double x_pos, double y_pos, std::vector<GadgetType> gadget_types,
+
+EntityComponents EntityFactory::createSpawner(double x_pos, double y_pos, double relative_modifier, std::vector<GadgetType> gadget_types,
                                  int respawn_timer, bool always_respawn) const {
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
     auto r = renderableFactory.createImage(GRAPHICS_PATH + "weapons/spawner-2.png",
                                            (int)Layers::Foreground, std::move(dst), 255);
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-
-    comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, 48, 9, Direction::POSITIVE, Direction::POSITIVE));
+ 
+    comps->push_back(std::make_unique<TransformComponent>(x_pos / relative_modifier, y_pos / relative_modifier, 48, 9, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
     comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false, CollisionDetectionType::Discrete));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
@@ -176,12 +184,14 @@ int EntityFactory::createSpawner(double x_pos, double y_pos, std::vector<GadgetT
     }
     comps->push_back(std::make_unique<SpawnComponent>(respawn_timer, comps_fns, always_respawn));
 
-    int entity = entityManager->createEntity(std::move(comps), std::nullopt);
-    entityManager->setTag(entity, "Spawner");
-    return entity;
+    std::vector<std::string> tags;
+    tags.push_back("Spawner");
+
+    return { std::move(comps), tags };
 }
 
-int EntityFactory::createCritter(double x_pos, double y_pos) const {
+
+EntityComponents EntityFactory::createCritter(double x_pos, double y_pos) const {
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
     auto r = renderableFactory.createImage(GRAPHICS_PATH + "beasts/bunny/bunny-1.png", (int)Layers::Foreground, std::move(dst), 255);
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
@@ -197,82 +207,123 @@ int EntityFactory::createCritter(double x_pos, double y_pos) const {
         em->removeEntity(entity_id);
     }));
 
-    int entity = entityManager->createEntity(std::move(comps), std::nullopt);
-    entityManager->setTag(entity, "Critter");
-    return entity;
+    std::vector<std::string> tags;
+    tags.push_back("Critter");
+
+    return { std::move(comps), tags };
 }
 
-int EntityFactory::createImage(std::string path, int x_pos, int y_pos, int x_scale, int y_scale, Layers layer, int alpha) {
+EntityComponents EntityFactory::createImage(std::string path, int x_pos, int y_pos, int x_scale, int y_scale, double relative_modifier, Layers layer, int alpha) {
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
     auto r = renderableFactory.createImage(GRAPHICS_PATH + path, (int)layer, std::move(dst), alpha);
 
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-    comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<TransformComponent>(x_pos / relative_modifier, y_pos / relative_modifier, x_scale / relative_modifier, y_scale / relative_modifier, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
 
-    int entity_id = entityManager->createEntity(std::move(comps), std::nullopt);
-    return entity_id;
+    std::vector<std::string> tags;
+
+    return { std::move(comps), tags };
 }
 
-int EntityFactory::createPlatform(double x_pos, double y_pos, double x_scale, double y_scale, std::string path, int alpha) {
+EntityComponents EntityFactory::createPlatform(double x_pos, double y_pos, double x_scale, double y_scale, double relative_modifier, std::string path, int alpha) {
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
     auto r = renderableFactory.createImage(GRAPHICS_PATH + path, (int)Layers::Foreground, std::move(dst), alpha);
  
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-    comps->push_back(std::make_unique<TransformComponent>(x_pos, y_pos, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<TransformComponent>(x_pos / relative_modifier, y_pos /relative_modifier, x_scale / relative_modifier, y_scale / relative_modifier, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, false, true));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
 
-    int entity_id = entityManager->createEntity(std::move(comps), std::nullopt);
-    entityManager->setTag(entity_id, "Platform");
-    return entity_id;
+    std::vector<std::string> tags;
+    tags.push_back("Platform");
+    
+    return { std::move(comps), tags };
 }
 
-std::pair<int, int> EntityFactory::createButton(const Button button, const double relative_modifier) {
-    // Make background
-    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
-    auto r = renderableFactory.createImage(GRAPHICS_PATH + button.texture_path, (int)Layers::Middleground, std::move(dst), button.alpha);
+std::vector<EntityComponents> EntityFactory::createButton(std::string text, Color text_color, int font_size,
+    std::string texture_path, int x, int y, int x_scale, int y_scale, 
+    int alpha, double relative_modifier, std::function<void ()> on_click) {
+    std::vector<EntityComponents> component_list;
+    {
+        // Make background
+        auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
+        auto r = renderableFactory.createImage(GRAPHICS_PATH + texture_path, (int)Layers::Middleground, std::move(dst), alpha);
 
-    auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-    comps->push_back(std::make_unique<TransformComponent>(button.x / relative_modifier, button.y / relative_modifier, button.x_scale / relative_modifier, button.y_scale / relative_modifier, Direction::POSITIVE, Direction::POSITIVE));
-    comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
-    comps->push_back(std::make_unique<ClickComponent>(button.on_click, 1, 1));
+        auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
+        comps->push_back(std::make_unique<TransformComponent>(x / relative_modifier, y / relative_modifier, x_scale / relative_modifier, y_scale / relative_modifier, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
+        comps->push_back(std::make_unique<ClickComponent>(on_click, 1, 1));
+        std::vector<std::string> tags;
+        component_list.push_back({std::move(comps), tags});
+    }
+    {
+        auto dstText = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
+        auto rText = renderableFactory.createText(text, font_size, text_color, (int)Layers::Foreground, std::move(dstText));
 
-    int button_id = entityManager->createEntity(std::move(comps), std::nullopt);
-
-    auto dstText = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
-    auto rText = renderableFactory.createText(button.text.text, button.text.font_size, button.text.color, (int)Layers::Foreground, std::move(dstText));
-
-    auto compsText = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-    int x = button.text.x / relative_modifier;
-    int y = button.text.y / relative_modifier;
-    int x_scale = (button.text.x_scale / relative_modifier) / 1.5;
-    int y_scale = (button.text.y_scale / relative_modifier) / 1.5;
-    compsText->push_back(std::make_unique<TransformComponent>(x, y, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
-    compsText->push_back(std::make_unique<TextureComponent>(std::move(rText)));
-
-    int text_id = entityManager->createEntity(std::move(compsText), std::nullopt);
-
-    return std::make_pair(button_id, text_id);
+        auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
+        // Relative to button
+        int text_x = x / relative_modifier;
+        int text_y = (y - 10) / relative_modifier;
+        int text_x_scale = ((text.size() * 30) / relative_modifier);
+        int text_y_scale = ((y_scale - 30) / relative_modifier);
+        comps->push_back(std::make_unique<TransformComponent>(text_x, text_y, text_x_scale, text_y_scale, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TextureComponent>(std::move(rText)));
+        std::vector<std::string> tags;
+        component_list.push_back({std::move(comps), tags});
+    }
+    return std::move(component_list);
 }
 
-int EntityFactory::createText(std::string text, int x, int y, int x_scale, int y_scale, int font_size, Color color) {
+EntityComponents EntityFactory::createText(std::string text, Color color, int font_size, int x, int y, int x_scale, int y_scale, double relative_modifier) {
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
     auto r_text = renderableFactory.createText(text, font_size, color, (int)Layers::UI, std::move(dst));
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-    comps->push_back(std::make_unique<TransformComponent>(x, y, x_scale, y_scale, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<TransformComponent>(x / relative_modifier, y / relative_modifier, x_scale / relative_modifier, y_scale / relative_modifier, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r_text)));
+    std::vector<std::string> tags;
 
-    return entityManager->createEntity(std::move(comps));
+    return { std::move(comps), tags };
 }
 
-int EntityFactory::createCharacterSelector(int player_id, int x, int y) {
+EntityComponents EntityFactory::createTrophy(int x, int y, int x_scale, int y_scale, double relative_modifier, Layers layer, int alpha) {
+    auto comps = createImage("items/trophy.png", x, y, x_scale, y_scale, relative_modifier, layer, alpha);
+    comps.components->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+    comps.components->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
+    comps.components->push_back(std::make_unique<PickupComponent>());
+    comps.components->push_back(std::make_unique<DespawnComponent>(false, true));
+    comps.tags.push_back("Trophy");
+    
+    return std::move(comps);
+}
+
+int EntityFactory::addToEntityManager(EntityComponents entity_components, std::optional<std::pair<int,bool>> parent_opt, std::optional<std::string> scene_tag) {
+    int entity_id = entityManager->createEntity(std::move(entity_components.components), parent_opt, scene_tag);
+    for(auto& tag : entity_components.tags) {
+        entityManager->setTag(entity_id, tag);
+    }
+    return entity_id;
+}
+
+EntityComponents EntityFactory::createReadySign(int x, int y, int x_scale, int y_scale, double relative_modifier, Layers layer, int alpha) {
+    auto comps = createImage("items/ready.png", x, y, x_scale, y_scale, relative_modifier, layer, alpha);
+    comps.components->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+    comps.components->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
+    comps.components->push_back(std::make_unique<PickupComponent>());
+    comps.components->push_back(std::make_unique<DespawnComponent>(false, true));
+    comps.tags.push_back("Ready");
+
+    return { std::move(comps) };
+}
+
+EntityComponents EntityFactory::createCharacterSelector(int player_id, int x, int y, double relative_modifier) {
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
     comps->push_back(std::make_unique<CharacterSelectionComponent>(player_id));
-    comps->push_back(std::make_unique<TransformComponent>(x, y, 0, 0, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<TransformComponent>(x / relative_modifier, y / relative_modifier, 0, 0, Direction::POSITIVE, Direction::POSITIVE));
+    std::vector<std::string> tags;
 
-    return entityManager->createEntity(std::move(comps));
+    return { std::move(comps), tags };
 }
 
 void EntityFactory::changeCharacterSelectorTexture(int entity_id, Character character, bool create){

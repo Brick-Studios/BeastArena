@@ -10,8 +10,8 @@ public:
     static std::string getNameStatic();
 
     // Data
-    double damage;
-    bool despawn;
+    double damage = 0;
+    bool despawn = false;
     std::optional<int> damage_dealer_entity_id;
 };
 
