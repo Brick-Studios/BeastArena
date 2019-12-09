@@ -52,10 +52,10 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/pistol-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
-        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/1.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/fire.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 31, 22, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 33, 24, Direction::POSITIVE, Direction::POSITIVE));
         comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
         comps->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
@@ -67,7 +67,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
             PhysicsComponent(1, 0, 2250, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
             RectangleColliderComponent(1, 1, 1, false, false),
-            Scale(12, 4),
+            Scale(22, 13),
             0.2, 15));
 
         std::vector<std::string> tags;
@@ -79,10 +79,10 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/rifle-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
-        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/1.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/droplet.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 72, 23, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 42, 30, Direction::POSITIVE, Direction::POSITIVE));
         comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
         comps->push_back(std::make_unique<PhysicsComponent>(75, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
@@ -94,7 +94,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
             PhysicsComponent(1, 0, 2500, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
             RectangleColliderComponent(1, 1, 1, false, false),
-            Scale(12, 4),
+            Scale(14, 7),
             0.1, 30));
 
         std::vector<std::string> tags;
@@ -106,10 +106,10 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/sniper-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
-        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/1.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/sniper.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 85, 28, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 96, 28, Direction::POSITIVE, Direction::POSITIVE));
         comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
         comps->push_back(std::make_unique<PhysicsComponent>(80, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));

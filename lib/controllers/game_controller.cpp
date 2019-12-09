@@ -123,6 +123,7 @@ void GameController::createGameStateManager() {
     state_systems->at(GameState::MainMenu)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 
     // Lobby
+    state_systems->at(GameState::Lobby)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<LobbySystem>(entityFactory, entityManager));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<ClickSystem>(entityManager));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<MovementSystem>(*collision_detector, entityManager, entityFactory));
@@ -151,6 +152,8 @@ void GameController::createGameStateManager() {
     state_systems->at(GameState::InGame)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 
+    // End game
+    state_systems->at(GameState::EndGame)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<ClickSystem>(entityManager));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<MovementSystem>(*collision_detector, entityManager, entityFactory));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<PhysicsSystem>(*collision_detector, entityManager, *delta_time_modifier.get()));
