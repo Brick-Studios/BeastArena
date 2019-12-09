@@ -1,5 +1,7 @@
 #include "scenes/level_scene.hpp"
 
+#include <filesystem>
+
 #include "brickengine/json/json.hpp"
 #include "brickengine/components/transform_component.hpp"
 #include "brickengine/components/player_component.hpp"
@@ -92,6 +94,28 @@ void LevelScene::performPrepare() {
             gadget_spawns[i].respawn_timer,
             gadget_spawns[i].always_respawn);
         entity_components->push_back(std::move(comps));
+    }
+
+    // Create billboards
+    for(Json billboard : json.getVector("billboards")) {
+        std::string content_path;
+        // The advertisement image does not exist
+        if (std::filesystem::exists(billboard.getString("content_path")))
+            content_path = json.getString("content_path");
+        else
+            content_path = "advertisement/pisswasser.png";
+
+        // This is billboard frame specific
+        int x = billboard.getInt("x");
+        int y = billboard.getInt("y");
+        int billboard_x_scale = billboard.getInt("x_scale");
+        int billboard_y_scale = billboard.getInt("y_scale");
+        int content_x_scale = billboard_x_scale * 0.965;
+        int content_y_scale = billboard_y_scale * 0.658536585366;
+        int alpha = billboard.getInt("alpha");
+
+        entity_components->push_back(factory.createImage("advertisement/billboard.png", x, y, billboard_x_scale, billboard_y_scale, getRelativeModifier(), Layers::Lowground, alpha));
+        entity_components->push_back(factory.createImage(content_path, x, y, content_x_scale, content_y_scale, getRelativeModifier(), Layers::Lowground, alpha));
     }
 }
 void LevelScene::start() {

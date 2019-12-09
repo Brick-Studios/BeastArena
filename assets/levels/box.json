@@ -38,6 +38,24 @@
             "y": 500
         }
     ],
+    "billboards": [
+        {
+            "x": 250,
+            "y": 200,
+            "alpha": 255,
+            "x_scale": 400,
+            "y_scale": 280,
+            "content_path": "advertisement/does-not-exist.png"
+        },
+        {
+            "x": 1670,
+            "y": 200,
+            "alpha": 255,
+            "x_scale": 400,
+            "y_scale": 280,
+            "content_path": "advertisement/does-not-exist.png"
+        }
+    ],
     "gadget_spawns": [
         {
             "type": "weapon",

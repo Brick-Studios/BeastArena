@@ -64,6 +64,24 @@
             "y": 740
         }
     ],
+    "billboards": [
+        {
+            "x": 250,
+            "y": 200,
+            "alpha": 255,
+            "x_scale": 400,
+            "y_scale": 280,
+            "content_path": "advertisement/pisswasser.png"
+        },
+        {
+            "x": 1670,
+            "y": 200,
+            "alpha": 255,
+            "x_scale": 400,
+            "y_scale": 280,
+            "content_path": "advertisement/pisswasser.png"
+        }
+    ],
     "solids": [
         {
             "shape": "rectangle",
