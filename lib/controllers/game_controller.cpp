@@ -85,7 +85,7 @@ GameController::GameController() {
 
     this->delta_time_modifier = std::unique_ptr<double>(new double(1));
 
-    engine = std::make_unique<BrickEngine>("Beast Arena", SCREEN_WIDTH, SCREEN_HEIGHT, layers, fps_cap);
+    engine = std::make_unique<BrickEngine>("Beast Arena", SCREEN_WIDTH, SCREEN_HEIGHT, layers, fps_cap, EntityFactory::FONT_PATH);
     engine->start();
     entityManager = std::make_shared<EntityManager>();
     entityFactory = std::make_shared<EntityFactory>(entityManager, *engine->getRenderableFactory());

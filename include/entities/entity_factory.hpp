@@ -54,6 +54,7 @@ public:
     const std::vector<Character> getAvailableCharacters() const;
     const std::vector<std::pair<Character, bool>> getPickedCharacters() const;
 
+    inline static const std::string FONT_PATH = "./assets/fonts/Roboto-Bold.ttf";
 private:
     std::shared_ptr<EntityManager> entityManager;
     RenderableFactory& renderableFactory;
