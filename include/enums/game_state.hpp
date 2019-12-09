@@ -3,7 +3,7 @@
 
 enum class GameState {
     Unintialized,
-    MainMenu,
+    Menu,
     Highscore,
     Lobby,
     InGame,

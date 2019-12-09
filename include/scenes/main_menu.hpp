@@ -17,7 +17,7 @@ public:
         return "MainMenu";
     }
     GameState getSystemState() const {
-        return GameState::MainMenu;
+        return GameState::Menu;
     }
     static SceneLayer getLayerStatic() {
         return SceneLayer::Primary;

@@ -73,7 +73,7 @@ void LobbySystem::update(double) {
                         selector->player_entity_id = id;
 
                         // When creating the checkmark, the relative modifier has already been applied so we use modifier 1 to prevent weird sizes and coordinates
-                        ef->addToEntityManager(ef->createImage("menu/check.png", transform_component->x_pos, transform_component->y_pos, 84, 66, 1, Layers::Middleground, 255));
+                        ef->addToEntityManager(ef->createImage("menu/check.png", transform_component->x_pos, transform_component->y_pos, 84, 66, 1, Layers::Foreground, 255));
 
                         input.removeTimeToWait(selector->player_id, PlayerInput::X_AXIS);
                     }

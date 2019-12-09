@@ -20,15 +20,12 @@ MainMenu::MainMenu(EntityFactory& factory, BrickEngine& engine, GameController& 
 void MainMenu::performPrepare() {
     entity_components = std::make_unique<std::vector<EntityComponents>>();
 
-    // General information
-    this->bg_path = "backgrounds/pixel-forest.png";
-    this->bg_music = "music/main.mp3";
-    
+    // Buttons
     {
         auto on_click = [gm = &game_controller]() {
             gm->loadLobby();
         };
-        auto comps_list = factory.createButton("Play Game!", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 340, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Play Game!", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 400, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }
@@ -37,7 +34,25 @@ void MainMenu::performPrepare() {
         auto on_click = [gm = &game_controller]() {
             gm->showHighscores();
         };
-        auto comps_list = factory.createButton("Highscores", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 490, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Highscores", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 520, 400, 100, 255, getRelativeModifier(), on_click);
+        for(auto& comps : comps_list) {
+            entity_components->push_back(std::move(comps));
+        }
+    }
+    {
+        auto on_click = [gm = &game_controller]() {
+            gm->loadHelp();
+        };
+        auto comps_list = factory.createButton("Help", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 640, 400, 100, 255, getRelativeModifier(), on_click);
+        for(auto& comps : comps_list) {
+            entity_components->push_back(std::move(comps));
+        }
+    }
+    {
+        auto on_click = [gm = &game_controller]() {
+            gm->loadCredits();
+        };
+        auto comps_list = factory.createButton("Credits", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 760, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }
@@ -46,7 +61,7 @@ void MainMenu::performPrepare() {
         auto on_click = [gm = &game_controller]() {
             gm->exitGame();
         };
-        auto comps_list = factory.createButton("Exit game", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 640, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Exit game", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 880, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }
@@ -65,7 +80,7 @@ void MainMenu::performPrepare() {
 
 void MainMenu::start() {
     // Create the background
-    auto comps = factory.createImage(this->bg_path, this->width / 2, this->height / 2, this->width, this->height, getRelativeModifier(), Layers::Background, 255);
+    auto comps = factory.createImage("backgrounds/pixel-forest.png", this->width / 2, this->height / 2, this->width, this->height, getRelativeModifier(), Layers::Background, 255);
     factory.addToEntityManager(std::move(comps));
 
     // Load the images
@@ -77,7 +92,7 @@ void MainMenu::start() {
     engine.toggleCursor(true);
 
     if(!engine.getSoundManager().isPlaying()) {
-        engine.getSoundManager().playMusic(this->bg_music);
+        engine.getSoundManager().playMusic("music/main.mp3");
     }
 }
 void MainMenu::leave() {}

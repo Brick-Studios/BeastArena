@@ -53,6 +53,7 @@ public:
 
     const std::vector<Character> getAvailableCharacters() const;
     const std::vector<std::pair<Character, bool>> getPickedCharacters() const;
+
 private:
     std::shared_ptr<EntityManager> entityManager;
     RenderableFactory& renderableFactory;
