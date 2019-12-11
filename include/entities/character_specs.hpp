@@ -12,6 +12,10 @@ public:
     int mass;
     std::string name;
     int health;
+
+    std::string mug_texture;
+    int mug_x_scale;
+    int mug_y_scale;
 };
 
 #endif // FILE_CHARACTER_SPECS_HPP
