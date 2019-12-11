@@ -141,6 +141,33 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
 
         return EntityComponents { std::move(comps), tags };
     };
+    createLaserComponents = [rf = renderableFactory]() {
+        auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
+        auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
+        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/banana-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/banana-bullet-1.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
+
+        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 70, 50, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
+        comps->push_back(std::make_unique<PhysicsComponent>(80, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType::Discrete));
+        comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
+        comps->push_back(std::make_unique<PickupComponent>());
+        comps->push_back(std::make_unique<DespawnComponent>(false, true));
+        comps->push_back(std::make_unique<WeaponComponent>(
+            DamageComponent(100, true),
+            TextureComponent(std::move(bullet_r)),
+            PhysicsComponent(1, 0, 3000, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
+            DespawnComponent(true, true),
+            RectangleColliderComponent(1, 1, 1, false, false),
+            Scale(128, 16),
+            0.1, 9999));
+
+        std::vector<std::string> tags;
+        tags.push_back("Weapon");
+
+        return EntityComponents { std::move(comps), tags };
+    };
 }
 
 EntityComponents EntityFactory::createPlayer(int player_id, Character character, int x, int y) const {
@@ -346,6 +373,16 @@ EntityComponents EntityFactory::createReadySign(int x, int y, int x_scale, int y
     comps.components->push_back(std::make_unique<DespawnComponent>(false, true));
     comps.tags.push_back("Ready");
 
+    return { std::move(comps) };
+}
+
+EntityComponents EntityFactory::createWeaponDrop() {
+    auto comps = createRifleComponents();
+    return { std::move(comps) };
+}
+
+EntityComponents EntityFactory::createLaser() {
+    auto comps = createLaserComponents();
     return { std::move(comps) };
 }
 

@@ -46,6 +46,8 @@ public:
         std::string texture_path, int x, int y, int x_scale, int y_scale, 
         int alpha, double relative_modifier, std::function<void ()> on_click);
     EntityComponents createText(std::string text, Color color, int font_size, int x, int y, int x_scale, int y_scale, double relative_modifier, Layers layer);
+    EntityComponents createWeaponDrop();
+    EntityComponents createLaser();
 
     // STOP! This function is only meant to be used for systems and the start function within scenes. Use the entity_components list whenever possible.
     int addToEntityManager(EntityComponents entity_components, std::optional<std::pair<int,bool>> parent_opt = std::nullopt, std::optional<std::string> scene_tag = std::nullopt);
@@ -72,6 +74,7 @@ private:
     SpawnComponent::CreateCompsFn createPistolComponents;
     SpawnComponent::CreateCompsFn createRifleComponents;
     SpawnComponent::CreateCompsFn createSniperComponents;
+    SpawnComponent::CreateCompsFn createLaserComponents;
 };
 
 #endif // FILE_ENTITY_FACTORY_HPP

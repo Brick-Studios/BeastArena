@@ -40,6 +40,7 @@ using namespace std::chrono_literals;
 #include "systems/highscore_system.hpp"
 #include "systems/lobby_system.hpp"
 #include "systems/spawn_system.hpp"
+#include "systems/cheat_system.hpp"
 #include "systems/hud_system.hpp"
 #include "systems/pause_system.hpp"
 
@@ -157,6 +158,7 @@ void GameController::setGameStateSystems() {
 
     // In game
     state_systems->at(GameState::InGame)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
+    state_systems->at(GameState::InGame)->push_back(std::make_unique<CheatSystem>(entityManager, entityFactory, *this));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<GameSystem>(entityManager, *this, *scene_manager));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<PauseSystem>(entityManager, *this));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<ClickSystem>(entityManager));
@@ -220,10 +222,6 @@ void GameController::setupInput() {
     inputMapping[1][InputKeyCode::EKey_pagedown] = PlayerInput::SPEED_DOWN;
     inputMapping[1][InputKeyCode::EKey_pageup] = PlayerInput::SPEED_UP;
     inputMapping[1][InputKeyCode::EKey_home] = PlayerInput::SPEED_RESET;
-
-    // Assigning the escape key to all the players.
-    for(int i = 1; i <= 4; ++i)
-        inputMapping[i][InputKeyCode::EKey_escape] = PlayerInput::PAUSE;
 
     axis_mapping[InputKeyCode::EKey_w] = 1;
     axis_mapping[InputKeyCode::EKey_a] = -1;
@@ -294,12 +292,27 @@ void GameController::setupInput() {
     inputMapping[4][InputKeyCode::EController_b] = PlayerInput::GRAB;
     inputMapping[4][InputKeyCode::EController_start] = PlayerInput::PAUSE;
 
+    // Cheats
+    for (int i = 1; i <= 4; ++i) {
+        inputMapping[i][InputKeyCode::EKey_f1] = PlayerInput::SKIP_LEVEL;
+        inputMapping[i][InputKeyCode::EKey_f2] = PlayerInput::KILL_EVERYONE_EXCEPT_YOURSELF;
+        inputMapping[i][InputKeyCode::EKey_f3] = PlayerInput::INFINITE_HEALTH;
+        inputMapping[i][InputKeyCode::EKey_f4] = PlayerInput::RANDOM_WEAPON;
+        inputMapping[i][InputKeyCode::EKey_f5] = PlayerInput::LASER_WEAPON;
+        inputMapping[i][InputKeyCode::EKey_escape] = PlayerInput::PAUSE;
+    }
+
     std::unordered_map<PlayerInput, double> time_to_wait_mapping;
     time_to_wait_mapping[PlayerInput::GRAB] = 0.1;
     time_to_wait_mapping[PlayerInput::MOUSE_LEFT] = 0.1;
     time_to_wait_mapping[PlayerInput::SPEED_DOWN] = 0.1;
     time_to_wait_mapping[PlayerInput::SPEED_UP] = 0.1;
     time_to_wait_mapping[PlayerInput::SPEED_RESET] = 0.1;
+    time_to_wait_mapping[PlayerInput::SKIP_LEVEL] = 0.1;
+    time_to_wait_mapping[PlayerInput::INFINITE_HEALTH] = 0.1;
+    time_to_wait_mapping[PlayerInput::RANDOM_WEAPON] = 0.1;
+    time_to_wait_mapping[PlayerInput::KILL_EVERYONE_EXCEPT_YOURSELF] = 0.1;
+    time_to_wait_mapping[PlayerInput::LASER_WEAPON] = 0.1;
     time_to_wait_mapping[PlayerInput::PAUSE] = 0.1;
 
     input.setInputMapping(inputMapping, time_to_wait_mapping, axis_mapping);
