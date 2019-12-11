@@ -63,7 +63,7 @@
             "respawn_timer": 5,
             "always_respawn": true,
             "x": 1000,
-            "y": 1000
+            "y": 950
         },
         {
             "type": "weapon",
@@ -71,7 +71,7 @@
             "respawn_timer": 5,
             "always_respawn": true,
             "x": 1100,
-            "y": 1000
+            "y": 950
         },
         {
             "type": "weapon",
@@ -79,7 +79,7 @@
             "respawn_timer": 5,
             "always_respawn": true,
             "x": 500,
-            "y": 1000
+            "y": 950
         }
     ],
     "solids": [

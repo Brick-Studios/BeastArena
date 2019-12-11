@@ -35,6 +35,10 @@ public:
     EntityComponents createPlayer(int player_id, Character character, int x = -2000, int y = -2000) const;
     EntityComponents createCritter(double x_pos, double y_pos) const;
     EntityComponents createImage(std::string path, int x_pos, int y_pos, int x_scale, int y_scale, double relative_modifier, Layers layer, int alpha);
+    // Animation
+    EntityComponents createImage(std::string path, int x_pos, int y_pos, int x_scale, int y_scale,
+                                 double relative_modifier, Layers layer, int alpha, int sprite_width, 
+                                 int sprite_height, double update_time, int sprite_size);
     EntityComponents createPlatform(double x_pos, double y_pos, double x_scale, double y_scale, double relative_modifier, std::string path, int alpha);
     EntityComponents createTrophy(int x, int y, int x_scale, int y_scale, double relative_modifier, Layers layer, int alpha);
     EntityComponents createReadySign(int x, int y, int x_scale, int y_scale, double relative_modifier, Layers layer, int alpha);

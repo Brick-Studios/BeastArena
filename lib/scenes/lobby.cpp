@@ -122,10 +122,9 @@ void Lobby::performPrepare() {
     entity_components->push_back(factory.createCritter(700, 800));
     entity_components->push_back(factory.createCritter(800, 800));
 
-
     // Load weapon spawners
-    entity_components->push_back(factory.createSpawner(300, 1030, getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true));
-    entity_components->push_back(factory.createSpawner(1620, 1030, getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true));
+    entity_components->push_back(factory.createSpawner(300, 1000, getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true));
+    entity_components->push_back(factory.createSpawner(1620, 1000, getRelativeModifier(), std::vector<GadgetType>{ GadgetType::Pistol, GadgetType::Rifle, GadgetType::Sniper }, 5, true));
 
     // Load character selection components
     entity_components->push_back(factory.createCharacterSelector(1, 270, 400, getRelativeModifier()));
