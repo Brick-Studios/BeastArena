@@ -38,9 +38,9 @@ void EndScene::performPrepare() {
     entity_components->push_back(factory.createImage("colors/blue.jpg", 1155, 1025, 220, 100, getRelativeModifier(), Layers::Foreground, 255));
 
     // Letters
-    entity_components->push_back(factory.createText("1", {255, 255, 255, 255}, 25, 965, 938, 200, 400, getRelativeModifier()));
-    entity_components->push_back(factory.createText("2", {255, 255, 255, 255}, 25, 770, 998, 100, 200, getRelativeModifier()));
-    entity_components->push_back(factory.createText("3", {255, 255, 255, 255}, 25, 1150, 1028, 50, 100, getRelativeModifier()));
+    entity_components->push_back(factory.createText("1", {255, 255, 255, 255}, 25, 965, 938, 200, 400, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("2", {255, 255, 255, 255}, 25, 770, 998, 100, 200, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("3", {255, 255, 255, 255}, 25, 1150, 1028, 50, 100, getRelativeModifier(), Layers::UI));
 
     // Prepare playerspawns;
     player_spawns.push_back({ 950, 500});
@@ -112,7 +112,7 @@ void EndScene::start() {
         }
         text = text + std::to_string(result);
 
-        auto comps = factory.createText(text, { 255, 255, 255, 255 }, 50, this->screen_width / 2, y, 750, 50, 1);
+        auto comps = factory.createText(text, { 255, 255, 255, 255 }, 50, this->screen_width / 2, y, 750, 50, 1, Layers::Foreground);
         comps.tags.push_back(std::to_string(player_component->player_id) + "leaderboard");
         factory.addToEntityManager(std::move(comps));
 

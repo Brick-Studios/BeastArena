@@ -21,7 +21,7 @@ void HighscoreScene::performPrepare() {
         entity_components->push_back(std::move(comps));
 
     // Text
-    entity_components->push_back(factory.createText("Use A and D to cycle between highscores", { 255, 255, 255, 255}, 50, this->width / 2, 100, 500, 50, getRelativeModifier()));
+    entity_components->push_back(factory.createText("Use A and D to cycle between highscores", { 255, 255, 255, 255}, 50, this->width / 2, 100, 500, 50, getRelativeModifier(), Layers::UI));
 
     // Arrows
     entity_components->push_back(factory.createImage("arrows/left-arrow.png", 120, 450, 40, 60, getRelativeModifier(), Layers::Middleground, 255));

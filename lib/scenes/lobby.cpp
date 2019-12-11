@@ -55,7 +55,7 @@ void Lobby::performPrepare() {
     entity_components->push_back(factory.createImage("menu/logo.png", 960, 86, 680, 106, getRelativeModifier(), Layers::Middleground, 255));
 
     // Help text
-    entity_components->push_back(factory.createText("Press GRAB to start, use movement to select and press GRAB again to confirm", { 0, 0, 0, 255 }, 960, 175, 1200, 50, 72, getRelativeModifier()));
+    entity_components->push_back(factory.createText("Press GRAB to start, use movement to select and press GRAB again to confirm", { 0, 0, 0, 255 }, 960, 175, 1200, 50, 72, getRelativeModifier(), Layers::UI));
 
     // Player 1 selector
     entity_components->push_back(factory.createImage("menu/frame.png", 270, 400, 380, 380, getRelativeModifier(), Layers::Middleground, 255));

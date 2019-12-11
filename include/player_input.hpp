@@ -10,7 +10,8 @@ enum PlayerInput {
     MOUSE_RIGHT,
     SPEED_UP,
     SPEED_DOWN,
-    SPEED_RESET
+    SPEED_RESET,
+    PAUSE
 };
 
  #endif // FILE_PLAYER_INPUT_HPP 

@@ -39,19 +39,19 @@ void HelpScene::performPrepare() {
     }
 
     // Text
-    entity_components->push_back(factory.createText("Keyboard colors:", { 255, 255, 255, 255 }, 72, 350, 50, 275, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("Black = player 1", { 255, 255, 255, 255 }, 72, 350, 110, 275, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("Red = player 2", { 255, 255, 255, 255 }, 72, 350, 170, 275, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("Blue = player 3", { 255, 255, 255, 255 }, 72, 350, 230, 275, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("Green = player 4", { 255, 255, 255, 255 }, 72, 350, 290, 275, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("G = Grab", { 255, 255, 255, 255 }, 72, 625, 50, 175, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("S = Shoot", { 255, 255, 255, 255 }, 72, 625, 110, 175, 75, getRelativeModifier()));
+    entity_components->push_back(factory.createText("Keyboard colors:", { 255, 255, 255, 255 }, 72, 350, 50, 275, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("Black = player 1", { 255, 255, 255, 255 }, 72, 350, 110, 275, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("Red = player 2", { 255, 255, 255, 255 }, 72, 350, 170, 275, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("Blue = player 3", { 255, 255, 255, 255 }, 72, 350, 230, 275, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("Green = player 4", { 255, 255, 255, 255 }, 72, 350, 290, 275, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("G = Grab", { 255, 255, 255, 255 }, 72, 625, 50, 175, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("S = Shoot", { 255, 255, 255, 255 }, 72, 625, 110, 175, 75, getRelativeModifier(), Layers::UI));
 
-    entity_components->push_back(factory.createText("Controllers get assigned to players in the", { 255, 255, 255, 255 }, 72, 1250, 500, 1250, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("same order they are connected to the pc", { 255, 255, 255, 255 }, 72, 1250, 560, 1250, 75, getRelativeModifier()));
+    entity_components->push_back(factory.createText("Controllers get assigned to players in the", { 255, 255, 255, 255 }, 72, 1250, 500, 1250, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("same order they are connected to the pc", { 255, 255, 255, 255 }, 72, 1250, 560, 1250, 75, getRelativeModifier(), Layers::UI));
 
-    entity_components->push_back(factory.createText("How to play?", { 255, 255, 255, 255 }, 72, 200, 900, 300, 75, getRelativeModifier()));
-    entity_components->push_back(factory.createText("Try to be the last standing player by killing the other players", { 255, 255, 255, 255 }, 72, 850, 980, 1600, 75, getRelativeModifier()));
+    entity_components->push_back(factory.createText("How to play?", { 255, 255, 255, 255 }, 72, 200, 900, 300, 75, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createText("Try to be the last standing player by killing the other players", { 255, 255, 255, 255 }, 72, 850, 980, 1600, 75, getRelativeModifier(), Layers::UI));
 }
 
 void HelpScene::start() {
