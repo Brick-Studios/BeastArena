@@ -20,13 +20,16 @@ using namespace std::chrono_literals;
 #include "brickengine/components/colliders/rectangle_collider_component.hpp"
 #include "brickengine/rendering/renderable_factory.hpp"
 #include "brickengine/input.hpp"
-#include "brickengine/systems/rendering_system.hpp"
-#include "brickengine/systems/physics_system.hpp"
-#include "brickengine/systems/displacement_system.hpp"
 #include "brickengine/std/random.hpp"
 #include "brickengine/input_keycode.hpp"
 #include "brickengine/json/json.hpp"
 #include "brickengine/scenes/enums/scene_layer.hpp"
+
+// Systems
+#include "brickengine/systems/rendering_system.hpp"
+#include "brickengine/systems/physics_system.hpp"
+#include "brickengine/systems/displacement_system.hpp"
+#include "brickengine/systems/animation_system.hpp"
 
 #include "systems/pickup_system.hpp"
 #include "systems/click_system.hpp"
@@ -155,6 +158,7 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
+    state_systems->at(GameState::Lobby)->push_back(std::make_unique<AnimationSystem>(entityManager));
 
     // In game
     state_systems->at(GameState::InGame)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
@@ -173,6 +177,7 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::InGame)->push_back(std::make_unique<HUDSystem>(entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
+    state_systems->at(GameState::InGame)->push_back(std::make_unique<AnimationSystem>(entityManager));
 
     // Paused
     state_systems->at(GameState::Paused)->push_back(std::make_unique<PauseSystem>(entityManager, *this));
@@ -193,6 +198,7 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
+    state_systems->at(GameState::EndGame)->push_back(std::make_unique<AnimationSystem>(entityManager));
 
     // Highscores
     state_systems->at(GameState::Highscore)->push_back(std::make_unique<ClickSystem>(entityManager));

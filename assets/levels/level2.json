@@ -82,6 +82,8 @@
             "content_path": "advertisement/pisswasser.png"
         }
     ],
+    "animations": [
+    ], 
     "solids": [
         {
             "shape": "rectangle",

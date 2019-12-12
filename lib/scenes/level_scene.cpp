@@ -120,6 +120,22 @@ void LevelScene::performPrepare() {
         entity_components->push_back(factory.createImage(content_path, x, y, content_x_scale, content_y_scale, getRelativeModifier(), Layers::Lowground, alpha));
     }
 
+    // Create animations
+    for(Json animations : json.getVector("animations")) {
+        std::string texture = animations.getString("texture");
+        int sprite_height = animations.getInt("sprite_height");
+        int sprite_width = animations.getInt("sprite_width");
+        double update_time = animations.getDouble("update_time");
+        int sprite_size = animations.getInt("sprite_size");
+        int x = animations.getInt("x");
+        int y = animations.getInt("y");
+        int x_scale = animations.getInt("x_scale");
+        int y_scale = animations.getInt("y_scale");
+
+        entity_components->push_back(factory.createImage(texture, x, y, x_scale, y_scale, getRelativeModifier(), Layers::Middleground, 255,
+                                                        sprite_width, sprite_height, update_time, sprite_size));
+    }
+
     // Create HUD Components
     auto player_entities = factory.getEntityManager().getEntitiesByComponent<PlayerComponent>();
 

@@ -18,6 +18,6 @@ target_compile_features(BeastArena PUBLIC cxx_std_17)
 target_link_libraries(BeastArena PRIVATE BeastArenaLib)
 
 # Custom targets that work on BeastArena
-add_custom_command(TARGET BeastArena PRE_BUILD
+add_custom_target(BeastArena_Resources ALL
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/assets/ $<TARGET_FILE_DIR:BeastArena>/assets)

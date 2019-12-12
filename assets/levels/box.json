@@ -56,6 +56,30 @@
             "content_path": "advertisement/does-not-exist.png"
         }
     ],
+    "animations": [
+        {
+            "texture": "animations/treeapple.png",
+            "sprite_height": 25,
+            "sprite_width": 32,
+            "update_time": 0.2,
+            "sprite_size": 14,
+            "x": 600,
+            "y": 600,
+            "x_scale": 124,
+            "y_scale": 100
+        },
+        {
+            "texture": "animations/tree.png",
+            "sprite_height": 25,
+            "sprite_width": 32,
+            "update_time": 0.2,
+            "sprite_size": 2,
+            "x": 800,
+            "y": 600,
+            "x_scale": 124,
+            "y_scale": 100
+        }
+    ], 
     "gadget_spawns": [
         {
             "type": "weapon",
