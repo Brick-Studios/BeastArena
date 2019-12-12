@@ -8,7 +8,9 @@ enum class GameState {
     Lobby,
     InGame,
     EndGame,
-    Paused
+    Paused,
+    LevelDebugger,
+    Error
 };
 
 #endif // FILE_GAME_STATE_HPP

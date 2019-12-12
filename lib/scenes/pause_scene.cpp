@@ -20,7 +20,7 @@ void PauseScene::performPrepare(){
         entity_components->push_back(std::move(components));
     }
     
-    auto entity_components_list_exit_button = factory.createButton("Exit match", { 255, 255, 255, 255 }, 72, "menu/button.png", WIDTH / 2, 490, 400, 100, 255, getRelativeModifier(), exit_function);
+    auto entity_components_list_exit_button = factory.createButton("Exit", { 255, 255, 255, 255 }, 72, "menu/button.png", WIDTH / 2, 490, 400, 100, 255, getRelativeModifier(), exit_function);
     for(auto& components : entity_components_list_exit_button){
         entity_components->push_back(std::move(components));
     }

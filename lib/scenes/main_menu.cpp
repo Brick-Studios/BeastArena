@@ -25,7 +25,7 @@ void MainMenu::performPrepare() {
         auto on_click = [gm = &game_controller]() {
             gm->loadLobby();
         };
-        auto comps_list = factory.createButton("Play Game!", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 400, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Play Game!", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 350, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }
@@ -34,7 +34,16 @@ void MainMenu::performPrepare() {
         auto on_click = [gm = &game_controller]() {
             gm->showHighscores();
         };
-        auto comps_list = factory.createButton("Highscores", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 520, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Highscores", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 470, 400, 100, 255, getRelativeModifier(), on_click);
+        for(auto& comps : comps_list) {
+            entity_components->push_back(std::move(comps));
+        }
+    }
+    {
+        auto on_click = [gm = &game_controller]() {
+            gm->loadDebugger();
+        };
+        auto comps_list = factory.createButton("Debug level", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 590, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }
@@ -43,7 +52,7 @@ void MainMenu::performPrepare() {
         auto on_click = [gm = &game_controller]() {
             gm->loadHelp();
         };
-        auto comps_list = factory.createButton("Help", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 640, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Help", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 710, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }
@@ -52,7 +61,7 @@ void MainMenu::performPrepare() {
         auto on_click = [gm = &game_controller]() {
             gm->loadCredits();
         };
-        auto comps_list = factory.createButton("Credits", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 760, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Credits", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 830, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }
@@ -61,7 +70,7 @@ void MainMenu::performPrepare() {
         auto on_click = [gm = &game_controller]() {
             gm->exitGame();
         };
-        auto comps_list = factory.createButton("Exit game", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 880, 400, 100, 255, getRelativeModifier(), on_click);
+        auto comps_list = factory.createButton("Exit game", { 255, 255, 255, 255}, 70, "menu/button.png", 960, 950, 400, 100, 255, getRelativeModifier(), on_click);
         for(auto& comps : comps_list) {
             entity_components->push_back(std::move(comps));
         }

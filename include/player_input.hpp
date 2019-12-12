@@ -13,6 +13,9 @@ enum PlayerInput {
     SPEED_RESET,
     PAUSE,
 
+    // Debug
+    REFRESH,
+
     // Cheats
     SKIP_LEVEL,
     INFINITE_HEALTH,
