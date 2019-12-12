@@ -1,0 +1,178 @@
+{
+    "version": 1.0,
+    "name": "Volcano",
+    "description": "Very hot",
+    "width": 1600,
+    "height": 900,
+    "bg_path": "levels/lava/volcano.jpg",
+    "bg_music": "music/lava_music",
+    "player_spawns": [
+        {
+            "x": 200,
+            "y": 200
+        },
+        {
+            "x": 600,
+            "y": 200
+        },
+        {
+            "x": 1000,
+            "y": 200
+        },
+        {
+           "x": 1400,
+           "y": 200
+        }
+    ],
+    "critter_spawns": [
+    ],
+    "billboards": [
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 400,
+            "y": 200
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 800,
+            "y": 200
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1200,
+            "y": 200
+        }
+    ],
+    "animations" : [
+    ],
+    "images": [
+        {
+            "texture_path": "levels/lava/lava.png",
+            "x": 200,
+            "y": 850,
+            "xScale": 400,
+            "yScale": 100,
+            "alpha": 100,
+            "layer": 3
+        },
+        {
+            "texture_path": "levels/lava/lava.png",
+            "x": 600,
+            "y": 850,
+            "xScale": 400,
+            "yScale": 100,
+            "alpha": 100,
+            "layer": 3
+        },
+        {
+            "texture_path": "levels/lava/lava.png",
+            "x": 1000,
+            "y": 850,
+            "xScale": 400,
+            "yScale": 100,
+            "alpha": 100,
+            "layer": 3
+        },
+        {
+            "texture_path": "levels/lava/lava.png",
+            "x": 1400,
+            "y": 850,
+            "xScale": 400,
+            "yScale": 100,
+            "alpha": 100,
+            "layer": 3
+        },
+        {
+            "texture_path": "levels/lava/lava.png",
+            "x": 1800,
+            "y": 850,
+            "xScale": 400,
+            "yScale": 100,
+            "alpha": 100,
+            "layer": 3
+        }
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/stone.png",
+            "alpha": 255,
+            "x": 200,
+            "y": 480,
+            "xScale": 100,
+            "yScale": 30
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/stone.png",
+            "alpha": 255,
+            "x": 400,
+            "y": 680,
+            "xScale": 70,
+            "yScale": 30
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/stone.png",
+            "alpha": 255,
+            "x": 600,
+            "y": 480,
+            "xScale": 100,
+            "yScale": 30
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/stone.png",
+            "alpha": 255,
+            "x": 800,
+            "y": 680,
+            "xScale": 70,
+            "yScale": 30
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/stone.png",
+            "alpha": 255,
+            "x": 1000,
+            "y": 480,
+            "xScale": 100,
+            "yScale": 30
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/stone.png",
+            "alpha": 255,
+            "x": 1200,
+            "y": 680,
+            "xScale": 70,
+            "yScale": 30
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/stone.png",
+            "alpha": 255,
+            "x": 1400,
+            "y": 480,
+            "xScale": 100,
+            "yScale": 30
+        }
+    ]
+}

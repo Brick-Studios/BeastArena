@@ -63,8 +63,8 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
     createPistolComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/pistol-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
-        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/fire.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/pistol-1.png", (int)Layers::Gadgets, std::move(weapon_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/fire.png", (int)Layers::Foreground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
         comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 33, 24, Direction::POSITIVE, Direction::POSITIVE));
@@ -90,8 +90,8 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
     createRifleComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/rifle-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
-        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/droplet.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/rifle-1.png", (int)Layers::Gadgets, std::move(weapon_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/droplet.png", (int)Layers::Foreground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
         comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 42, 30, Direction::POSITIVE, Direction::POSITIVE));
@@ -117,8 +117,8 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
     createSniperComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/sniper-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
-        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/sniper.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/sniper-1.png", (int)Layers::Gadgets, std::move(weapon_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/sniper.png", (int)Layers::Foreground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
         comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 96, 28, Direction::POSITIVE, Direction::POSITIVE));
@@ -144,8 +144,8 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
     createLaserComponents = [rf = renderableFactory]() {
         auto weapon_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
         auto bullet_dst = std::unique_ptr<Rect>(new Rect{ 0, 0, 0, 0 });
-        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/banana-1.png", (int)Layers::Foreground, std::move(weapon_dst), 255);
-        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/banana-bullet-1.png", (int)Layers::Middleground, std::move(bullet_dst), 255);
+        auto weapon_r = rf.createImage(GRAPHICS_PATH + "weapons/banana-1.png", (int)Layers::Gadgets, std::move(weapon_dst), 255);
+        auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/banana-bullet-1.png", (int)Layers::Foreground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
         comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 70, 50, Direction::POSITIVE, Direction::POSITIVE));

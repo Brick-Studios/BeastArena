@@ -94,7 +94,7 @@ GameController::GameController() {
 #endif // PERFORMANCE_DEBUGGING
 
     // From layers.hpp
-    this->layers = { 0, 1, 2, 3, 4, 5, 6 };
+    this->layers = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
     this->delta_time_modifier = std::unique_ptr<double>(new double(1));
 

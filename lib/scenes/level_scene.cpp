@@ -136,6 +136,20 @@ void LevelScene::performPrepare() {
                                                         sprite_width, sprite_height, update_time, sprite_size));
     }
 
+    // Create images
+    for(Json image : json.getVector("images")) {
+        auto texture_path = image.getString("texture_path");
+        int x_pos = image.getInt("x");
+        int y_pos = image.getInt("y");
+        int x_scale = image.getInt("xScale");
+        int y_scale = image.getInt("yScale");
+        int alpha = image.getInt("alpha");
+        Layers layer = static_cast<Layers>(image.getInt("layer"));
+
+        entity_components->push_back(factory.createImage(texture_path, x_pos, y_pos, x_scale, y_scale, getRelativeModifier(), layer, alpha));
+    }
+
+
     // Create HUD Components
     auto player_entities = factory.getEntityManager().getEntitiesByComponent<PlayerComponent>();
 
@@ -196,6 +210,7 @@ void LevelScene::start() {
         transform_component->y_pos = player_spawns[count].y / getRelativeModifier();
         ++count;
     }
+    
     // Load the platforms
     for(Solid platform : solids) {
         if(platform.shape == SolidShape::RECTANGLE && platform.effect == SolidEffect::NONE) {

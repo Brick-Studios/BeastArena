@@ -1,8 +1,9 @@
+#include <filesystem>
 #include "scenes/debug_scene.hpp"
-
 #include "brickengine/json/json.hpp"
 #include "brickengine/components/transform_component.hpp"
 #include "brickengine/components/player_component.hpp"
+#include "components/hud_component.hpp"
 #include "components/despawn_component.hpp"
 #include "scenes/exceptions/not_enough_player_spawns_exception.hpp"
 #include "brickengine/std/random.hpp"
@@ -97,6 +98,86 @@ void DebugScene::performPrepare() {
             gadget_spawns[i].respawn_timer,
             gadget_spawns[i].always_respawn);
         entity_components->push_back(std::move(comps));
+    }
+
+    // Create billboards
+    for(Json billboard : json.getVector("billboards")) {
+        std::string content_path;
+        // The advertisement image does not exist
+        if (std::filesystem::exists(billboard.getString("content_path")))
+            content_path = json.getString("content_path");
+        else
+            content_path = "advertisement/pisswasser.png";
+
+        // This is billboard frame specific
+        int x = billboard.getInt("x");
+        int y = billboard.getInt("y");
+        int billboard_x_scale = billboard.getInt("x_scale");
+        int billboard_y_scale = billboard.getInt("y_scale");
+        int content_x_scale = billboard_x_scale * 0.965;
+        int content_y_scale = billboard_y_scale * 0.658536585366;
+        int alpha = billboard.getInt("alpha");
+
+        entity_components->push_back(factory.createImage("advertisement/billboard.png", x, y, billboard_x_scale, billboard_y_scale, getRelativeModifier(), Layers::Lowground, alpha));
+        entity_components->push_back(factory.createImage(content_path, x, y, content_x_scale, content_y_scale, getRelativeModifier(), Layers::Lowground, alpha));
+    }
+
+    // Create animations
+    for(Json animations : json.getVector("animations")) {
+        std::string texture = animations.getString("texture");
+        int sprite_height = animations.getInt("sprite_height");
+        int sprite_width = animations.getInt("sprite_width");
+        double update_time = animations.getDouble("update_time");
+        int sprite_size = animations.getInt("sprite_size");
+        int x = animations.getInt("x");
+        int y = animations.getInt("y");
+        int x_scale = animations.getInt("x_scale");
+        int y_scale = animations.getInt("y_scale");
+
+        entity_components->push_back(factory.createImage(texture, x, y, x_scale, y_scale, getRelativeModifier(), Layers::Middleground, 255,
+                                                        sprite_width, sprite_height, update_time, sprite_size));
+    }
+    // Create images
+    for(Json image : json.getVector("images")) {
+        auto texture_path = image.getString("texture_path");
+        int x_pos = image.getInt("x");
+        int y_pos = image.getInt("y");
+        int x_scale = image.getInt("xScale");
+        int y_scale = image.getInt("yScale");
+        int alpha = image.getInt("alpha");
+        Layers layer = static_cast<Layers>(image.getInt("layer"));
+
+        entity_components->push_back(factory.createImage(texture_path, x_pos, y_pos, x_scale, y_scale, getRelativeModifier(), layer, alpha));
+    }
+
+    // Create HUD Components
+    auto player_entities = factory.getEntityManager().getEntitiesByComponent<PlayerComponent>();
+
+    int spacing = screen_width / (player_entities.size() + 1);
+    
+    std::vector<int> player_ids;
+    for (auto& [entity_id, player] : player_entities) {
+        player_ids.push_back(player->player_id);
+    }
+    sort(player_ids.begin(), player_ids.end());
+
+    for (auto& [entity_id, player] : player_entities) {
+        auto hud_component = factory.getEntityManager().getComponent<HUDComponent>(entity_id);
+
+        std::vector<int>::iterator it = std::find(player_ids.begin(), player_ids.end(), player->player_id);
+        int index = std::distance(player_ids.begin(), it);
+
+        int x_pos = spacing + (index * spacing);
+        int y_pos = screen_height * 0.07;
+
+        hud_component->x = x_pos;
+        hud_component->y = y_pos;
+
+        double frame_modifier = 1.3;
+        
+        entity_components->push_back(factory.createImage("colors/white.png", hud_component->x, hud_component->y, hud_component->x_scale * frame_modifier, hud_component->y_scale * frame_modifier, 1, Layers::UIBackground, 100));
+        entity_components->push_back(factory.createImage(hud_component->texture, hud_component->x, hud_component->y, hud_component->x_scale, hud_component->y_scale, 1, Layers::UI, 255));
+        entity_components->push_back(factory.createImage("menu/frame2.png", hud_component->x, hud_component->y, hud_component->x_scale * frame_modifier, hud_component->y_scale * frame_modifier, 1, Layers::UI, 255));
     }
 }
 void DebugScene::start() {
