@@ -67,10 +67,15 @@ void EndScene::performPrepare() {
 void EndScene::start() {
     auto& em = factory.getEntityManager();
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
+
     // entity_id and points
     std::vector<std::pair<int, int>> results;
   
     for (auto& [ entity_id, player ] : entities_with_player) {
+        for (auto& child : em.getChildren(entity_id))
+            em.moveOutOfParentsHouse(child);
+        em.moveOutOfParentsHouse(entity_id);
+
         auto stats = em.getComponent<StatsComponent>(entity_id);
         results.push_back(std::make_pair(entity_id, stats->levels_won));
 

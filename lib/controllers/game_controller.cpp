@@ -84,6 +84,7 @@ using namespace std::chrono_literals;
 
 GameController::GameController() {
     this->should_quit = false;
+    this->should_reset_delta_time = false;
 
     this->delta_time = 1;
 #ifdef PERFORMANCE_DEBUGGING
@@ -402,7 +403,11 @@ void GameController::gameLoop() {
 
         auto end_time = std::chrono::high_resolution_clock::now();
         engine->delay(start_time, end_time);
-        delta_time = engine->getDeltatime();
+        if (should_reset_delta_time) {
+            delta_time = 0.00000001;
+            should_reset_delta_time = false;
+        } else
+            delta_time = engine->getDeltatime();
 
 #ifdef PERFORMANCE_DEBUGGING
         totalTime += delta_time;
@@ -487,6 +492,7 @@ void GameController::loadNextLevel() {
         // There are no levels left in the queue.
         loadEndGameLevel();
     }
+    this->should_reset_delta_time = true;
 }
 
 void GameController::intermission(int timer) {
@@ -543,6 +549,7 @@ void GameController::loadEndGameLevel() {
     }
     score_json->writeScores(scores);
     scene_manager->createScene<EndScene>(*entityFactory, *engine);
+    this->should_reset_delta_time = true;
 }
 
 void GameController::pauseGame() {

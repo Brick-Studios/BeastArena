@@ -42,6 +42,7 @@ public:
     inline static const int SCREEN_WIDTH = 1600;
 private:
     bool should_quit;
+    bool should_reset_delta_time;
 
     void createGameStateManager();
     void setGameStateSystems();

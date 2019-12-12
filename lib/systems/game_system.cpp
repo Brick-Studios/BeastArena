@@ -29,14 +29,14 @@ void GameSystem::update(double deltatime) {
             if(seconds == 3 || (!scene_manager.isSceneActive<IntermissionScene>() && timer <= 1)) {
                 game_controller.intermission(seconds);
             }
-            
+
             // If the timer reached above 1 reset it. Update the intermission screen with the new view. 
             if (timer > 1) {
                 timer = 0;
                 --seconds;
                 game_controller.intermission(seconds);
             }
-            
+
             // Load the new level and reset all timers.
             if(seconds <= 0) {
                 auto alive_player = std::find_if(players.begin(), players.end(), [dp = dead_players](std::pair<int, PlayerComponent*> player) -> bool {

@@ -26,7 +26,7 @@ void DespawnSystem::update(double) {
                right < 0 || bottom < 0) {
                 // Kill object. :O
                 auto health = entityManager->getComponent<HealthComponent>(entity_id);
-                if (health) {
+                if (health && health->health > 0) {
                     auto transform = entityManager->getComponent<TransformComponent>(entity_id);
                     auto player = entityManager->getComponent<PlayerComponent>(entity_id);
                     if (player && transform->x_pos != -2000 && transform->y_pos != -2000) {
@@ -48,7 +48,7 @@ void DespawnSystem::update(double) {
                     physics->vx = 0;
                     physics->vy = 0;
                     physics->kinematic = Kinematic::IS_KINEMATIC;
-                } else {
+                } else if (!health) {
                     entityManager->removeEntity(entity_id);
                 }
                 continue;

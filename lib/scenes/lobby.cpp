@@ -17,6 +17,7 @@
 #include "brickengine/input.hpp"
 #include "player_input.hpp"
 #include "components/character_selection_component.hpp"
+#include "components/despawn_component.hpp"
 #include "brickengine/std/random.hpp"
 #include "enums/gadget_type.hpp"
 #include "components/stats_component.hpp"
@@ -186,7 +187,18 @@ void Lobby::leave() {
 
     auto player_entities = em.getEntitiesByComponent<PlayerComponent>();
     for (auto& [ entity_id, player ] : player_entities ) {
+        // removes the lobby tag from the player so that it will not be in an scene
         em.removeTag(entity_id, this->getTag());
+
+        auto transform = em.getComponent<TransformComponent>(entity_id);
+        auto physics = em.getComponent<PhysicsComponent>(entity_id);
+        auto despawn = em.getComponent<DespawnComponent>(entity_id);
+        transform->x_pos = -2000;
+        transform->y_pos = -2000;
+        physics->vx = 0;
+        physics->vy = 0;
+        physics->kinematic = Kinematic::IS_KINEMATIC;
+        despawn->despawn_on_out_of_screen = false;
     }
 }
 

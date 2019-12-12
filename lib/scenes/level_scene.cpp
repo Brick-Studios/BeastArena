@@ -178,25 +178,22 @@ void LevelScene::start() {
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
 
     for(auto& [entity_id, player]: entities_with_player) {
-        for (auto& child : em.getChildren(entity_id)) {
+        for (auto& child : em.getChildren(entity_id))
             em.moveOutOfParentsHouse(child);
-        }
-    }
+        em.moveOutOfParentsHouse(entity_id);
 
+        auto despawn_component = em.getComponent<DespawnComponent>(entity_id);
+        auto health_component = em.getComponent<HealthComponent>(entity_id);
+
+        (*health_component->revive)(entity_id);
+        despawn_component->despawn_on_out_of_screen = true;
+    }
     int count = 0;
     for(auto& [entity_id, player]: entities_with_player) {
-        player->disabled = false;
         auto transform_component = em.getComponent<TransformComponent>(entity_id);
-
-        auto health_component = em.getComponent<HealthComponent>(entity_id);
-        (*health_component->revive)(entity_id);
 
         transform_component->x_pos = player_spawns[count].x / getRelativeModifier();
         transform_component->y_pos = player_spawns[count].y / getRelativeModifier();
-
-        auto despawn_component = em.getComponent<DespawnComponent>(entity_id);
-        despawn_component->despawn_on_out_of_screen = true;
-
         ++count;
     }
     // Load the platforms
@@ -210,7 +207,7 @@ void LevelScene::start() {
             factory.addToEntityManager(std::move(comps));
         }
     }
-    
+
     // Load the critters on the spawn locations
     for(int i = 0; i < critter_spawns.size(); i++) {
         auto comps = factory.createCritter(critter_spawns[i].x / getRelativeModifier(),
@@ -227,11 +224,16 @@ void LevelScene::leave() {
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
     for(auto& [entity_id, player]: entities_with_player) {
         auto transform_component = em.getComponent<TransformComponent>(entity_id);
+        auto despawn_component = em.getComponent<DespawnComponent>(entity_id);
+        auto physics_component = em.getComponent<PhysicsComponent>(entity_id);
+
         transform_component->x_pos = -2000;
         transform_component->y_pos = -2000;
         player->disabled = true;
-        auto despawn_component = em.getComponent<DespawnComponent>(entity_id);
         despawn_component->despawn_on_out_of_screen = false;
+        physics_component->vx = 0;
+        physics_component->vy = 0;
+        physics_component->kinematic = Kinematic::IS_KINEMATIC;
     }
     
     engine.getSoundManager().stopMusic();
