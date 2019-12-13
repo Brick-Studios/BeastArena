@@ -190,11 +190,14 @@ void LevelScene::start() {
 
     // Load the players on the spawn locations
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
+    std::vector<int> available_players {};
 
     for(auto& [entity_id, player]: entities_with_player) {
         for (auto& child : em.getChildren(entity_id))
             em.moveOutOfParentsHouse(child);
         em.moveOutOfParentsHouse(entity_id);
+
+        available_players.push_back(entity_id);
 
         auto despawn_component = em.getComponent<DespawnComponent>(entity_id);
         auto health_component = em.getComponent<HealthComponent>(entity_id);
@@ -202,13 +205,16 @@ void LevelScene::start() {
         (*health_component->revive)(entity_id);
         despawn_component->despawn_on_out_of_screen = true;
     }
-    int count = 0;
-    for(auto& [entity_id, player]: entities_with_player) {
-        auto transform_component = em.getComponent<TransformComponent>(entity_id);
 
-        transform_component->x_pos = player_spawns[count].x / getRelativeModifier();
-        transform_component->y_pos = player_spawns[count].y / getRelativeModifier();
-        ++count;
+    for(int i = 0; i < entities_with_player.size(); i++) {
+        int chosen_player = r.getRandomInt(0, available_players.size() - 1);
+
+        auto transform_component = em.getComponent<TransformComponent>(available_players.at(chosen_player));
+
+        available_players.erase(available_players.begin() + chosen_player);
+
+        transform_component->x_pos = player_spawns.at(i).x / getRelativeModifier();
+        transform_component->y_pos = player_spawns.at(i).y / getRelativeModifier();
     }
     
     // Load the platforms
