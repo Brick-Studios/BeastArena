@@ -74,13 +74,13 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         comps->push_back(std::make_unique<PickupComponent>());
         comps->push_back(std::make_unique<DespawnComponent>(false, true));
         comps->push_back(std::make_unique<WeaponComponent>(
-            DamageComponent(25, true),
+            DamageComponent(60, true),
             TextureComponent(std::move(bullet_r)),
             PhysicsComponent(1, 0, 2250, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
             RectangleColliderComponent(1, 1, 1, false, false),
             Scale(22, 13),
-            0.2, 15));
+            0.8, 15));
 
         std::vector<std::string> tags;
         tags.push_back("Weapon");
@@ -101,7 +101,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         comps->push_back(std::make_unique<PickupComponent>());
         comps->push_back(std::make_unique<DespawnComponent>(false, true));
         comps->push_back(std::make_unique<WeaponComponent>(
-            DamageComponent(50, true),
+            DamageComponent(20, true),
             TextureComponent(std::move(bullet_r)),
             PhysicsComponent(1, 0, 2500, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
@@ -128,13 +128,13 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         comps->push_back(std::make_unique<PickupComponent>());
         comps->push_back(std::make_unique<DespawnComponent>(false, true));
         comps->push_back(std::make_unique<WeaponComponent>(
-            DamageComponent(50, true),
+            DamageComponent(200, true),
             TextureComponent(std::move(bullet_r)),
             PhysicsComponent(1, 0, 3000, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType::Continuous),
             DespawnComponent(true, true),
             RectangleColliderComponent(1, 1, 1, false, false),
             Scale(12, 4),
-            0.4, 10));
+            1, 10));
 
         std::vector<std::string> tags;
         tags.push_back("Weapon");
@@ -441,7 +441,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.sprite_width = 16;
             specs.mass = 100;
             specs.name = "Gorilla";
-            specs.health = 100;
+            specs.health = 120;
             specs.mug_texture = "mugshots/gorilla.png";
             specs.mug_x_scale = 78;
             specs.mug_y_scale = 66;
@@ -465,7 +465,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.sprite_width = 17;
             specs.mass = 90;
             specs.name = "Cheetah";
-            specs.health = 100;
+            specs.health = 70;
             specs.mug_texture = "mugshots/cheetah.png";
             specs.mug_x_scale = 72;
             specs.mug_y_scale = 60;
@@ -477,7 +477,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.sprite_width = 32;
             specs.mass = 105;
             specs.name = "Elephant";
-            specs.health = 100;
+            specs.health = 160;
             specs.mug_texture = "mugshots/elephant.png";
             specs.mug_x_scale = 140;
             specs.mug_y_scale = 68;
