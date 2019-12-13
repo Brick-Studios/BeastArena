@@ -49,6 +49,7 @@ using namespace std::chrono_literals;
 #include "systems/cheat_system.hpp"
 #include "systems/hud_system.hpp"
 #include "systems/pause_system.hpp"
+#include "systems/ui_system.hpp"
 
 #include "entities/layers.hpp"
 #include "player_input.hpp"
@@ -85,6 +86,7 @@ using namespace std::chrono_literals;
 GameController::GameController() {
     this->should_quit = false;
     this->should_reset_delta_time = false;
+    this->should_draw_fps_counter = false;
 
     this->delta_time = 1;
 #ifdef PERFORMANCE_DEBUGGING
@@ -152,11 +154,12 @@ void GameController::setGameStateSystems() {
 
     // Menu
     state_systems->at(GameState::Menu)->push_back(std::make_unique<ClickSystem>(entityManager));
+    state_systems->at(GameState::Menu)->push_back(std::make_unique<UISystem>(entityManager, entityFactory, *this));
     state_systems->at(GameState::Menu)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 
     // Lobby
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
-    state_systems->at(GameState::Lobby)->push_back(std::make_unique<LobbySystem>(entityFactory, entityManager));
+    state_systems->at(GameState::Lobby)->push_back(std::make_unique<LobbySystem>(entityFactory, entityManager, *this));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<ClickSystem>(entityManager));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<MovementSystem>(*collision_detector, entityManager, entityFactory));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<PhysicsSystem>(*collision_detector, entityManager, *delta_time_modifier.get()));
@@ -256,10 +259,7 @@ void GameController::setupInput() {
     inputMapping[1][InputKeyCode::EKey_e] = PlayerInput::SHOOT;
     inputMapping[1][InputKeyCode::EKey_mouse_left] = PlayerInput::MOUSE_LEFT;
     inputMapping[1][InputKeyCode::EKey_mouse_right] = PlayerInput::MOUSE_RIGHT;
-    inputMapping[1][InputKeyCode::EKey_pagedown] = PlayerInput::SPEED_DOWN;
-    inputMapping[1][InputKeyCode::EKey_pageup] = PlayerInput::SPEED_UP;
-    inputMapping[1][InputKeyCode::EKey_home] = PlayerInput::SPEED_RESET;
-
+ 
     axis_mapping[InputKeyCode::EKey_w] = 1;
     axis_mapping[InputKeyCode::EKey_a] = -1;
     axis_mapping[InputKeyCode::EKey_s] = -1;
@@ -328,21 +328,29 @@ void GameController::setupInput() {
     inputMapping[4][InputKeyCode::EController_x] = PlayerInput::SHOOT;
     inputMapping[4][InputKeyCode::EController_b] = PlayerInput::GRAB;
     inputMapping[4][InputKeyCode::EController_start] = PlayerInput::PAUSE;
-
+    
     // Cheats
-    for (int i = 1; i <= 4; ++i) {
-        inputMapping[i][InputKeyCode::EKey_f1] = PlayerInput::SKIP_LEVEL;
-        inputMapping[i][InputKeyCode::EKey_f2] = PlayerInput::KILL_EVERYONE_EXCEPT_YOURSELF;
-        inputMapping[i][InputKeyCode::EKey_f3] = PlayerInput::INFINITE_HEALTH;
-        inputMapping[i][InputKeyCode::EKey_f4] = PlayerInput::RANDOM_WEAPON;
-        inputMapping[i][InputKeyCode::EKey_f5] = PlayerInput::LASER_WEAPON;
+    inputMapping[20][InputKeyCode::EKey_f1] = PlayerInput::SKIP_LEVEL;
+    inputMapping[20][InputKeyCode::EKey_f2] = PlayerInput::KILL_EVERYONE_EXCEPT_YOURSELF;
+    inputMapping[20][InputKeyCode::EKey_f3] = PlayerInput::INFINITE_HEALTH;
+    inputMapping[20][InputKeyCode::EKey_f4] = PlayerInput::RANDOM_WEAPON;
+    inputMapping[20][InputKeyCode::EKey_f5] = PlayerInput::LASER_WEAPON;
 
-        // Debugger
-        inputMapping[i][InputKeyCode::EKey_f5] = PlayerInput::REFRESH;
+    // Debugger
+    inputMapping[20][InputKeyCode::EKey_f6] = PlayerInput::REFRESH;
 
-        // Pause
+    inputMapping[20][InputKeyCode::EKey_f7] = PlayerInput::TOGGLE_FPS_COUNTER;
+
+    // Pause
+    for(int i = 1; i <= 4; ++i) {
+        inputMapping[i][InputKeyCode::EController_select] = PlayerInput::QUICK_PLAY;
         inputMapping[i][InputKeyCode::EKey_escape] = PlayerInput::PAUSE;
     }
+
+    // Gamespeed modifier
+    inputMapping[20][InputKeyCode::EKey_pageup] = PlayerInput::SPEED_UP;
+    inputMapping[20][InputKeyCode::EKey_pagedown] = PlayerInput::SPEED_DOWN;
+    inputMapping[20][InputKeyCode::EKey_home] = PlayerInput::SPEED_RESET;
 
     std::unordered_map<PlayerInput, double> time_to_wait_mapping;
     time_to_wait_mapping[PlayerInput::GRAB] = 0.1;
@@ -355,6 +363,7 @@ void GameController::setupInput() {
     time_to_wait_mapping[PlayerInput::RANDOM_WEAPON] = 0.1;
     time_to_wait_mapping[PlayerInput::KILL_EVERYONE_EXCEPT_YOURSELF] = 0.1;
     time_to_wait_mapping[PlayerInput::LASER_WEAPON] = 0.1;
+    time_to_wait_mapping[PlayerInput::TOGGLE_FPS_COUNTER] = 0.1;
     time_to_wait_mapping[PlayerInput::PAUSE] = 0.1;
 
     input.setInputMapping(inputMapping, time_to_wait_mapping, axis_mapping);
@@ -379,8 +388,14 @@ void GameController::gameLoop() {
         for (auto& system : game_state_manager->getSystems()) {
             system->update(delta_time);
         }
+        
+        auto& input = BrickInput<PlayerInput>::getInstance();
+        if(input.checkInput(20, PlayerInput::TOGGLE_FPS_COUNTER)) 
+            should_draw_fps_counter = !should_draw_fps_counter;
 
-        engine->drawFpsCounter();
+        if(should_draw_fps_counter)
+            engine->drawFpsCounter();
+
         engine->getRenderer()->drawScreen();
 
 #ifdef PERFORMANCE_DEBUGGING

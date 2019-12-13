@@ -11,7 +11,8 @@
 #include "brickengine/components/player_component.hpp"
 #include "brickengine/json/json.hpp"
 
-LobbySystem::LobbySystem(std::shared_ptr<EntityFactory> ef, std::shared_ptr<EntityManager> em) : BeastSystem(ef, em), ef(ef), em(em) { };
+LobbySystem::LobbySystem(std::shared_ptr<EntityFactory> ef, std::shared_ptr<EntityManager> em, GameController& gc)
+    : game_controller(gc), BeastSystem(ef, em), ef(ef), em(em) { };
 
 void LobbySystem::update(double) {
     auto& input = BrickInput<PlayerInput>::getInstance();
@@ -285,6 +286,11 @@ void LobbySystem::update(double) {
             }
         }
     }
+
+    // Start tha game
+    for(int i = 1; i <= 4; ++i)
+        if(input.checkInput(1, PlayerInput::QUICK_PLAY))
+            game_controller.startGame();
 }
 
 void LobbySystem::reset() {

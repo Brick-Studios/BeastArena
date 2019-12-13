@@ -43,6 +43,7 @@ public:
 private:
     bool should_quit;
     bool should_reset_delta_time;
+    bool should_draw_fps_counter;
 
     void createGameStateManager();
     void setGameStateSystems();

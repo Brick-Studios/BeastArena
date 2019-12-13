@@ -28,18 +28,18 @@ void CheatSystem::update(double deltatime) {
     }
 
     // Next scene
-    if(input.checkInput(player_id, PlayerInput::SKIP_LEVEL)) {
+    if(input.checkInput(20, PlayerInput::SKIP_LEVEL)) {
         game_controller.loadNextLevel();
     }
 
     // Infinite Health
-    if(input.checkInput(player_id, PlayerInput::INFINITE_HEALTH)) {
+    if(input.checkInput(20, PlayerInput::INFINITE_HEALTH)) {
         auto health_component = entityManager->getComponent<HealthComponent>(entity_id);
         health_component->health = std::numeric_limits<double>::infinity();
     }
 
     // Weapon drop
-    if(input.checkInput(player_id, PlayerInput::RANDOM_WEAPON)) {
+    if(input.checkInput(20, PlayerInput::RANDOM_WEAPON)) {
         auto transform_component = entityManager->getComponent<TransformComponent>(entity_id);
         auto comps = entity_factory->createWeaponDrop();
         int entity_id = entity_factory->addToEntityManager(std::move(comps));
@@ -49,7 +49,7 @@ void CheatSystem::update(double deltatime) {
     }
 
     // Godmode laser
-    if(input.checkInput(player_id, PlayerInput::LASER_WEAPON)) {
+    if(input.checkInput(20, PlayerInput::LASER_WEAPON)) {
         auto transform_component = entityManager->getComponent<TransformComponent>(entity_id);
         auto comps = entity_factory->createLaser();
         int entity_id = entity_factory->addToEntityManager(std::move(comps));
@@ -59,7 +59,7 @@ void CheatSystem::update(double deltatime) {
     }
 
     // Kill everyone except the first player
-    if(input.checkInput(player_id, PlayerInput::KILL_EVERYONE_EXCEPT_YOURSELF)) {
+    if(input.checkInput(20, PlayerInput::KILL_EVERYONE_EXCEPT_YOURSELF)) {
         for(auto& player : entityManager->getEntitiesByComponent<PlayerComponent>()) {
             if(player_id != player.second->player_id) {
                 // Die Die Die....
@@ -69,4 +69,10 @@ void CheatSystem::update(double deltatime) {
             }
         }
     }
+}
+
+void CheatSystem::reset() {
+    // Remove intermission if present
+    if (game_controller.getSceneManager().isSceneActive<IntermissionScene>())
+        game_controller.getSceneManager().destroyScene(IntermissionScene::getLayerStatic());
 }

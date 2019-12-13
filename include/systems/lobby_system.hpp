@@ -6,17 +6,19 @@
 #include <string>
 
 #include "systems/beast_system.hpp"
+#include "controllers/game_controller.hpp"
 #include "entities/entity_factory.hpp"
 #include "enums/character.hpp"
 
 class LobbySystem : public BeastSystem {
 public:
-    LobbySystem(std::shared_ptr<EntityFactory> ef, std::shared_ptr<EntityManager> em);
+    LobbySystem(std::shared_ptr<EntityFactory> ef, std::shared_ptr<EntityManager> em, GameController& gc);
     void update(double deltatime);
     void reset();
 private:
     std::shared_ptr<EntityFactory> ef;
     std::shared_ptr<EntityManager> em;
+    GameController& game_controller;
 
     std::vector<std::pair<Character, bool>> picked_characters;
     std::vector<std::pair<std::string, bool>> picked_names;
