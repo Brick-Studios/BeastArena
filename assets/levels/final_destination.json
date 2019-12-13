@@ -5,7 +5,7 @@
     "width": 1920,
     "height": 1080,
     "bg_path": "levels/final_destination/final_destination_background.jpg",
-    "bg_music": "music/forest.mp3",
+    "bg_music": "music/final_destination_music.mp3",
     "player_spawns": [
         {
             "x": 500,

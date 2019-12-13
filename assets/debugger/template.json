@@ -1,0 +1,68 @@
+{
+    "version": 1.0,
+    "name": "LEVEL_NAME",
+    "description": "LEVEL_DESCRIPTION",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "colors/paper.jpg",
+    "bg_music": "music/forest.mp3",
+    "player_spawns": [
+        {
+            "x": 100,
+            "y": 100
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 100,
+            "y": 100
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 100,
+            "y": 100
+        }
+    ],
+    "billboards": [
+        {
+            "x": 100,
+            "y": 100,
+            "alpha": 255,
+            "x_scale": 100,
+            "y_scale": 100,
+            "content_path": "advertisement/pisswasser.png"
+        }
+    ],
+    "animations": [
+        {
+            "texture": "animations/treeapple.png",
+            "sprite_height": 25,
+            "sprite_width": 32,
+            "update_time": 0.2,
+            "sprite_size": 14,
+            "x": 100,
+            "y": 100,
+            "x_scale": 100,
+            "y_scale": 100
+        }
+    ], 
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 0,
+            "y": 540,
+            "xScale": 10,
+            "yScale": 1080
+        }
+    ],
+    "images": [
+    ]
+}

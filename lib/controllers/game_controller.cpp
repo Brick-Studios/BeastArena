@@ -167,8 +167,8 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<DespawnSystem>(*collision_detector, entityManager, SCREEN_WIDTH, SCREEN_HEIGHT));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
-    state_systems->at(GameState::Lobby)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<AnimationSystem>(entityManager));
+    state_systems->at(GameState::Lobby)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 
     // In game
     state_systems->at(GameState::InGame)->push_back(std::make_unique<GameSpeedSystem>(entityManager, *delta_time_modifier.get()));
@@ -186,8 +186,8 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::InGame)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<HUDSystem>(entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
-    state_systems->at(GameState::InGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<AnimationSystem>(entityManager));
+    state_systems->at(GameState::InGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 
     // Paused
     state_systems->at(GameState::Paused)->push_back(std::make_unique<PauseSystem>(entityManager, *this));
@@ -207,8 +207,8 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<DespawnSystem>(*collision_detector, entityManager, SCREEN_WIDTH, SCREEN_HEIGHT));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
-    state_systems->at(GameState::EndGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
     state_systems->at(GameState::EndGame)->push_back(std::make_unique<AnimationSystem>(entityManager));
+    state_systems->at(GameState::EndGame)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 
     // LevelDebugger
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<PauseSystem>(entityManager, *this));
@@ -222,6 +222,7 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<DespawnSystem>(*collision_detector, entityManager, SCREEN_WIDTH, SCREEN_HEIGHT));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));
+    state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<AnimationSystem>(entityManager));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<RenderingSystem>(entityManager, *engine->getRenderer()));
 
     // Error
@@ -435,6 +436,7 @@ int GameController::getScreenHeight() const {
 void GameController::loadLobby() {
     scene_manager->destroyAllScenes();
     scene_manager->createScene<Lobby>(*entityFactory, *engine, *this);
+    this->should_reset_delta_time = true;
 }
 
 void GameController::startGame() {
@@ -507,6 +509,7 @@ void GameController::loadDebugger(){
         Json level_json { "./assets/debugger/level.json", true };
 
         scene_manager->createScene<DebugScene>(*entityFactory, *engine, level_json);
+        this->should_reset_delta_time = true;
     }
     catch(NoValidJsonOrPathException ej){
         scene_manager->createScene<ErrorScene>(*entityFactory, *engine, ej.what(), [this](){this->loadMainMenu();});

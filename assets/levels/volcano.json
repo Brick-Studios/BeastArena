@@ -5,7 +5,7 @@
     "width": 1600,
     "height": 900,
     "bg_path": "levels/lava/volcano.jpg",
-    "bg_music": "music/lava_music",
+    "bg_music": "music/lava_music.mp3",
     "player_spawns": [
         {
             "x": 200,

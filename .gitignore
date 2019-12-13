@@ -31,3 +31,5 @@ main.plist
 # Ignore build folder contents
 build/*
 !/build/.gitkeep
+
+assets/debugger/level.json
