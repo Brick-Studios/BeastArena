@@ -20,7 +20,6 @@ void HighscoreSystem::update(double) {
         else {
             auto score = scores.at(selector);
             createHighscores(score.first, score.second);
-            selector++;
             initialized = true;
         }
     }
@@ -29,18 +28,18 @@ void HighscoreSystem::update(double) {
         int x = input.checkInput(1, PlayerInput::X_AXIS);
         if(x > 0) {
             entityManager->removeEntitiesWithTag("HighscoreScene_player");
-            auto score = scores.at(selector);
-            createHighscores(score.first, score.second);
             selector++;
             if (selector > scores.size() - 1)
                 selector = 0;
-        } else if(x < 0) {
-            entityManager->removeEntitiesWithTag("HighscoreScene_player");
             auto score = scores.at(selector);
             createHighscores(score.first, score.second);
+        } else if(x < 0) {
+            entityManager->removeEntitiesWithTag("HighscoreScene_player");
             selector--;
             if (selector < 0)
                 selector = scores.size() - 1;
+            auto score = scores.at(selector);
+            createHighscores(score.first, score.second);
         }
     }
 }
