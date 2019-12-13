@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <utility>
+#include <string>
 
 #include "systems/beast_system.hpp"
 #include "entities/entity_factory.hpp"
@@ -18,6 +19,7 @@ private:
     std::shared_ptr<EntityManager> em;
 
     std::vector<std::pair<Character, bool>> picked_characters;
+    std::vector<std::pair<std::string, bool>> picked_names;
 };
 
 #endif // FILE_LOBBY_SYSTEM_HPP

@@ -19,6 +19,7 @@
 #include "components/ready_component.hpp"
 #include "components/wandering_component.hpp"
 #include "components/character_selection_component.hpp"
+#include "components/name_selection_component.hpp"
 #include "components/spawn_component.hpp"
 #include "components/hold_component.hpp"
 #include "components/hud_component.hpp"
@@ -170,7 +171,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
     };
 }
 
-EntityComponents EntityFactory::createPlayer(int player_id, Character character, int x, int y) const {
+EntityComponents EntityFactory::createPlayer(int player_id, Character character, std::string name, int x, int y) const {
     auto character_specs = getCharacterSpecs(character);
 
     auto src = std::unique_ptr<Rect>(new Rect{ 0, 0, character_specs.sprite_width, 32 });
@@ -182,7 +183,7 @@ EntityComponents EntityFactory::createPlayer(int player_id, Character character,
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
     comps->push_back(std::make_unique<PhysicsComponent>(character_specs.mass, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false, CollisionDetectionType::Discrete));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
-    comps->push_back(std::make_unique<PlayerComponent>(player_id, character_specs.name));
+    comps->push_back(std::make_unique<PlayerComponent>(player_id, name));
     comps->push_back(std::make_unique<HealthComponent>(character_specs.health, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
     comps->push_back(std::make_unique<DespawnComponent>(false, false));
     comps->push_back(std::make_unique<HoldComponent>(Position {40, -12}));
@@ -385,9 +386,9 @@ EntityComponents EntityFactory::createLaser() {
     return { std::move(comps) };
 }
 
-EntityComponents EntityFactory::createCharacterSelector(int player_id, int x, int y, double relative_modifier) {
+EntityComponents EntityFactory::createCharacterSelector(int player_id, int x, int y, double relative_modifier, int left_arrow_id, int right_arrow_id) {
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
-    comps->push_back(std::make_unique<CharacterSelectionComponent>(player_id));
+    comps->push_back(std::make_unique<CharacterSelectionComponent>(player_id, left_arrow_id, right_arrow_id));
     comps->push_back(std::make_unique<TransformComponent>(x / relative_modifier, y / relative_modifier, 0, 0, Direction::POSITIVE, Direction::POSITIVE));
     std::vector<std::string> tags;
 
@@ -401,7 +402,7 @@ void EntityFactory::changeCharacterSelectorTexture(int entity_id, Character char
         entityManager->removeComponentFromEntity<TextureComponent>(entity_id);
     
     auto character_specs = getCharacterSpecs(character);
-    auto src = std::unique_ptr<Rect>(new Rect{ 0, 0 , character_specs.sprite_width, 32});
+    auto src = std::unique_ptr<Rect>(new Rect{ 0, 0 , character_specs.sprite_width, character_specs.sprite_height});
     auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
     auto r = renderableFactory.createImage(GRAPHICS_PATH + character_specs.path, (int)Layers::Middleground, std::move(dst), std::move(src), 255);
     entityManager->addComponentToEntity(entity_id, std::make_unique<TextureComponent>(std::move(r)));
@@ -409,6 +410,56 @@ void EntityFactory::changeCharacterSelectorTexture(int entity_id, Character char
 
     entityManager->getComponent<TransformComponent>(entity_id)->x_scale = character_specs.x_scale;
     entityManager->getComponent<TransformComponent>(entity_id)->y_scale = character_specs.y_scale;
+}
+
+EntityComponents EntityFactory::createNameSelector(int player_id, int x, int y, double relative_modifier, int left_arrow_id, int right_arrow_id) {
+    auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
+    comps->push_back(std::make_unique<NameSelectionComponent>(player_id, left_arrow_id, right_arrow_id));
+    comps->push_back(std::make_unique<TransformComponent>(x / relative_modifier, y / relative_modifier, 0, 0, Direction::POSITIVE, Direction::POSITIVE));
+    std::vector<std::string> tags;
+
+    return { std::move(comps), tags };
+}
+
+void EntityFactory::changeNameSelectorName(int entity_id, std::string name, bool create, bool final){
+    // When create is true, no name is being displayed yet
+    // When create is false, the old name needs to be deleted before a new one is added
+    if(!create)
+        entityManager->removeComponentFromEntity<TextureComponent>(entity_id);
+
+    auto dst = std::unique_ptr<Rect>(new Rect{ 0, 0 , 0, 0});
+
+    if(name.size() > 20) {
+        // This is too long --> break it
+        name = name.substr(0, 17) + "...";
+    }
+
+    Color color;
+    if(final) {
+        color = { 10, 176, 0, 255 };
+    } else {
+        color = { 255, 255, 255, 255 };
+    }
+
+    auto r_text = renderableFactory.createText(FONT_PATH, name, 72, color,  (int)Layers::Middleground, std::move(dst));
+    entityManager->addComponentToEntity(entity_id, std::make_unique<TextureComponent>(std::move(r_text)));
+
+    // We move out of the parents house, set the transform and move back in.
+    // So that the entityManager can calculate the relativity for us.
+    int parent = *entityManager->getParent(entity_id);
+    entityManager->moveOutOfParentsHouse(entity_id);
+
+    int x_scale;
+    if(name.size() <= 5) {
+        // Scale needs to be resized to prevent deforming
+        x_scale = name.size() * 30;
+    } else {
+        x_scale = 200;
+    }
+
+    entityManager->getComponent<TransformComponent>(entity_id)->x_scale = x_scale;
+    entityManager->getComponent<TransformComponent>(entity_id)->y_scale = 40;
+    entityManager->setParent(entity_id, parent, false);
 }
 
 const std::vector<Character> EntityFactory::getAvailableCharacters() const {
@@ -439,6 +490,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.x_scale = 50;
             specs.y_scale = 100;
             specs.sprite_width = 16;
+            specs.sprite_height = 32;
             specs.mass = 100;
             specs.name = "Gorilla";
             specs.health = 120;
@@ -451,6 +503,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.x_scale = 63;
             specs.y_scale = 100;
             specs.sprite_width = 20;
+            specs.sprite_height = 32;
             specs.mass = 95;
             specs.name = "Panda";
             specs.health = 100;
@@ -463,6 +516,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.x_scale = 50;
             specs.y_scale = 100;
             specs.sprite_width = 17;
+            specs.sprite_height = 32;
             specs.mass = 90;
             specs.name = "Cheetah";
             specs.health = 70;
@@ -475,6 +529,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.x_scale = 100;
             specs.y_scale = 100;
             specs.sprite_width = 32;
+            specs.sprite_height = 32;
             specs.mass = 105;
             specs.name = "Elephant";
             specs.health = 160;
@@ -487,6 +542,7 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.x_scale = 50;
             specs.y_scale = 100;
             specs.sprite_width = 16;
+            specs.sprite_height = 32;
             specs.mass = 100;
             specs.name = "Question-mark";
             specs.health = 100;

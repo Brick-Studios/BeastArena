@@ -9,6 +9,7 @@ public:
     int x_scale;
     int y_scale;
     int sprite_width;
+    int sprite_height;
     int mass;
     std::string name;
     int health;

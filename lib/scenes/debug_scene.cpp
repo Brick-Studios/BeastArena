@@ -35,7 +35,7 @@ void DebugScene::performPrepare() {
         player_spawn.x = player_spawn_json.getInt("x");
         player_spawn.y = player_spawn_json.getInt("y");
         
-        factory.addToEntityManager(factory.createPlayer(player_count, Character(player_count - 1), -2000, -2000));
+        factory.addToEntityManager(factory.createPlayer(player_count, Character(player_count - 1), "Debug player " + std::to_string(player_count), -2000, -2000));
         ++player_count;
 
         this->player_spawns.push_back(player_spawn);
