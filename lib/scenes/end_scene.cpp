@@ -49,14 +49,14 @@ void EndScene::performPrepare() {
     player_spawns.push_back({ 1700, 500});
 
     // Spawn the trophy
-    entity_components->push_back(factory.createTrophy(WIDTH / 2, 400, 50, 75, getRelativeModifier(), Layers::Middleground, 255));
+    entity_components->push_back(factory.createTrophy(WIDTH / 2, 400, 50, 75, getRelativeModifier(), Layers::Gadgets, 255));
 
 
     auto& em = factory.getEntityManager();
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
     // Spawn the signs (there are always 2)
-    entity_components->push_back(factory.createReadySign(200, 980, 100, 50, getRelativeModifier(), Layers::Foreground, 255));
-    entity_components->push_back(factory.createReadySign(300, 980, 100, 50, getRelativeModifier(), Layers::Foreground, 255));
+    entity_components->push_back(factory.createReadySign(200, 980, 100, 50, getRelativeModifier(), Layers::Gadgets, 255));
+    entity_components->push_back(factory.createReadySign(300, 980, 100, 50, getRelativeModifier(), Layers::Gadgets, 255));
     if(entities_with_player.size() > 2) {
         entity_components->push_back(factory.createReadySign(1720, 980, 100, 50, getRelativeModifier(), Layers::Foreground, 255));
         if(entities_with_player.size() > 3)

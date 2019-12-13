@@ -28,8 +28,10 @@ void PauseScene::performPrepare(){
 }
 
 void PauseScene::start() {
+    engine.getSoundManager().toggleMusic(true);
 }
 
 void PauseScene::leave() {
     engine.toggleCursor(false);
+    engine.getSoundManager().toggleMusic(false);
 }
