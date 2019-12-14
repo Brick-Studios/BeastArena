@@ -64,11 +64,11 @@ public:
     const std::vector<std::pair<Character, bool>> getPickedCharacters() const;
 
     inline static const std::string FONT_PATH = "./assets/fonts/Roboto-Bold.ttf";
+    inline static const std::string GRAPHICS_PATH = "./assets/graphics/";
 private:
     std::shared_ptr<EntityManager> entityManager;
     RenderableFactory& renderableFactory;
 
-    inline static const std::string GRAPHICS_PATH = "./assets/graphics/";
     inline static const int POINTS_ON_KILL_PLAYER = 10;
     HealthComponent::EntityFunction player_on_death;
     HealthComponent::EntityFunction player_revive;

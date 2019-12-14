@@ -1,0 +1,234 @@
+{
+    "version": 1.0,
+    "name": "Windows 95",
+    "description": "Going back through time",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "levels/windows_95/empty_wall.png",
+    "bg_music": "music/old_skool_funky.mp3",
+    "player_spawns": [
+        {
+            "x": 400,
+            "y": 450
+        },
+        {
+            "x": 1500,
+            "y": 250
+        },
+        {
+            "x": 1050,
+            "y": 200
+        },
+        {
+            "x": 910,
+            "y": 370
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 700,
+            "y": 1015
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 1600,
+            "y": 750
+        }
+    ],
+    "critter_spawns": [
+    ],
+    "billboards": [
+        {
+            "x": 120,
+            "y": 240,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 200,
+            "content_path": "advertisement/appel.png"
+        },
+        {
+            "x": 120,
+            "y": 540,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 200,
+            "content_path": "advertisement/appel.png"
+        },
+        {
+            "x": 120,
+            "y": 840,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 200,
+            "content_path": "advertisement/appel.png"
+        },
+        {
+            "x": 1800,
+            "y": 240,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 200,
+            "content_path": "advertisement/appel.png"
+        },
+        {
+            "x": 1800,
+            "y": 540,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 200,
+            "content_path": "advertisement/appel.png"
+        },
+        {
+            "x": 1800,
+            "y": 840,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 200,
+            "content_path": "advertisement/appel.png"
+        }
+    ],
+    "animations": [
+        {
+            "texture": "animations/mouse_animation1.png",
+            "sprite_width": 1600,
+            "sprite_height": 900,
+            "update_time": 0.1,
+            "sprite_size": 10,
+            "x": 1050,
+            "y": 500,
+            "x_scale": 1920,
+            "y_scale": 1080
+        }
+    ], 
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/my_pc_window.png",
+            "alpha": 255,
+            "x": 1509,
+            "y": 890,
+            "x_scale": 342,
+            "y_scale": 259
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/pictogram_accessibility.png",
+            "alpha": 255,
+            "x": 1265,
+            "y": 950,
+            "x_scale": 155,
+            "y_scale": 104
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/pictogram_bin.png",
+            "alpha": 255,
+            "x": 1300,
+            "y": 520,
+            "x_scale": 127,
+            "y_scale": 110
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/pictogram_internet.png",
+            "alpha": 255,
+            "x": 1050,
+            "y": 300,
+            "x_scale": 79,
+            "y_scale": 105
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/pictogram_joystick.png",
+            "alpha": 255,
+            "x": 900,
+            "y": 480,
+            "x_scale": 86,
+            "y_scale": 110
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/pictogram_modems.png",
+            "alpha": 255,
+            "x": 1500,
+            "y": 300,
+            "x_scale": 88,
+            "y_scale": 106
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/pictogram_mypc.png",
+            "alpha": 255,
+            "x": 400,
+            "y": 250,
+            "x_scale": 138,
+            "y_scale": 110
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/start_menu_popout.png",
+            "alpha": 255,
+            "x": 769,
+            "y": 739,
+            "x_scale": 310,
+            "y_scale": 63
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/windows_95/start_menu.png",
+            "alpha": 255,
+            "x": 430,
+            "y": 755,
+            "x_scale": 369,
+            "y_scale": 528
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",   
+            "texture_path": "levels/windows_95/task_bar.png",
+            "alpha": 255,
+            "x": 960,
+            "y": 1050,
+            "x_scale": 1440,
+            "y_scale": 63
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 80,
+            "y": 540,
+            "x_scale": 320,
+            "y_scale": 1920
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1840,
+            "y": 540,
+            "x_scale": 320,
+            "y_scale": 1920
+        }
+    ],
+    "images": [
+    ]
+}

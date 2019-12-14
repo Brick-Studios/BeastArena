@@ -21,7 +21,7 @@ void ErrorScene::performPrepare(){
     entity_components->push_back(factory.createText(this->error_message, {255,179,179,0}, 100, width / 2, height / 2, (width / 100) * error_message.size(), 100, getRelativeModifier(), Layers::UI));
 
     // Add the error message to the scene.
-    std::string return_message = "Press F5 to reload or press the back button.";
+    std::string return_message = "Press F6 to reload or press the back button.";
     entity_components->push_back(factory.createText(return_message, {255,255, 255,255}, 100, width / 2, height - 100, (width / 100) * return_message.size(), 70, getRelativeModifier(), Layers::UI));
 }
 

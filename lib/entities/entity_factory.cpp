@@ -69,7 +69,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/fire.png", (int)Layers::Foreground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 33, 24, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 26, 19, Direction::POSITIVE, Direction::POSITIVE));
         comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
         comps->push_back(std::make_unique<PhysicsComponent>(50, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType(true, false)));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
@@ -81,7 +81,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
             PhysicsComponent(1, 0, 2250, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType(true, true)),
             DespawnComponent(true, true),
             RectangleColliderComponent(1, 1, 1, false, false),
-            Scale(22, 13),
+            Scale(18, 10),
             0.8, 15));
 
         std::vector<std::string> tags;
@@ -96,7 +96,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/droplet.png", (int)Layers::Foreground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 42, 30, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 33, 24, Direction::POSITIVE, Direction::POSITIVE));
         comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
         comps->push_back(std::make_unique<PhysicsComponent>(75, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType(true, false)));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
@@ -123,7 +123,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto bullet_r = rf.createImage(GRAPHICS_PATH + "bullets/sniper.png", (int)Layers::Foreground, std::move(bullet_dst), 255);
         auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
 
-        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 96, 28, Direction::POSITIVE, Direction::POSITIVE));
+        comps->push_back(std::make_unique<TransformComponent>(-2000, -2000, 76, 22, Direction::POSITIVE, Direction::POSITIVE));
         comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
         comps->push_back(std::make_unique<PhysicsComponent>(80, false, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, true, CollisionDetectionType(true, false)));
         comps->push_back(std::make_unique<TextureComponent>(std::move(weapon_r)));
@@ -162,7 +162,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
             PhysicsComponent(1, 0, 3000, 0, false, Kinematic::IS_NOT_KINEMATIC, false, false, CollisionDetectionType(true, true)),
             DespawnComponent(true, true),
             RectangleColliderComponent(1, 1, 1, false, false),
-            Scale(128, 16),
+            Scale(102, 12),
             0.1, 9999));
 
         std::vector<std::string> tags;
@@ -187,7 +187,7 @@ EntityComponents EntityFactory::createPlayer(int player_id, Character character,
     comps->push_back(std::make_unique<PlayerComponent>(player_id, name));
     comps->push_back(std::make_unique<HealthComponent>(character_specs.health, player_on_death, player_revive, POINTS_ON_KILL_PLAYER));
     comps->push_back(std::make_unique<DespawnComponent>(false, false));
-    comps->push_back(std::make_unique<HoldComponent>(Position {40, -12}));
+    comps->push_back(std::make_unique<HoldComponent>(Position { character_specs.hold_x, character_specs.hold_y }));
     comps->push_back(std::make_unique<StatsComponent>());
     comps->push_back(std::make_unique<ReadyComponent>());
     comps->push_back(std::make_unique<HUDComponent>(character_specs.mug_texture, character_specs.mug_x_scale, character_specs.mug_y_scale));
@@ -207,7 +207,7 @@ EntityComponents EntityFactory::createSpawner(double x_pos, double y_pos, double
                                            (int)Layers::Foreground, std::move(dst), 255);
     auto comps = std::make_unique<std::vector<std::unique_ptr<Component>>>();
  
-    comps->push_back(std::make_unique<TransformComponent>(x_pos / relative_modifier, y_pos / relative_modifier, 48, 9, Direction::POSITIVE, Direction::POSITIVE));
+    comps->push_back(std::make_unique<TransformComponent>(x_pos / relative_modifier, y_pos / relative_modifier, 38, 7, Direction::POSITIVE, Direction::POSITIVE));
     comps->push_back(std::make_unique<RectangleColliderComponent>(1, 1, 1, true, true));
     comps->push_back(std::make_unique<PhysicsComponent>(100, true, 0, 0, true, Kinematic::IS_NOT_KINEMATIC, true, false, CollisionDetectionType(true, false)));
     comps->push_back(std::make_unique<TextureComponent>(std::move(r)));
@@ -488,8 +488,8 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
     switch(character) {
         case Character::GORILLA:
             specs.path = "beasts/gorilla/gorilla-idle.png";
-            specs.x_scale = 50;
-            specs.y_scale = 100;
+            specs.x_scale = 40;
+            specs.y_scale = 80;
             specs.sprite_width = 16;
             specs.sprite_height = 32;
             specs.mass = 100;
@@ -498,11 +498,13 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.mug_texture = "mugshots/gorilla.png";
             specs.mug_x_scale = 78;
             specs.mug_y_scale = 66;
+            specs.hold_x = 32;
+            specs.hold_y = -9;
             break;
         case Character::PANDA:
             specs.path = "beasts/panda/panda-idle.png";
-            specs.x_scale = 63;
-            specs.y_scale = 100;
+            specs.x_scale = 50;
+            specs.y_scale = 80;
             specs.sprite_width = 20;
             specs.sprite_height = 32;
             specs.mass = 95;
@@ -511,11 +513,13 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.mug_texture = "mugshots/panda.png";
             specs.mug_x_scale = 96;
             specs.mug_y_scale = 66;
+            specs.hold_x = 35;
+            specs.hold_y = -14;
             break;
         case Character::CHEETAH:
             specs.path = "beasts/cheetah/cheetah-idle.png";
-            specs.x_scale = 50;
-            specs.y_scale = 100;
+            specs.x_scale = 40;
+            specs.y_scale = 80;
             specs.sprite_width = 17;
             specs.sprite_height = 32;
             specs.mass = 90;
@@ -524,11 +528,13 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.mug_texture = "mugshots/cheetah.png";
             specs.mug_x_scale = 72;
             specs.mug_y_scale = 60;
+            specs.hold_x = 27;
+            specs.hold_y = -10;
             break;
         case Character::ELEPHANT:
             specs.path = "beasts/elephant/elephant-idle.png";
-            specs.x_scale = 100;
-            specs.y_scale = 100;
+            specs.x_scale = 80;
+            specs.y_scale = 80;
             specs.sprite_width = 32;
             specs.sprite_height = 32;
             specs.mass = 105;
@@ -537,11 +543,13 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.mug_texture = "mugshots/elephant.png";
             specs.mug_x_scale = 140;
             specs.mug_y_scale = 68;
+            specs.hold_x = 45;
+            specs.hold_y = -25;
             break;
         case Character::RANDOM:
             specs.path = "menu/question-mark-idle.png";
-            specs.x_scale = 50;
-            specs.y_scale = 100;
+            specs.x_scale = 40;
+            specs.y_scale = 80;
             specs.sprite_width = 16;
             specs.sprite_height = 32;
             specs.mass = 100;
@@ -550,6 +558,8 @@ const CharacterSpecs EntityFactory::getCharacterSpecs(Character character) const
             specs.mug_texture = "";
             specs.mug_x_scale = 0;
             specs.mug_y_scale = 0;
+            specs.hold_x = 30;
+            specs.hold_y = -10;
             break;
     }
     return specs;

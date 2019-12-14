@@ -17,6 +17,9 @@ public:
     std::string mug_texture;
     int mug_x_scale;
     int mug_y_scale;
+
+    double hold_x;
+    double hold_y;
 };
 
 #endif // FILE_CHARACTER_SPECS_HPP

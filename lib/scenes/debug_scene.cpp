@@ -104,8 +104,8 @@ void DebugScene::performPrepare() {
     for(Json billboard : json.getVector("billboards")) {
         std::string content_path;
         // The advertisement image does not exist
-        if (std::filesystem::exists(billboard.getString("content_path")))
-            content_path = json.getString("content_path");
+        if (std::filesystem::exists(EntityFactory::GRAPHICS_PATH + billboard.getString("content_path")))
+            content_path = billboard.getString("content_path");
         else
             content_path = "advertisement/pisswasser.png";
 
@@ -190,8 +190,10 @@ void DebugScene::start() {
 
     // Load the players on the spawn locations
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
+    std::vector<int> available_players {};
 
     for(auto& [entity_id, player]: entities_with_player) {
+        available_players.push_back(entity_id);
         for (auto& child : em.getChildren(entity_id)) {
             em.moveOutOfParentsHouse(child);
         }
@@ -212,6 +214,16 @@ void DebugScene::start() {
         despawn_component->despawn_on_out_of_screen = true;
 
         ++count;
+    }
+    for(int i = 0; i < entities_with_player.size(); i++) {
+        int chosen_player = r.getRandomInt(0, available_players.size() - 1);
+
+        auto transform_component = em.getComponent<TransformComponent>(available_players.at(chosen_player));
+
+        available_players.erase(available_players.begin() + chosen_player);
+
+        transform_component->x_pos = player_spawns.at(i).x / getRelativeModifier();
+        transform_component->y_pos = player_spawns.at(i).y / getRelativeModifier();
     }
 
     // Load the platforms

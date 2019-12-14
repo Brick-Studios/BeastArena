@@ -27,7 +27,7 @@ void DespawnSystem::update(double) {
             if (left > screen_width || top > screen_height ||
                right < 0 || bottom < 0) {
                 // Kill object. :O
-                if (entityManager->hasTag(entity_id, "Player")) {
+                if (entityManager->hasTag(entity_id, "Player") || entityManager->hasTag(entity_id, "Weapon")) {
                     if (top < screen_height) {
                         continue;
                     }

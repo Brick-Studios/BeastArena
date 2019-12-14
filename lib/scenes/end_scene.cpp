@@ -55,12 +55,12 @@ void EndScene::performPrepare() {
     auto& em = factory.getEntityManager();
     auto entities_with_player = em.getEntitiesByComponent<PlayerComponent>();
     // Spawn the signs (there are always 2)
-    entity_components->push_back(factory.createReadySign(200, 980, 100, 50, getRelativeModifier(), Layers::Gadgets, 255));
-    entity_components->push_back(factory.createReadySign(300, 980, 100, 50, getRelativeModifier(), Layers::Gadgets, 255));
+    entity_components->push_back(factory.createReadySign(200, 980, 80, 40, getRelativeModifier(), Layers::Gadgets, 255));
+    entity_components->push_back(factory.createReadySign(300, 980, 80, 40, getRelativeModifier(), Layers::Gadgets, 255));
     if(entities_with_player.size() > 2) {
-        entity_components->push_back(factory.createReadySign(1720, 980, 100, 50, getRelativeModifier(), Layers::Foreground, 255));
+        entity_components->push_back(factory.createReadySign(1720, 980, 80, 40, getRelativeModifier(), Layers::Foreground, 255));
         if(entities_with_player.size() > 3)
-            entity_components->push_back(factory.createReadySign(1620, 980, 100, 50, getRelativeModifier(), Layers::Foreground, 255));
+            entity_components->push_back(factory.createReadySign(1620, 980, 80, 40, getRelativeModifier(), Layers::Foreground, 255));
     }
 }
 

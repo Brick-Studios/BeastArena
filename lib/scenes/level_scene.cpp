@@ -102,8 +102,8 @@ void LevelScene::performPrepare() {
     for(Json billboard : json.getVector("billboards")) {
         std::string content_path;
         // The advertisement image does not exist
-        if (std::filesystem::exists(billboard.getString("content_path")))
-            content_path = json.getString("content_path");
+        if (std::filesystem::exists(EntityFactory::GRAPHICS_PATH + billboard.getString("content_path")))
+            content_path = billboard.getString("content_path");
         else
             content_path = "advertisement/pisswasser.png";
 

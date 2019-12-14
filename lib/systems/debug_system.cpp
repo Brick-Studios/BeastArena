@@ -12,7 +12,7 @@ void DebugSystem::update(double) {
     auto& input = BrickInput<PlayerInput>::getInstance();
 
     // User wants to reload the level to view their newly made changes.
-    if (input.checkInput(1, PlayerInput::REFRESH)){
+    if (input.checkInput(20, PlayerInput::REFRESH)){
         this->on_reload();
     }
 }
