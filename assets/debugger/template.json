@@ -1,68 +1,66 @@
 {
     "version": 1.0,
-    "name": "LEVEL_NAME",
-    "description": "LEVEL_DESCRIPTION",
+    "name": "TEMPLATE",
+    "description": "THIS IS THE DESCRIPTION",
     "width": 1920,
     "height": 1080,
-    "bg_path": "colors/paper.jpg",
-    "bg_music": "music/forest.mp3",
+    "bg_path": "colors/white.png",
+    "bg_music": "music/AI_2.mp3",
     "player_spawns": [
         {
-            "x": 100,
-            "y": 100
+            "x": 200,
+            "y": 200
+        },
+        {
+            "x": 600,
+            "y": 200
+        },
+        {
+            "x": 1000,
+            "y": 200
+        },
+        {
+           "x": 1400,
+           "y": 200
         }
+    ],
+    "critter_spawns": [
+    ],
+    "billboards": [
     ],
     "gadget_spawns": [
         {
             "type": "weapon",
-            "available_spawns": ["pistol", "rifle", "sniper"],
+            "available_spawns": ["pistol"],
             "respawn_timer": 5,
-            "always_respawn": true,
-            "x": 100,
-            "y": 100
+            "always_respawn": false,
+            "x": 400,
+            "y": 200
         }
     ],
-    "critter_spawns": [
-        {
-            "x": 100,
-            "y": 100
-        }
+    "animations" : [
     ],
-    "billboards": [
+    "images": [
         {
-            "x": 100,
-            "y": 100,
-            "alpha": 255,
-            "x_scale": 100,
+            "texture_path": "levels/lava/lava.png",
+            "x": 200,
+            "y": 850,
+            "x_scale": 400,
             "y_scale": 100,
-            "content_path": "advertisement/pisswasser.png"
+            "alpha": 100,
+            "layer": 3
         }
     ],
-    "animations": [
-        {
-            "texture": "animations/treeapple.png",
-            "sprite_height": 25,
-            "sprite_width": 32,
-            "update_time": 0.2,
-            "sprite_size": 14,
-            "x": 100,
-            "y": 100,
-            "x_scale": 100,
-            "y_scale": 100
-        }
-    ], 
     "solids": [
         {
             "shape": "rectangle",
             "effect": "none",
-            "texture_path": "colors/black.jpg",
+            "texture_path": "levels/lava/stone.png",
             "alpha": 255,
-            "x": 0,
-            "y": 540,
-            "xScale": 10,
-            "yScale": 1080
+            "x": 200,
+            "y": 480,
+            "x_scale": 100,
+            "y_scale": 30
         }
-    ],
-    "images": [
     ]
 }

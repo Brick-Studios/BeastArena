@@ -70,8 +70,8 @@
             "texture_path": "levels/final_destination/final_destination_top.png",
             "x": 960,
             "y": 550,
-            "xScale": 1800,
-            "yScale": 200,
+            "x_scale": 1800,
+            "y_scale": 200,
             "alpha": 255,
             "layer": 2
         }
@@ -84,8 +84,8 @@
             "alpha": 255,
             "x": 960,
             "y": 850,
-            "xScale": 1800,
-            "yScale": 450
+            "x_scale": 1800,
+            "y_scale": 450
         }
     ]
 }

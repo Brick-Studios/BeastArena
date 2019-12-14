@@ -61,8 +61,8 @@
             "texture_path": "levels/lava/lava.png",
             "x": 200,
             "y": 850,
-            "xScale": 400,
-            "yScale": 100,
+            "x_scale": 400,
+            "y_scale": 100,
             "alpha": 100,
             "layer": 3
         },
@@ -70,8 +70,8 @@
             "texture_path": "levels/lava/lava.png",
             "x": 600,
             "y": 850,
-            "xScale": 400,
-            "yScale": 100,
+            "x_scale": 400,
+            "y_scale": 100,
             "alpha": 100,
             "layer": 3
         },
@@ -79,8 +79,8 @@
             "texture_path": "levels/lava/lava.png",
             "x": 1000,
             "y": 850,
-            "xScale": 400,
-            "yScale": 100,
+            "x_scale": 400,
+            "y_scale": 100,
             "alpha": 100,
             "layer": 3
         },
@@ -88,8 +88,8 @@
             "texture_path": "levels/lava/lava.png",
             "x": 1400,
             "y": 850,
-            "xScale": 400,
-            "yScale": 100,
+            "x_scale": 400,
+            "y_scale": 100,
             "alpha": 100,
             "layer": 3
         },
@@ -97,8 +97,8 @@
             "texture_path": "levels/lava/lava.png",
             "x": 1800,
             "y": 850,
-            "xScale": 400,
-            "yScale": 100,
+            "x_scale": 400,
+            "y_scale": 100,
             "alpha": 100,
             "layer": 3
         }
@@ -111,8 +111,8 @@
             "alpha": 255,
             "x": 200,
             "y": 480,
-            "xScale": 100,
-            "yScale": 30
+            "x_scale": 100,
+            "y_scale": 30
         },
         {
             "shape": "rectangle",
@@ -121,8 +121,8 @@
             "alpha": 255,
             "x": 400,
             "y": 680,
-            "xScale": 70,
-            "yScale": 30
+            "x_scale": 70,
+            "y_scale": 30
         },
         {
             "shape": "rectangle",
@@ -131,8 +131,8 @@
             "alpha": 255,
             "x": 600,
             "y": 480,
-            "xScale": 100,
-            "yScale": 30
+            "x_scale": 100,
+            "y_scale": 30
         },
         {
             "shape": "rectangle",
@@ -141,8 +141,8 @@
             "alpha": 255,
             "x": 800,
             "y": 680,
-            "xScale": 70,
-            "yScale": 30
+            "x_scale": 70,
+            "y_scale": 30
         },
         {
             "shape": "rectangle",
@@ -151,8 +151,8 @@
             "alpha": 255,
             "x": 1000,
             "y": 480,
-            "xScale": 100,
-            "yScale": 30
+            "x_scale": 100,
+            "y_scale": 30
         },
         {
             "shape": "rectangle",
@@ -161,8 +161,8 @@
             "alpha": 255,
             "x": 1200,
             "y": 680,
-            "xScale": 70,
-            "yScale": 30
+            "x_scale": 70,
+            "y_scale": 30
         },
         {
             "shape": "rectangle",
@@ -171,8 +171,8 @@
             "alpha": 255,
             "x": 1400,
             "y": 480,
-            "xScale": 100,
-            "yScale": 30
+            "x_scale": 100,
+            "y_scale": 30
         }
     ]
 }

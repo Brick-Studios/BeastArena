@@ -71,8 +71,8 @@ void LevelScene::performPrepare() {
 
         solid.x = solid_json.getInt("x");
         solid.y = solid_json.getInt("y");
-        solid.xScale = solid_json.getInt("xScale");
-        solid.yScale = solid_json.getInt("yScale");
+        solid.xScale = solid_json.getInt("x_scale");
+        solid.yScale = solid_json.getInt("y_scale");
 
         this->solids.push_back(solid);
     }
@@ -141,8 +141,8 @@ void LevelScene::performPrepare() {
         auto texture_path = image.getString("texture_path");
         int x_pos = image.getInt("x");
         int y_pos = image.getInt("y");
-        int x_scale = image.getInt("xScale");
-        int y_scale = image.getInt("yScale");
+        int x_scale = image.getInt("x_scale");
+        int y_scale = image.getInt("y_scale");
         int alpha = image.getInt("alpha");
         Layers layer = static_cast<Layers>(image.getInt("layer"));
 
