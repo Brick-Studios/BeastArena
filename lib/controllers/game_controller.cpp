@@ -165,7 +165,7 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<PhysicsSystem>(*collision_detector, entityManager, *delta_time_modifier.get()));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<PickupSystem>(*collision_detector, entityManager, entityFactory));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<CritterSystem>(*collision_detector, entityManager, entityFactory));
-    state_systems->at(GameState::Lobby)->push_back(std::make_unique<WeaponSystem>(*collision_detector, entityManager, entityFactory));
+    state_systems->at(GameState::Lobby)->push_back(std::make_unique<WeaponSystem>(*collision_detector, entityManager, entityFactory, *engine));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<DamageSystem>(*collision_detector, entityManager, entityFactory));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<DespawnSystem>(*collision_detector, entityManager, SCREEN_WIDTH, SCREEN_HEIGHT));
     state_systems->at(GameState::Lobby)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
@@ -183,7 +183,7 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::InGame)->push_back(std::make_unique<PhysicsSystem>(*collision_detector, entityManager, *delta_time_modifier.get()));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<PickupSystem>(*collision_detector, entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<CritterSystem>(*collision_detector, entityManager, entityFactory));
-    state_systems->at(GameState::InGame)->push_back(std::make_unique<WeaponSystem>(*collision_detector, entityManager, entityFactory));
+    state_systems->at(GameState::InGame)->push_back(std::make_unique<WeaponSystem>(*collision_detector, entityManager, entityFactory, *engine));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<DamageSystem>(*collision_detector, entityManager, entityFactory));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<DespawnSystem>(*collision_detector, entityManager, SCREEN_WIDTH, SCREEN_HEIGHT));
     state_systems->at(GameState::InGame)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
@@ -221,7 +221,7 @@ void GameController::setGameStateSystems() {
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<PhysicsSystem>(*collision_detector, entityManager, *delta_time_modifier.get()));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<PickupSystem>(*collision_detector, entityManager, entityFactory));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<CritterSystem>(*collision_detector, entityManager, entityFactory));
-    state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<WeaponSystem>(*collision_detector, entityManager, entityFactory));
+    state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<WeaponSystem>(*collision_detector, entityManager, entityFactory, *engine));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<DespawnSystem>(*collision_detector, entityManager, SCREEN_WIDTH, SCREEN_HEIGHT));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<SpawnSystem>(entityManager, entityFactory));
     state_systems->at(GameState::LevelDebugger)->push_back(std::make_unique<DisplacementSystem>(*collision_detector, entityManager));

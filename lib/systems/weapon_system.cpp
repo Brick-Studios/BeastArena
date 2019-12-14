@@ -3,13 +3,14 @@
 #include "brickengine/components/transform_component.hpp"
 #include "brickengine/components/player_component.hpp"
 #include "brickengine/components/colliders/rectangle_collider_component.hpp"
+#include "brickengine/sound/sound_manager.hpp"
 #include "components/despawn_component.hpp"
 #include "brickengine/input.hpp"
 #include "player_input.hpp"
 #include <tuple>
 
-WeaponSystem::WeaponSystem(CollisionDetector2& cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef)
-    : BeastSystem(ef, em), collision_detector(cd) {}
+WeaponSystem::WeaponSystem(CollisionDetector2& cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef, BrickEngine& engine)
+    : BeastSystem(ef, em), collision_detector(cd), engine(engine) {}
 
 void WeaponSystem::update(double deltatime){
     auto& input = BrickInput<PlayerInput>::getInstance();
@@ -68,6 +69,8 @@ void WeaponSystem::update(double deltatime){
                         continue;
                     }
                 }
+
+                engine.getSoundManager().playSound("water_shoot.wav");
             }
         }
     }
