@@ -1,6 +1,7 @@
 #include "systems/damage_system.hpp"
 #include "components/health_component.hpp"
 #include "components/stats_component.hpp"
+#include "components/despawn_component.hpp"
 
 DamageSystem::DamageSystem(CollisionDetector2& cd, std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFactory> ef)
     : BeastSystem(ef, em), collision_detector(cd) {}
@@ -9,12 +10,16 @@ void DamageSystem::update(double) {
     auto entities_with_damage_component = entityManager->getEntitiesByComponent<DamageComponent>();
 
     for (auto& [entity_id, damage_comp]: entities_with_damage_component) {
+        if (!entityManager->entityExists(entity_id)) continue;
         auto collisions = collision_detector.detectCollision(entity_id);
         if (!collisions.empty()) {
             bool should_despawn = false;
             for (const Collision& c : collisions) {
                 if (c.is_trigger) continue;
                 if (c.opposite_id == damage_comp->damage_dealer_entity_id) continue;
+                auto opposite_despawn = entityManager->getComponent<DespawnComponent>(c.opposite_id);
+                if (opposite_despawn && opposite_despawn->despawn_on_collision)
+                    entityManager->removeEntity(c.opposite_id);
                 this->collide(*damage_comp, c);
                 should_despawn = true;
             }

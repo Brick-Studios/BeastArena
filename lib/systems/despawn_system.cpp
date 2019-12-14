@@ -3,6 +3,7 @@
 #include "brickengine/components/player_component.hpp"
 #include "components/health_component.hpp"
 #include "components/stats_component.hpp"
+#include "components/damage_component.hpp"
 
 #include "systems/despawn_system.hpp"
 
@@ -14,6 +15,7 @@ void DespawnSystem::update(double) {
     auto entities_with_despawn = entityManager->getEntitiesByComponent<DespawnComponent>();
 
     for (auto& [entity_id, despawn_comp]: entities_with_despawn) {
+        if (!entityManager->entityExists(entity_id)) continue;
         if (despawn_comp->despawn_on_out_of_screen) {
             auto [position, scale] = entityManager->getAbsoluteTransform(entity_id);
 
@@ -25,6 +27,11 @@ void DespawnSystem::update(double) {
             if (left > screen_width || top > screen_height ||
                right < 0 || bottom < 0) {
                 // Kill object. :O
+                if (entityManager->hasTag(entity_id, "Player")) {
+                    if (top < screen_height) {
+                        continue;
+                    }
+                }
                 auto health = entityManager->getComponent<HealthComponent>(entity_id);
                 if (health && health->health > 0) {
                     auto transform = entityManager->getComponent<TransformComponent>(entity_id);
@@ -55,8 +62,21 @@ void DespawnSystem::update(double) {
             }
         }
         if (despawn_comp->despawn_on_collision) {
-            if (!collision_detector.detectCollision(entity_id).empty()) {
-                entityManager->removeEntity(entity_id);
+            auto collisions = collision_detector.detectCollision(entity_id);
+            if (!collisions.empty()) {
+                auto damage = entityManager->getComponent<DamageComponent>(entity_id);
+                bool should_despawn = false;
+                for (auto& collision : collisions) {
+                    if (!collision.is_trigger) {
+                        if (damage && damage->damage_dealer_entity_id == collision.opposite_id) continue;
+                        should_despawn = true;
+                        auto opposite_despawn = entityManager->getComponent<DespawnComponent>(collision.opposite_id);
+                        if (opposite_despawn && opposite_despawn->despawn_on_collision)
+                            entityManager->removeEntity(collision.opposite_id);
+                    }
+                }
+                if (should_despawn)
+                    entityManager->removeEntity(entity_id);
             }
         }
     }

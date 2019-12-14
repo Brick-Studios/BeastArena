@@ -399,12 +399,10 @@ void GameController::gameLoop() {
         engine->getRenderer()->drawScreen();
 
 #ifdef PERFORMANCE_DEBUGGING
-        CollisionDetector2CacheInfo collision_cache_info = collision_detector->getCacheInfo();
+        CollisionDetector2Info collision_info = collision_detector->getInfo();
         auto entities_with_colliders = entityManager->getEntitiesByComponent<RectangleColliderComponent>();
-        std::cout << "Collision Detector 2 © - continuous calculations: " << collision_cache_info.continuous_calculations_counter << std::endl;
-        std::cout << "Collision Detector 2 © - continuous cache hits: " << collision_cache_info.continuous_cache_hits * entities_with_colliders.size() << std::endl;
-        std::cout << "Collision Detector 2 © - discrete calculations: " << collision_cache_info.discrete_calculated_counter << std::endl;
-        std::cout << "Collision Detector 2 © - discrete cache hits:  " << collision_cache_info.discrete_cache_hits * entities_with_colliders.size() << std::endl;
+        std::cout << "Collision Detector 2 © - continuous calculations: " << collision_info.continuous_calculations_counter << std::endl;
+        std::cout << "Collision Detector 2 © - discrete calculations: " << collision_info.discrete_calculated_counter << std::endl;
         std::cout << "FPS: " << engine->getFps() << std::endl;
         std::cout << "Entities with colliders: " << entities_with_colliders.size() << std::endl;
         std::cout << "Total running time: " << totalTime << std::endl;
@@ -415,7 +413,7 @@ void GameController::gameLoop() {
         std::cout << "Average FPS: " << total / fps_history.size() << std::endl;
 #endif // PERFORMANCE_DEBUGGING
 
-        collision_detector->invalidateCache();
+        collision_detector->invalidateInfo();
 
         auto end_time = std::chrono::high_resolution_clock::now();
         engine->delay(start_time, end_time);

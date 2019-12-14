@@ -23,7 +23,7 @@ void MovementSystem::update(double) {
         if (player->disabled) continue;
 
         auto physics = entityManager->getComponent<PhysicsComponent>(entity_id);
-        if (!physics) continue;
+        if (!physics || (physics && physics->kinematic == Kinematic::IS_KINEMATIC)) continue;
 
         double vx = physics->vx;
         double vy = physics->vy;

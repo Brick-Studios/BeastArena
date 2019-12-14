@@ -149,7 +149,6 @@ void LevelScene::performPrepare() {
         entity_components->push_back(factory.createImage(texture_path, x_pos, y_pos, x_scale, y_scale, getRelativeModifier(), layer, alpha));
     }
 
-
     // Create HUD Components
     auto player_entities = factory.getEntityManager().getEntitiesByComponent<PlayerComponent>();
 
