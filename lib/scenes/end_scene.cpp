@@ -18,29 +18,15 @@ void EndScene::performPrepare() {
     // Background
     entity_components->push_back(factory.createImage("backgrounds/arena.jpg", WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT, getRelativeModifier(), Layers::Background, 255));
 
-    // Borders
-    entity_components->push_back(factory.createPlatform(1159, 975, 200, 10, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(845, 834, 10, 120, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(953, 780, 206, 10, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(755, 900, 190, 10, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(660, 988, 10, 187, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(1055, 878, 10, 206, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(1263, 1021, 10, 102, getRelativeModifier(), "colors/black.jpg", 255));
-
     // Walls
     entity_components->push_back(factory.createPlatform(WIDTH / 2, 1077, 1920, 10, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(-5, 540, 10, 1080, getRelativeModifier(), "colors/black.jpg", 255));
-    entity_components->push_back(factory.createPlatform(1925, 540, 10, 1080, getRelativeModifier(), "colors/black.jpg", 255));
-
-    // Blue blocks
-    entity_components->push_back(factory.createImage("colors/blue.jpg", 950, 930, 202, 300, getRelativeModifier(), Layers::Foreground, 255));
-    entity_components->push_back(factory.createImage("colors/blue.jpg", 760, 990, 200, 175, getRelativeModifier(), Layers::Foreground, 255));
-    entity_components->push_back(factory.createImage("colors/blue.jpg", 1155, 1025, 220, 100, getRelativeModifier(), Layers::Foreground, 255));
+    entity_components->push_back(factory.createPlatform(-150, 540, 300, 1080, getRelativeModifier(), "colors/black.jpg", 255));
+    entity_components->push_back(factory.createPlatform(2070, 540, 300, 1080, getRelativeModifier(), "colors/black.jpg", 255));
 
     // Letters
-    entity_components->push_back(factory.createText("1", {255, 255, 255, 255}, 25, 965, 938, 200, 400, getRelativeModifier(), Layers::UI));
-    entity_components->push_back(factory.createText("2", {255, 255, 255, 255}, 25, 770, 998, 100, 200, getRelativeModifier(), Layers::UI));
-    entity_components->push_back(factory.createText("3", {255, 255, 255, 255}, 25, 1150, 1028, 50, 100, getRelativeModifier(), Layers::UI));
+    entity_components->push_back(factory.createPlatform(950, 930, 200, 300, getRelativeModifier(), "levels/end_game/first_platform.png", 255));
+    entity_components->push_back(factory.createPlatform(760, 990, 200, 175, getRelativeModifier(), "levels/end_game/second_platform.png", 255));
+    entity_components->push_back(factory.createPlatform(1155, 1025, 220, 100, getRelativeModifier(), "levels/end_game/third_platform.png", 255));
 
     // Prepare playerspawns;
     player_spawns.push_back({ 950, 500});
