@@ -9,6 +9,6 @@ UISystem::UISystem(std::shared_ptr<EntityManager> em, std::shared_ptr<EntityFact
 void UISystem::update(double deltatime) {
     auto& input = BrickInput<PlayerInput>::getInstance();
     for(int i = 1; i <= 4; ++i)
-        if(input.checkInput(i, PlayerInput::QUICK_PLAY))
+        if(input.checkInput(i, PlayerInput::PAUSE))
             game_controller.loadLobby();
 }

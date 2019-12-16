@@ -289,7 +289,7 @@ void LobbySystem::update(double) {
 
     // Start tha game
     for(int i = 1; i <= 4; ++i)
-        if(input.checkInput(1, PlayerInput::QUICK_PLAY))
+        if(input.checkInput(1, PlayerInput::PAUSE))
             game_controller.startGame();
 }
 
