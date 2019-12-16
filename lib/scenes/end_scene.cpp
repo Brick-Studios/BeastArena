@@ -18,6 +18,9 @@ void EndScene::performPrepare() {
     // Background
     entity_components->push_back(factory.createImage("backgrounds/arena.jpg", WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT, getRelativeModifier(), Layers::Background, 255));
 
+    // Text
+    entity_components->push_back(factory.createText("All players need to pick up a skip sign to continue", { 255, 255, 255, 255 }, 72, WIDTH / 2, 100, 800, 100, getRelativeModifier(), Layers::Lowground));
+
     // Walls
     entity_components->push_back(factory.createPlatform(WIDTH / 2, 1077, 1920, 10, getRelativeModifier(), "colors/black.jpg", 255));
     entity_components->push_back(factory.createPlatform(-150, 540, 300, 1080, getRelativeModifier(), "colors/black.jpg", 255));

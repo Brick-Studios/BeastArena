@@ -1,0 +1,185 @@
+{
+    "version": 1.0,
+    "name": "Street",
+    "description": "The Cyberpunk street",
+    "width": 1600,
+    "height": 900,
+    "bg_path": "levels/street/cyberpunk-street.png",
+    "bg_music": "music/firefly.mp3",
+    "player_spawns": [
+        {
+            "x": 200,
+            "y": 400,
+            "direction": 0
+        },
+        {
+            "x": 1000,
+            "y": 650,
+            "direction": 1
+        },
+        {
+            "x": 600,
+            "y": 650,
+            "direction": 0
+        },
+        {
+           "x": 1400,
+           "y": 400,
+           "direction": 1
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 400,
+            "y": 400
+        },
+        {
+            "x": 800,
+            "y": 600
+        },
+        {
+            "x": 1200,
+            "y": 400
+        }
+    ],
+    "billboards": [
+        {
+            "x": 100,
+            "y": 100,
+            "alpha": 255,
+            "x_scale": 160,
+            "y_scale": 160,
+            "content_path": "advertisement/motor_wout.jpg"
+        },
+        {
+            "x": 700,
+            "y": 560,
+            "alpha": 255,
+            "x_scale": 160,
+            "y_scale": 90,
+            "content_path": "advertisement/free_candy.png"
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 130,
+            "y": 500
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 400,
+            "y": 600
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1200,
+            "y": 600
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1470,
+            "y": 500
+        }
+    ],
+    "animations" : [
+        {
+            "texture": "animations/smoke.png",
+            "sprite_width": 32,
+            "sprite_height": 32,
+            "update_time": 0.2,
+            "sprite_size": 6,
+            "x": 45,
+            "y": 460,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        }
+    ],
+    "images": [
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/street/tripple-van.png",
+            "alpha": 255,
+            "x": 220,
+            "y": 659,
+            "x_scale": 276,
+            "y_scale": 423
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/street/van.png",
+            "alpha": 255,
+            "x": 420,
+            "y": 700,
+            "x_scale": 92,
+            "y_scale": 47
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/street/van.png",
+            "alpha": 255,
+            "x": 510,
+            "y": 800,
+            "x_scale": 276,
+            "y_scale": 141
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/street/van.png",
+            "alpha": 255,
+            "x": 800,
+            "y": 800,
+            "x_scale": 276,
+            "y_scale": 141
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/street/van.png",
+            "alpha": 255,
+            "x": 1090,
+            "y": 800,
+            "x_scale": 276,
+            "y_scale": 141
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/street/tripple-van.png",
+            "alpha": 255,
+            "x": 1380,
+            "y": 659,
+            "x_scale": 276,
+            "y_scale": 423
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/street/van.png",
+            "alpha": 255,
+            "x": 1180,
+            "y": 700,
+            "x_scale": 92,
+            "y_scale": 47
+        }
+    ]
+}
