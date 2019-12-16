@@ -27,6 +27,8 @@ void PickupSystem::update(double){
                     auto child_pickup = entityManager->getComponent<PickupComponent>(child);
                     if(child_pickup) {
                         entityManager->moveOutOfParentsHouse(child);
+                        auto pickup_collider = entityManager->getComponent<RectangleColliderComponent>(child);
+                        pickup_collider->should_displace = true;
                     }
                 }
             }
@@ -40,6 +42,9 @@ void PickupSystem::update(double){
                     int pickup_entity_id = collision.opposite_id;
                     auto pickup = entityManager->getComponent<PickupComponent>(pickup_entity_id);
                     if (!pickup) continue;
+
+                    auto pickup_collider = entityManager->getComponent<RectangleColliderComponent>(pickup_entity_id);
+                    pickup_collider->should_displace = false;
 
                     auto pickup_transform = entityManager->getComponent<TransformComponent>(pickup_entity_id);
                     entityManager->moveOutOfParentsHouse(collision.opposite_id);

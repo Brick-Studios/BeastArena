@@ -1,0 +1,369 @@
+{
+    "version": 1.0,
+    "name": "Pirate",
+    "description": "YARR",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "levels/pirate/background.png",
+    "bg_music": "music/pirate.mp3",
+    "player_spawns": [
+        {
+            "x": 200,
+            "y": 900,
+            "direction": 1
+        },
+        {
+            "x": 560,
+            "y": 250,
+            "direction": 1
+        },
+        {
+            "x": 1000,
+            "y": 350,
+            "direction": 1
+        },
+        {
+           "x": 1550,
+           "y": 600,
+           "direction": 1
+        }
+    ],
+    "critter_spawns": [
+    ],
+    "billboards": [
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 550,
+            "y": 410
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 210,
+            "y": 950
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1545,
+            "y": 240
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1650,
+            "y": 750
+        }
+    ],
+    "animations" : [
+        {
+            "texture": "animations/pirate-flag.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.08,
+            "sprite_size": 16,
+            "x": 598,
+            "y": 150,
+            "x_scale": 100,
+            "y_scale": 100,
+            "layer": 3
+        },
+        {
+            "texture": "animations/pirate-flag.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.06,
+            "sprite_size": 16,
+            "x": 1057,
+            "y": 50,
+            "x_scale": 100,
+            "y_scale": 100,
+            "layer": 3
+        },
+        {
+            "texture": "animations/pirate-flag.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 1585,
+            "y": 100,
+            "x_scale": 100,
+            "y_scale": 100,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 665,
+            "y": 970,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 665,
+            "y": 975,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 700,
+            "y": 970,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 700,
+            "y": 975,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 750,
+            "y": 970,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 750,
+            "y": 975,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 1720,
+            "y": 970,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/waves.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.02,
+            "sprite_size": 16,
+            "x": 1720,
+            "y": 975,
+            "x_scale": 100,
+            "y_scale": 25,
+            "layer": 3
+        },
+        {
+            "texture": "animations/raft-sail.png",
+            "sprite_width": 32,
+            "sprite_height": 40,
+            "update_time": 0.1,
+            "sprite_size": 8,
+            "x": 210,
+            "y": 850,
+            "x_scale": 150,
+            "y_scale": 150,
+            "layer": 3
+        }
+    ],
+    "images": [
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/dark_brown.png",
+            "alpha": 255,
+            "x": 540,
+            "y": 685,
+            "x_scale": 200,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/dark_brown.png",
+            "alpha": 255,
+            "x": 640,
+            "y": 710,
+            "x_scale": 10,
+            "y_scale": 60
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/dark_brown.png",
+            "alpha": 255,
+            "x": 990,
+            "y": 735,
+            "x_scale": 700,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/dark_brown.png",
+            "alpha": 0,
+            "x": 1355,
+            "y": 681,
+            "x_scale": 40,
+            "y_scale": 98
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/dark_brown.png",
+            "alpha": 255,
+            "x": 1510,
+            "y": 627,
+            "x_scale": 350,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/dark_brown.png",
+            "alpha": 255,
+            "x": 1500,
+            "y": 450,
+            "x_scale": 125,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 1550,
+            "y": 250,
+            "x_scale": 235,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 1025,
+            "y": 400,
+            "x_scale": 475,
+            "y_scale": 25
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 1020,
+            "y": 190,
+            "x_scale": 390,
+            "y_scale": 25
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 550,
+            "y": 307,
+            "x_scale": 235,
+            "y_scale": 15
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 550,
+            "y": 420,
+            "x_scale": 280,
+            "y_scale": 15
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 210,
+            "y": 960,
+            "x_scale": 200,
+            "y_scale": 15
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 1595,
+            "y": 675,
+            "x_scale": 45,
+            "y_scale": 100
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/dark_brown.png",
+            "alpha": 0,
+            "x": 1087,
+            "y": 985,
+            "x_scale": 1275,
+            "y_scale": 500
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/light_brown.png",
+            "alpha": 0,
+            "x": 425,
+            "y": 880,
+            "x_scale": 40,
+            "y_scale": 400
+        }
+    ]
+}

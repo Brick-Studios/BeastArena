@@ -9,19 +9,23 @@
     "player_spawns": [
         {
             "x": 200,
-            "y": 200
+            "y": 200,
+            "direction": 0
         },
         {
             "x": 600,
-            "y": 200
+            "y": 200,
+            "direction": 0
         },
         {
             "x": 1000,
-            "y": 200
+            "y": 200,
+            "direction": 0
         },
         {
            "x": 1400,
-           "y": 200
+           "y": 200,
+           "direction": 0
         }
     ],
     "critter_spawns": [
@@ -53,6 +57,7 @@
     ],
     "solids": [
         {
+            "_comment": "First player spawn platform",
             "shape": "rectangle",
             "effect": "none",
             "texture_path": "levels/lava/stone.png",

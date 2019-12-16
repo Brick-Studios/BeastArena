@@ -25,7 +25,7 @@ void HighscoreSystem::update(double) {
     }
     if(initialized) {
         auto& input = BrickInput<PlayerInput>::getInstance();
-        int x = input.checkInput(1, PlayerInput::X_AXIS);
+        double x = input.checkInput(1, PlayerInput::X_AXIS);
         if(x > 0) {
             entityManager->removeEntitiesWithTag("HighscoreScene_player");
             selector++;

@@ -365,6 +365,7 @@ void GameController::setupInput() {
     time_to_wait_mapping[PlayerInput::LASER_WEAPON] = 0.1;
     time_to_wait_mapping[PlayerInput::TOGGLE_FPS_COUNTER] = 0.1;
     time_to_wait_mapping[PlayerInput::PAUSE] = 0.1;
+    time_to_wait_mapping[PlayerInput::REFRESH] = 0.1;
 
     input.setInputMapping(inputMapping, time_to_wait_mapping, axis_mapping);
 }

@@ -50,6 +50,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         auto physics = em->getComponent<PhysicsComponent>(entity_id);
         auto health = em->getComponent<HealthComponent>(entity_id);
         auto animation = em->getComponent<AnimationComponent>(entity_id);
+        auto collider = em->getComponent<RectangleColliderComponent>(entity_id);
         if (animation) {
             // Hardcoded to 2 until we actually make a good animation system
             animation->sprite_size = 2;
@@ -58,6 +59,7 @@ EntityFactory::EntityFactory(std::shared_ptr<EntityManager> em, RenderableFactor
         player->disabled = false;
         physics->kinematic = Kinematic::IS_NOT_KINEMATIC;
         health->health = health->max_health;
+        collider->should_displace = true;
         em->removeTag(entity_id, "DeadPlayer");
         em->setTag(entity_id, "Player");
         em->removeComponentFromEntity<PickupComponent>(entity_id);

@@ -1,0 +1,349 @@
+{
+    "version": 1.0,
+    "name": "Cave",
+    "description": "Basically an underground hole",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "levels/cave/cavesofgallet.png",
+    "bg_music": "music/deep_roots.mp3",
+    "player_spawns": [
+        {
+            "x": 50,
+            "y": 200,
+            "direction": 0
+        },
+        {
+            "x": 1600,
+            "y": 200,
+            "direction": 1
+        },
+        {
+            "x": 1000,
+            "y": 500,
+            "direction": 0
+        },
+        {
+           "x": 1400,
+           "y": 200,
+           "direction": 1
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 600,
+            "y": 100
+        },
+        {
+            "x": 1100,
+            "y": 50
+        },
+        {
+            "x": 1000,
+            "y": 200
+        }
+    ],
+    "billboards": [
+        {
+            "x": 670,
+            "y": 760,
+            "alpha": 255,
+            "x_scale": 330,
+            "y_scale": 330,
+            "content_path": "advertisement/pisswasser.png"
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 550,
+            "y": 500
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1000,
+            "y": 50
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1750,
+            "y": 100
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1330,
+            "y": 800
+        }
+    ],
+    "animations" : [
+        {
+            "texture": "animations/bubbles.png",
+            "sprite_width": 20,
+            "sprite_height": 20,
+            "update_time": 0.2,
+            "sprite_size": 22,
+            "x": 105,
+            "y": 660,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        },
+        {
+            "texture": "animations/bubbles.png",
+            "sprite_width": 20,
+            "sprite_height": 20,
+            "update_time": 0.2,
+            "sprite_size": 22,
+            "x": 360,
+            "y": 660,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        }
+    ],
+    "images": [
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 0,
+            "y": 540,
+            "x_scale": 0,
+            "y_scale": 1080
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 30,
+            "y": 515,
+            "x_scale": 60,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 18,
+            "y": 850,
+            "x_scale": 30,
+            "y_scale": 650
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 670,
+            "y": 850,
+            "x_scale": 385,
+            "y_scale": 678
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 448,
+            "y": 515,
+            "x_scale": 55,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 747,
+            "y": 405,
+            "x_scale": 230,
+            "y_scale": 205
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 615,
+            "y": 420,
+            "x_scale": 28,
+            "y_scale": 180
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 540,
+            "y": 373,
+            "x_scale": 115,
+            "y_scale": 84
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 687,
+            "y": 210,
+            "x_scale": 110,
+            "y_scale": 180
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1071,
+            "y": 165,
+            "x_scale": 440,
+            "y_scale": 88
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1260,
+            "y": 270,
+            "x_scale": 60,
+            "y_scale": 116
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1410,
+            "y": 285,
+            "x_scale": 233,
+            "y_scale": 85
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1550,
+            "y": 760,
+            "x_scale": 200,
+            "y_scale": 670
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1488,
+            "y": 375,
+            "x_scale": 76,
+            "y_scale": 90
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 985,
+            "y": 395,
+            "x_scale": 230,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1330,
+            "y": 525,
+            "x_scale": 230,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 985,
+            "y": 660,
+            "x_scale": 230,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1330,
+            "y": 838,
+            "x_scale": 230,
+            "y_scale": 10
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1720,
+            "y": 495,
+            "x_scale": 140,
+            "y_scale": 140
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1905,
+            "y": 522,
+            "x_scale": 24,
+            "y_scale": 75
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1770,
+            "y": 225,
+            "x_scale": 120,
+            "y_scale": 150
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1875,
+            "y": -200,
+            "x_scale": 80,
+            "y_scale": 1000
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1920,
+            "y": 540,
+            "x_scale": 0,
+            "y_scale": 1080
+        }
+    ]
+}

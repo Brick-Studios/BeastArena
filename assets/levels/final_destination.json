@@ -9,19 +9,23 @@
     "player_spawns": [
         {
             "x": 500,
-            "y": 400
+            "y": 600,
+            "direction": 0
         },
         {
             "x": 1400,
-            "y": 400
+            "y": 600,
+            "direction": 1
         },
         {
             "x": 1100,
-            "y": 400
+            "y": 600,
+            "direction": 1
         },
         {
            "x": 800,
-           "y": 400
+           "y": 600,
+           "direction": 0
         }
     ],
     "critter_spawns": [
@@ -35,7 +39,7 @@
             "respawn_timer": 5,
             "always_respawn": false,
             "x": 500,
-            "y": 400
+            "y": 600
         },
         {
             "type": "weapon",
@@ -43,7 +47,7 @@
             "respawn_timer": 5,
             "always_respawn": false,
             "x": 800,
-            "y": 400
+            "y": 600
         },
         {
             "type": "weapon",
@@ -51,7 +55,7 @@
             "respawn_timer": 5,
             "always_respawn": false,
             "x": 1100,
-            "y": 400
+            "y": 600
         },
         {
             "type": "weapon",
@@ -59,11 +63,10 @@
             "respawn_timer": 5,
             "always_respawn": false,
             "x": 1400,
-            "y": 400
+            "y": 600
         }
     ],
     "animations" : [
-
     ],
     "images": [
         {

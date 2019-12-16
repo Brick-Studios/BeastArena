@@ -37,7 +37,7 @@ public:
     void intermission(int timer);
     void loadDebugger();
 
-    static constexpr int MAX_LEVELS = 6;
+    static constexpr int MAX_LEVELS = 10;
     inline static const int SCREEN_HEIGHT = 900;
     inline static const int SCREEN_WIDTH = 1600;
 private:

@@ -9,19 +9,23 @@
     "player_spawns": [
         {
             "x": 400,
-            "y": 450
+            "y": 450,
+            "direction": 0
         },
         {
             "x": 1500,
-            "y": 250
+            "y": 250,
+            "direction": 1
         },
         {
             "x": 1050,
-            "y": 200
+            "y": 200,
+            "direction": 1
         },
         {
             "x": 910,
-            "y": 370
+            "y": 370,
+            "direction": 0
         }
     ],
     "gadget_spawns": [
@@ -104,7 +108,8 @@
             "x": 1050,
             "y": 500,
             "x_scale": 1920,
-            "y_scale": 1080
+            "y_scale": 1080,
+            "layer": 3
         }
     ], 
     "solids": [

@@ -1,0 +1,235 @@
+{
+    "version": 1.0,
+    "name": "City",
+    "description": "Welcome to the big town",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "levels/city/city.jpg",
+    "bg_music": "music/AI_2.mp3",
+    "player_spawns": [
+        {
+            "x": 250,
+            "y": 430,
+            "direction": 0
+        },
+        {
+            "x": 1730,
+            "y": 200,
+            "direction": 1
+        },
+        {
+            "x": 830,
+            "y": 520,
+            "direction": 0
+        },
+        {
+           "x": 1175,
+           "y": 200,
+           "direction": 1
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 270,
+            "y": 200
+        },
+        {
+            "x": 1710,
+            "y": 200
+        },
+        {
+            "x": 810,
+            "y": 200
+        },
+        {
+           "x": 1090,
+           "y": 200
+        }
+    ],
+    "billboards": [
+        {
+            "x": 800,
+            "y": 950,
+            "alpha": 255,
+            "x_scale": 250,
+            "y_scale": 250,
+            "content_path": "advertisement/pisswasser.png"
+        },
+        {
+            "x": 1175,
+            "y": 660,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 200,
+            "content_path": "advertisement/free_candy.png"
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 440,
+            "y": 600
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 690,
+            "y": 700
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1090,
+            "y": 700
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1580,
+            "y": 500
+        }
+    ],
+    "animations" : [
+        {
+            "texture": "animations/smoke.png",
+            "sprite_width": 32,
+            "sprite_height": 32,
+            "update_time": 0.2,
+            "sprite_size": 6,
+            "x": 190,
+            "y": 490,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        },
+        {
+            "texture": "animations/smoke.png",
+            "sprite_width": 32,
+            "sprite_height": 32,
+            "update_time": 0.2,
+            "sprite_size": 6,
+            "x": 225,
+            "y": 490,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        },
+        {
+            "texture": "animations/smoke.png",
+            "sprite_width": 32,
+            "sprite_height": 32,
+            "update_time": 0.2,
+            "sprite_size": 6,
+            "x": 260,
+            "y": 490,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        },
+        {
+            "texture": "animations/smoke.png",
+            "sprite_width": 32,
+            "sprite_height": 32,
+            "update_time": 0.2,
+            "sprite_size": 6,
+            "x": 300,
+            "y": 490,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        }
+    ],
+    "images": [
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 317,
+            "y": 865,
+            "x_scale": 300,
+            "y_scale": 500
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 280,
+            "y": 570,
+            "x_scale": 225,
+            "y_scale": 90
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 792,
+            "y": 950,
+            "x_scale": 330,
+            "y_scale": 425
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 820,
+            "y": 670,
+            "x_scale": 140,
+            "y_scale": 134
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 926,
+            "y": 725,
+            "x_scale": 70,
+            "y_scale": 25
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1175,
+            "y": 940,
+            "x_scale": 215,
+            "y_scale": 360
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1647,
+            "y": 840,
+            "x_scale": 248,
+            "y_scale": 495
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1717,
+            "y": 570,
+            "x_scale": 108,
+            "y_scale": 38
+        }
+    ]
+}

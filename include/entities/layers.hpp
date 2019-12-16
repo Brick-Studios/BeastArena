@@ -22,4 +22,27 @@ enum class Layers {
     Overlay = 8
 };
 
+#include <iostream>
+#include <exception>
+
+class UnknownLayerException : public std::exception {
+private:
+  std::string m_msg;
+public:
+  UnknownLayerException(int layer) : m_msg(std::string("The entered layer ") + std::to_string(layer) + std::string(" is not supported")){}
+
+  virtual const char* what() const throw() {
+    return m_msg.c_str();
+  }
+};
+
+class LayersConverter {
+public:
+    static Layers convertInt(int i) {
+        if (i < 0 || i > 8)
+            throw UnknownLayerException(i);
+        return static_cast<Layers>(i);
+    }
+};
+
 #endif // FILE_LAYERS_HPP

@@ -1,0 +1,308 @@
+{
+    "version": 1.0,
+    "name": "Level 2",
+    "description": "The second level of BeastArena",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "levels/level2/hill.png",
+    "bg_music": "music/forest.mp3",
+    "player_spawns": [
+        {
+            "x": 100,
+            "y": 700,
+            "direction": 0
+        },
+        {
+            "x": 1820,
+            "y": 700,
+            "direction": 1
+        },
+        {
+            "x": 100,
+            "y": 900,
+            "direction": 0
+        },
+        {
+           "x": 1820,
+           "y": 900,
+           "direction": 1
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 1260,
+            "y": 600
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1255,
+            "y": 1000
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 655,
+            "y": 1000
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 650,
+            "y": 600
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 25,
+            "y": 900
+        },
+        {
+            "x": 1220,
+            "y": 900
+        },
+        {
+            "x": 700,
+            "y": 900
+        },
+        {
+            "x": 1900,
+            "y": 900
+        }
+    ],
+    "billboards": [
+        {
+            "x": 170,
+            "y": 200,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 140,
+            "content_path": "advertisement/pisswasser.png"
+        },
+        {
+            "x": 1750,
+            "y": 200,
+            "alpha": 255,
+            "x_scale": 200,
+            "y_scale": 140,
+            "content_path": "advertisement/pisswasser.png"
+        }
+    ],
+    "animations": [
+        {
+            "texture": "animations/bob.png",
+            "sprite_width": 200,
+            "sprite_height": 275,
+            "update_time": 0.2,
+            "sprite_size": 12,
+            "x": 1370,
+            "y": 760,
+            "x_scale": 100,
+            "y_scale": 137,
+            "layer": 2
+        }
+    ],
+    "images": [
+        {
+            "texture_path": "levels/level2/background.png",
+            "x": 960,
+            "y": 542,
+            "x_scale": 1920,
+            "y_scale": 1080,
+            "alpha": 150,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/level2/bobbush.png",
+            "x": 1370,
+            "y": 830,
+            "x_scale": 160,
+            "y_scale": 160,
+            "alpha": 255,
+            "layer": 3
+        }
+        
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": -5,
+            "y": 540,
+            "x_scale": 10,
+            "y_scale": 1080
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1925,
+            "y": 540,
+            "x_scale": 10,
+            "y_scale": 1080
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 960,
+            "y": 930,
+            "x_scale": 175,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 760,
+            "y": 965,
+            "x_scale": 50,
+            "y_scale": 265
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1160,
+            "y": 965,
+            "x_scale": 50,
+            "y_scale": 265
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 368,
+            "y": 1056,
+            "x_scale": 735,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1551,
+            "y": 1056,
+            "x_scale": 740,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1651,
+            "y": 1007,
+            "x_scale": 640,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 268,
+            "y": 1007,
+            "x_scale": 640,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 168,
+            "y": 958,
+            "x_scale": 540,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1752,
+            "y": 958,
+            "x_scale": 540,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1846,
+            "y": 750,
+            "x_scale": 150,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 74,
+            "y": 750,
+            "x_scale": 150,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 350,
+            "y": 550,
+            "x_scale": 150,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1670,
+            "y": 550,
+            "x_scale": 150,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 1270,
+            "y": 640,
+            "x_scale": 150,
+            "y_scale": 50
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 255,
+            "x": 650,
+            "y": 640,
+            "x_scale": 150,
+            "y_scale": 50
+        }
+    ]
+}

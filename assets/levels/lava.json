@@ -1,0 +1,387 @@
+{
+    "version": 2.0,
+    "name": "Lava",
+    "description": "Very hot",
+    "width": 1600,
+    "height": 900,
+    "bg_path": "levels/lava/background.png",
+    "bg_music": "music/lava_music.mp3",
+    "player_spawns": [
+        {
+            "x": 200,
+            "y": 313,
+            "direction": 0
+        },
+        {
+            "x": 1400,
+            "y": 313,
+            "direction": 1
+        },
+        {
+            "x": 600,
+            "y": 313,
+            "direction": 0
+        },
+        {
+           "x": 1000,
+           "y": 313,
+           "direction": 1
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 200,
+            "y": 313
+        },
+        {
+            "x": 1400,
+            "y": 313
+        }
+    ],
+    "billboards": [
+        {
+            "content_path": "advertisement/motor_wout.jpg",
+            "x": 120,
+            "y": 600,
+            "x_scale": 200,
+            "y_scale": 300,
+            "alpha": 255
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 400,
+            "y": 547
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 800,
+            "y": 547
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 1210,
+            "y": 547
+        }
+    ],
+    "animations" : [
+        {
+            "texture": "animations/bubbles_lava.png",
+            "sprite_width": 20,
+            "sprite_height": 20,
+            "update_time": 0.2,
+            "sprite_size": 22,
+            "x": 200,
+            "y": 800,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        },
+        {
+            "texture": "animations/bubbles_lava.png",
+            "sprite_width": 20,
+            "sprite_height": 20,
+            "update_time": 0.4,
+            "sprite_size": 22,
+            "x": 900,
+            "y": 800,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        },
+        {
+            "texture": "animations/bubbles_lava.png",
+            "sprite_width": 20,
+            "sprite_height": 20,
+            "update_time": 0.3,
+            "sprite_size": 22,
+            "x": 1350,
+            "y": 800,
+            "x_scale": 60,
+            "y_scale": 60,
+            "layer": 3
+        }
+    ],
+    "images": [
+        {
+            "texture_path": "levels/lava/background_stones.png",
+            "x": 450,
+            "y": 500,
+            "x_scale": 352,
+            "y_scale": 277,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/background_stones.png",
+            "x": 1050,
+            "y": 200,
+            "x_scale": 352,
+            "y_scale": 277,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 72,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 216,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 360,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 504,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 648,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 792,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 936,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 1080,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 1224,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 1368,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 1512,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/lava-2.png",
+            "x": 1656,
+            "y": 1040,
+            "x_scale": 144,
+            "y_scale": 480,
+            "alpha": 255,
+            "layer": 4
+        },
+        {
+            "texture_path": "levels/lava/platform_pillar.png",
+            "x": 251,
+            "y": 810,
+            "x_scale": 42,
+            "y_scale": 888,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/platform_pillar.png",
+            "x": 655,
+            "y": 810,
+            "x_scale": 42,
+            "y_scale": 888,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/platform_pillar.png",
+            "x": 1059,
+            "y": 810,
+            "x_scale": 42,
+            "y_scale": 888,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/platform_pillar.png",
+            "x": 1463,
+            "y": 810,
+            "x_scale": 42,
+            "y_scale": 888,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/fire.png",
+            "x": 200,
+            "y": 180,
+            "x_scale": 48,
+            "y_scale": 66,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/fire.png",
+            "x": 440,
+            "y": 80,
+            "x_scale": 48,
+            "y_scale": 66,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/fire.png",
+            "x": 800,
+            "y": 180,
+            "x_scale": 48,
+            "y_scale": 66,
+            "alpha": 255,
+            "layer": 2
+        },
+        {
+            "texture_path": "levels/lava/fire.png",
+            "x": 1400,
+            "y": 210,
+            "x_scale": 48,
+            "y_scale": 66,
+            "alpha": 255,
+            "layer": 2
+        }
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/platform_top.png",
+            "alpha": 255,
+            "x": 200,
+            "y": 357,
+            "x_scale": 144,
+            "y_scale": 6
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/platform_top.png",
+            "alpha": 255,
+            "x": 604,
+            "y": 357,
+            "x_scale": 144,
+            "y_scale": 6
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/platform_top.png",
+            "alpha": 255,
+            "x": 1009,
+            "y": 357,
+            "x_scale": 144,
+            "y_scale": 6
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/platform_top.png",
+            "alpha": 255,
+            "x": 1413,
+            "y": 357,
+            "x_scale": 144,
+            "y_scale": 6
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/rock.png",
+            "alpha": 255,
+            "x": 402,
+            "y": 600,
+            "x_scale": 100,
+            "y_scale": 100
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/rock.png",
+            "alpha": 255,
+            "x": 806,
+            "y": 600,
+            "x_scale": 100,
+            "y_scale": 100
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/lava/rock.png",
+            "alpha": 255,
+            "x": 1210,
+            "y": 600,
+            "x_scale": 100,
+            "y_scale": 100
+        }
+    ]
+}
