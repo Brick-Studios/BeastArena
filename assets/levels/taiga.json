@@ -1,0 +1,179 @@
+{
+    "version": 1.0,
+    "name": "Taiga",
+    "description": "Very big delay in everything",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "levels/taiga/background.png",
+    "bg_music": "music/taiga.mp3",
+    "player_spawns": [
+        {
+            "x": 539,
+            "y": 500,
+            "direction": 0
+        },
+        {
+            "x": 1149,
+            "y": 500,
+            "direction": 1
+        },
+        {
+            "x": 843,
+            "y": 665,
+            "direction": 0
+        },
+        {
+           "x": 1453,
+           "y": 665,
+           "direction": 1
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 233,
+            "y": 230
+        },
+        {
+            "x": 1760,
+            "y": 397
+        }
+    ],
+    "billboards": [
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["sniper"],
+            "respawn_timer": 7,
+            "always_respawn": true,
+            "x": 233,
+            "y": 230
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["sniper"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1760,
+            "y": 397
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol","rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1273,
+            "y": 597
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol","rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 415,
+            "y": 597
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol","rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 843,
+            "y": 750
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol","rifle"],
+            "respawn_timer": 5,
+            "always_respawn": false,
+            "x": 1453,
+            "y": 750
+        }
+    ],
+    "animations" : [
+    ],
+    "images": [
+    ],
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/white.png",
+            "alpha": 0,
+            "x": 233,
+            "y": 650,
+            "x_scale": 290,
+            "y_scale": 800
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/taiga/in.png",
+            "alpha": 255,
+            "x": 843,
+            "y": 500,
+            "x_scale": 290,
+            "y_scale": 97
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/taiga/get.png",
+            "alpha": 255,
+            "x": 1760,
+            "y": 500,
+            "x_scale": 290,
+            "y_scale": 97
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/taiga/kill_him.png",
+            "alpha": 255,
+            "x": 539,
+            "y": 665,
+            "x_scale": 290,
+            "y_scale": 97
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/taiga/distract_him.png",
+            "alpha": 255,
+            "x": 1149,
+            "y": 665,
+            "x_scale": 290,
+            "y_scale": 97
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/taiga/make_it_great.png",
+            "alpha": 255,
+            "x": 843,
+            "y": 950,
+            "x_scale": 290,
+            "y_scale": 97
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/taiga/win.png",
+            "alpha": 255,
+            "x": 1149,
+            "y": 950,
+            "x_scale": 290,
+            "y_scale": 97
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "levels/taiga/there.png",
+            "alpha": 255,
+            "x": 1453,
+            "y": 950,
+            "x_scale": 290,
+            "y_scale": 97
+        }
+    ]
+}
