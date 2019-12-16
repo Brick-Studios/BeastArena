@@ -249,9 +249,6 @@ EntityComponents EntityFactory::createCritter(double x_pos, double y_pos) const 
     comps->push_back(std::make_unique<DespawnComponent>(false, true));
     comps->push_back(std::make_unique<PickupComponent>());
     comps->push_back(std::make_unique<AnimationComponent>(0.2, 2));
-    comps->push_back(std::make_unique<HealthComponent>(1, [em = entityManager](int entity_id) {
-        em->removeEntity(entity_id);
-    }));
 
     std::vector<std::string> tags;
     tags.push_back("Critter");

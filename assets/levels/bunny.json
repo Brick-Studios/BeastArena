@@ -1,0 +1,395 @@
+{
+    "version": 1.0,
+    "name": "Bunny",
+    "description": "Yes thats a lot of bunnies",
+    "width": 1920,
+    "height": 1080,
+    "bg_path": "levels/bunny/bunny-background.png",
+    "bg_music": "music/inescapable.mp3",
+    "player_spawns": [
+        {
+            "x": 890,
+            "y": 750,
+            "direction": 1
+        },
+        {
+            "x": 1040,
+            "y": 750,
+            "direction": 0
+        },
+        {
+            "x": 890,
+            "y": 500,
+            "direction": 1
+        },
+        {
+            "x": 1040,
+            "y": 500,
+            "direction": 0
+        }
+    ],
+    "gadget_spawns": [
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 120,
+            "y": 800
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 520,
+            "y": 800
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 1800,
+            "y": 800
+        },
+        {
+            "type": "weapon",
+            "available_spawns": ["pistol", "rifle", "sniper"],
+            "respawn_timer": 5,
+            "always_respawn": true,
+            "x": 1400,
+            "y": 800
+        }
+    ],
+    "critter_spawns": [
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        },
+        {
+            "x": 951,
+            "y": 800
+        }
+    ],
+    "billboards": [
+    ],
+    "animations": [
+    ], 
+    "solids": [
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 961,
+            "y": 829,
+            "x_scale": 1206,
+            "y_scale": 45
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 961,
+            "y": 195,
+            "x_scale": 900,
+            "y_scale": 45
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 280,
+            "y": 406,
+            "x_scale": 600,
+            "y_scale": 45
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1640,
+            "y": 406,
+            "x_scale": 600,
+            "y_scale": 45
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1345,
+            "y": 315,
+            "x_scale": 45,
+            "y_scale": 230
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 575,
+            "y": 315,
+            "x_scale": 45,
+            "y_scale": 230
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 87,
+            "y": 829,
+            "x_scale": 180,
+            "y_scale": 45
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1833,
+            "y": 829,
+            "x_scale": 180,
+            "y_scale": 45
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 0,
+            "y": 540,
+            "x_scale": 20,
+            "y_scale": 1920
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 1920,
+            "y": 540,
+            "x_scale": 20,
+            "y_scale": 1920
+        },
+        {
+            "shape": "rectangle",
+            "effect": "none",
+            "texture_path": "colors/black.jpg",
+            "alpha": 0,
+            "x": 963,
+            "y": 600,
+            "x_scale": 330,
+            "y_scale": 60
+        }
+    ],
+    "images": [
+
+        {
+            "texture_path": "levels/bunny/bunny_cage.png",
+            "x": 960,
+            "y": 542,
+            "x_scale": 1920,
+            "y_scale": 1080,
+            "alpha": 255,
+            "layer": 4
+        }
+    ]
+}

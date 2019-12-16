@@ -5,6 +5,7 @@
 #include "components/pickup_component.hpp"
 #include "components/weapon_component.hpp"
 #include "components/hold_component.hpp"
+#include "components/wandering_component.hpp"
 #include "player_input.hpp"
 
 PickupSystem::PickupSystem(CollisionDetector2& cd,
@@ -72,6 +73,11 @@ void PickupSystem::update(double){
                     pickup_transform->y_scale /= entity_scale.y;
 
                     entityManager->setParent(pickup_entity_id, entity_id, true);
+
+                    auto child_wander = entityManager->getComponent<WanderingComponent>(pickup_entity_id);
+                    if (child_wander)
+                        child_wander->killer = entity_id;
+
                     // We can only pick up one single thing, so now that we have picked up something, break the loop
                     break;
                 }

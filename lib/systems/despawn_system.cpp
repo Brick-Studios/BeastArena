@@ -4,6 +4,7 @@
 #include "components/health_component.hpp"
 #include "components/stats_component.hpp"
 #include "components/damage_component.hpp"
+#include "components/wandering_component.hpp"
 
 #include "systems/despawn_system.hpp"
 
@@ -32,6 +33,15 @@ void DespawnSystem::update(double) {
                         continue;
                     }
                 }
+
+                auto wander = entityManager->getComponent<WanderingComponent>(entity_id);
+                if (wander && wander->killer) {
+                    int killer_id = *wander->killer;
+                    auto stats = entityManager->getComponent<StatsComponent>(killer_id);
+                    if (stats)
+                        ++stats->killed_critters;
+                }
+
                 auto health = entityManager->getComponent<HealthComponent>(entity_id);
                 if (health && health->health > 0) {
                     auto transform = entityManager->getComponent<TransformComponent>(entity_id);
@@ -39,14 +49,6 @@ void DespawnSystem::update(double) {
                     if (player && transform->x_pos != -2000 && transform->y_pos != -2000) {
                         auto stats = entityManager->getComponent<StatsComponent>(entity_id);
                         ++stats->accidents;
-
-                        auto children = entityManager->getChildren(entity_id);
-                        for(auto id : children) {
-                            if(entityManager->hasTag(id, "Critter")) {
-                                // Outrageous!
-                                ++stats->killed_critters;
-                            }
-                        }
                     }
                     auto physics = entityManager->getComponent<PhysicsComponent>(entity_id);
                     health->health = 0;
