@@ -32,7 +32,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol", "rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": true,
             "x": 700,
             "y": 1015
@@ -40,7 +40,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol", "rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": true,
             "x": 1600,
             "y": 750

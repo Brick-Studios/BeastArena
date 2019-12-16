@@ -44,7 +44,7 @@
         {
             "type": "weapon",
             "available_spawns": ["sniper"],
-            "respawn_timer": 7,
+            "respawn_timer": 4,
             "always_respawn": true,
             "x": 233,
             "y": 230
@@ -52,7 +52,7 @@
         {
             "type": "weapon",
             "available_spawns": ["sniper"],
-            "respawn_timer": 5,
+            "respawn_timer": 4,
             "always_respawn": false,
             "x": 1760,
             "y": 397
@@ -60,7 +60,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol","rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 2,
             "always_respawn": false,
             "x": 1273,
             "y": 597
@@ -68,7 +68,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol","rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": false,
             "x": 415,
             "y": 597
@@ -76,7 +76,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol","rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": false,
             "x": 843,
             "y": 750
@@ -84,7 +84,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol","rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 3,
             "always_respawn": false,
             "x": 1453,
             "y": 750

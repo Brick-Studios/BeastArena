@@ -5,7 +5,7 @@
     "width": 1920,
     "height": 1080,
     "bg_path": "levels/level2/hill.png",
-    "bg_music": "music/forest.mp3",
+    "bg_music": "music/mountain.mp3",
     "player_spawns": [
         {
             "x": 100,
@@ -32,7 +32,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol", "rifle", "sniper"],
-            "respawn_timer": 5,
+            "respawn_timer": 3,
             "always_respawn": true,
             "x": 1260,
             "y": 600
@@ -40,7 +40,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol", "rifle", "sniper"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": false,
             "x": 1255,
             "y": 1000
@@ -48,7 +48,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol", "rifle", "sniper"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": false,
             "x": 655,
             "y": 1000
@@ -56,7 +56,7 @@
         {
             "type": "weapon",
             "available_spawns": ["pistol", "rifle", "sniper"],
-            "respawn_timer": 5,
+            "respawn_timer": 3,
             "always_respawn": true,
             "x": 650,
             "y": 600

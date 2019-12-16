@@ -64,7 +64,7 @@
         {
             "type": "weapon",
             "available_spawns": ["rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 2,
             "always_respawn": false,
             "x": 130,
             "y": 500
@@ -72,7 +72,7 @@
         {
             "type": "weapon",
             "available_spawns": ["rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": false,
             "x": 400,
             "y": 600
@@ -80,7 +80,7 @@
         {
             "type": "weapon",
             "available_spawns": ["rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": false,
             "x": 1200,
             "y": 600
@@ -88,7 +88,7 @@
         {
             "type": "weapon",
             "available_spawns": ["rifle"],
-            "respawn_timer": 5,
+            "respawn_timer": 1,
             "always_respawn": false,
             "x": 1470,
             "y": 500
